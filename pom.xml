@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>pers.roamer</groupId>
   <artifactId>boracay</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <inceptionYear>2017</inceptionYear>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>Boracay WEB 应用框架 1.0.0</distribution>
+      <distribution>Boracay WEB 应用框架 1.0.1</distribution>
     </license>
   </licenses>
   <dependencies>

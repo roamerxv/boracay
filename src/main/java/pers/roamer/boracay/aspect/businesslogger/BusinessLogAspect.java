@@ -175,8 +175,9 @@ public class BusinessLogAspect {
     private void parseJoinPointAndSave2DB(JoinPoint joinPoint, boolean isSuccess, StringBuilder exceptionString) throws BussinessLoggerException {
         BusinessLogEntity businessLog = genBusinessLog(joinPoint, isSuccess, exceptionString);
         // 如果没有标注业务逻辑的方法，就不入库
-        if (businessLog.getMethodDescription().isEmpty()) {
-            // Nothing to clean up
+        if (businessLog == null || businessLog.getMethodDescription().isEmpty()) {
+            // 如果业务方法的注解是 null，或者注解的 value 是空，则不入日志数据表单
+            // Nothing to do
         } else {
             addLog(businessLog);
             log.debug("日志入库成功！");
@@ -214,11 +215,18 @@ public class BusinessLogAspect {
         // 获取当前切入的方法的BusinessMethod注解内容
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
+
         String joinPointMethod = method.getName();
         BusinessMethod methodAnnotation = method.getAnnotation(BusinessMethod.class);
         String methodDesc = "";
+        boolean isLogged = true ;
         if (methodAnnotation != null) {
             methodDesc = methodAnnotation.value();
+            isLogged = methodAnnotation.isLogged();
+        }
+        //如果业务方法标记为不需要记录日志，则返回 null
+        if (! isLogged){
+            return null;
         }
         BusinessLogEntity businessLog = new BusinessLogEntity();
         businessLog.setId(UUID.randomUUID().toString());
@@ -234,7 +242,6 @@ public class BusinessLogAspect {
             businessLog.setArgs(JsonUtilsHelper.objectToJsonString(argStringList));
         } catch (JsonProcessingException e) {
             log.error("无法正确获取切面的参数", e);
-            log.error(e.fillInStackTrace());
             throw new BussinessLoggerException(e.getMessage());
         }
         try {

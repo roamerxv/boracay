@@ -23,7 +23,7 @@ apply plugin: 'com.github.ben-manes.versions'
 
 
 group 'pers.roamer'
-version '1.0.0'
+version '1.0.1'
 description = 'Boracay WEB 项目实用框架'
 
 
@@ -44,13 +44,13 @@ task createPom << {
         project {
             groupId 'pers.roamer'
             artifactId 'boracay'
-            version '1.0.0'
+            version '1.0.1'
             inceptionYear '2017'
             licenses {
                 license {
                     name 'The Apache Software License, Version 2.0'
                     url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'Boracay WEB 应用框架 1.0.0'
+                    distribution 'Boracay WEB 应用框架 1.0.1'
                 }
             }
         }
@@ -79,6 +79,8 @@ repositories {
     mavenLocal()
     mavenCentral()
 }
+
+// 这个是配置 bintrayUpload
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
@@ -90,14 +92,14 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/roamerxv/boracay.git'
         version {
-            name = '1.0.0'
-            desc = 'Boracay WEB 应用框架 1.0.0'
+            name = '1.0.1'
+            desc = 'Boracay WEB 应用框架 1.0.1'
             vcsTag = ''
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }
 }
-
+// 配置结束
 
 dependencies {
     compile(

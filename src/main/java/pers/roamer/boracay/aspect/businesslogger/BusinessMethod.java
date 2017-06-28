@@ -42,4 +42,15 @@ public @interface BusinessMethod {
       * @return
       */
     String value() default "没有设置业务方法名字";
+
+    /**
+     * value
+     *
+     * @Auther 徐泽宇
+     * @Date   2017年06月29日 下午7:08:10
+     * @Title: isLogged
+     * @Description: 业务方法是否要进行日志记录
+     * @return
+     */
+    boolean isLogged() default true;
 }

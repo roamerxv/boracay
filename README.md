@@ -89,6 +89,13 @@
 
 这些包含在表单式中的方法，如果用了  @BusinessMethod(value = "登录") 这样的方法注解。就会自动记录日志到日志表中。
 
+可以再具体制定当前方法是否要日志记录，设置 isLogged = false 就可以对这个方法不记录日志。缺省是 true，代表记录日志。
+
+@BusinessMethod(value = "登录" , isLogged = false )
+
+如果整个项目，无论在controller 里面的业务方法里面是否指定 isLogged，都不需要记录日志。
+
+可以在 config.xml 里面的 RecordBusinessLog 设置成 false。 
 
 ### f. 配置 对 exception 进行 json化, 国际化, 信息明细化的封装切面
 
