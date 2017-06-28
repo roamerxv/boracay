@@ -1,16 +1,14 @@
 package pers.roamer.boracay.aspect.catchcontroller;
 
-import pers.roamer.boracay.BoracayException;
-import pers.roamer.boracay.helper.ExceptionHelper;
-import pers.roamer.boracay.helper.HttpResponseHelper;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.roamer.boracay.BoracayException;
+import pers.roamer.boracay.helper.ExceptionHelper;
+import pers.roamer.boracay.helper.HttpResponseHelper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +30,7 @@ import java.util.Map;
 @Log4j2
 @Aspect
 @Order(2)
-@Component("com.ninelephas.common.aspect.catchcontroller.CatchControllerExceptionAspect")
+@Component("pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect")
 public class CatchControllerExceptionAspect {
 
     @Autowired
@@ -41,18 +39,19 @@ public class CatchControllerExceptionAspect {
     @Autowired
     private HttpServletResponse response;
 
-    /**
-     * catch appliction Controller
-     *
-     * @Auther 徐泽宇
-     * @Date 2017年05月10日 下午10:08:50
-     * @Title: catchControllerMethod
-     * @Description: 切入所有需要切入的controller中方法的切面
-     */
-    @Pointcut("execution(* com.alcor.boracay.raccoon.controller..*.*(..) )  ")
-    public void catchControllerMethod() {
-        // Nothing to clean up
-    }
+//    下面切入点，因为通过 xml 配置了。所以不再需要用注解的方式定义了
+//    /**
+//     * catch appliction Controller
+//     *
+//     * @Auther 徐泽宇
+//     * @Date 2017年05月10日 下午10:08:50
+//     * @Title: catchControllerMethod
+//     * @Description: 切入所有需要切入的controller中方法的切面
+//     */
+//    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..) )  ")
+//    public void catchControllerMethod() {
+//        // Nothing to clean up
+//    }
 
 
     /**
@@ -65,7 +64,7 @@ public class CatchControllerExceptionAspect {
      * @Title: writeToHttpResponse
      * @Description: 捕捉到切面产生的Exception后，写入HttpServletResponse
      */
-    @AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
+    //@AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
     private void writeToHttpResponse(Throwable ex) throws IOException {
         if (log.isDebugEnabled()) {
             log.debug("writeToHttpResponse() - start"); //$NON-NLS-1$

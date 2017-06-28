@@ -1,26 +1,84 @@
-group 'com.alcor'
-version '1.0.0'
-
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-
-repositories {
-    jcenter()
-    mavenCentral()
-}
-
 buildscript {
     repositories {
         jcenter()
+
+    }
+    dependencies {
+        // 这是 上传 jar 文件到 jcenter 实用的 插件
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3"
+        // -----
+
+        // 这是版本检测用的插件
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        // -----
     }
 }
+/* 这里定义一个 bintray 的插件 */
+apply plugin: "com.jfrog.bintray"
+/* 调用方法 gradle bintrayUpload */
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
+/* 这里定义一个检查 dependency 版本的插件 begin*/
+apply plugin: 'com.github.ben-manes.versions'
+/* 调用方法 gradle dependencyUpdates -Drevision=release */
+
+
+group 'pers.roamer'
+version '1.0.0'
+description = 'Boracay WEB 项目实用框架'
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+
+sourceCompatibility = 1.8
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"  // 编译时增加 UTF-8 参数
+}
+
+// 根据 build.gradle 生成 pom.xml  --- begin
+task createPom << {
+    pom {
+        project {
+            groupId 'pers.roamer'
+            artifactId 'boracay'
+            version '1.0.0'
+            inceptionYear '2017'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'Boracay WEB 应用框架 1.0.0'
+                }
+            }
+        }
+    }.writeTo("$buildDir/pom.xml")
+}
+// 根据 build.gradle 生成 pom.xml  --- end
+
+ext {
+    springVersion = "4.3.9.RELEASE"
+    springJpaVersion = "1.11.4.RELEASE"
+    aspectjVersion = "1.8.10"
+    log4jVersion = "2.8.2"
+    apacheOroVersion = "2.0.8"
+    jacksonVersion = "2.9.0.pr4"
+    fastJsonVersion = "1.2.33"
+    javaxServletAPIVersion = "4.0.0-b07"
+    mysqlJavaConnectorVersion = "6.0.6"
+    hibernateVersion = "5.2.10.Final"
+    siteMeshVersion = "3.0.1"
+    userAgentUtilsVersion = "1.20"
 }
 
 
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
@@ -33,7 +91,7 @@ bintray {
         vcsUrl = 'https://github.com/roamerxv/boracay.git'
         version {
             name = '1.0.0'
-            desc = 'Biracay WEB 应用框架 1.0.0'
+            desc = 'Boracay WEB 应用框架 1.0.0'
             vcsTag = ''
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
@@ -41,13 +99,83 @@ bintray {
 }
 
 
-// 上传到jcenter 的命令 gradle  bintrayUpload
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"  // 编译时增加 UTF-8 参数
-}
-
-
 dependencies {
+    compile(
+
+            "commons-io:commons-io:2.5",
+
+            //  javax servlet api
+            "javax.servlet:javax.servlet-api:$javaxServletAPIVersion",
+            //  ------------------------------
+
+            //  org.apache.commons
+            "org.apache.commons:commons-lang3:3.6",
+            //  ------------------------------
+
+            //  lombok
+            "org.projectlombok:lombok:1.16.16",
+            //  ------------------------------
+
+            //  Spring framework
+            "org.springframework:spring-core:$springVersion",
+            "org.springframework:spring-context:$springVersion",
+            "org.springframework:spring-oxm:$springVersion",
+            "org.springframework:spring-web:$springVersion",
+            "org.springframework:spring-webmvc:$springVersion",
+            "org.springframework:spring-aop:$springVersion",
+            "org.springframework:spring-context-support:$springVersion",
+            "org.springframework:spring-orm:$springVersion",
+            "org.springframework:spring-test:$springVersion",
+            //  ------------------------------
+
+            //  Srping JPA
+            "org.springframework.data:spring-data-jpa:$springJpaVersion",
+            //  ------------------------------
+            "org.hibernate:hibernate-core:$hibernateVersion",
+            "org.hibernate:hibernate-entitymanager:$hibernateVersion",
+            //  Hibernate
+
+            //  ------------------------------
+
+            //  apsectj
+            "org.aspectj:aspectjweaver:$aspectjVersion",
+            //  ------------------------------
+
+            //  log4j
+            "org.apache.logging.log4j:log4j-api:$log4jVersion",
+            "org.apache.logging.log4j:log4j-core:$log4jVersion",
+            "org.apache.logging.log4j:log4j-web:$log4jVersion",
+            "org.apache.logging.log4j:log4j-1.2-api:$log4jVersion",
+            "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion",
+
+            //  ------------------------------
+
+            // jackjosn 用于把javabean转换成json
+            "com.fasterxml.jackson.core:jackson-core:$jacksonVersion",
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
+            "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion",
+            // fastjson 用于把javabean转换成json
+
+            // fastjson 用于把javabean转换成json
+            "com.alibaba:fastjson:$fastJsonVersion",
+            //  ------------------------------
+
+            // org.apache.commons
+            "commons-beanutils:commons-beanutils:1.9.3",
+            "org.apache.commons:commons-configuration2:2.1.1",
+            //  ------------------------------
+
+            //  解析user-agent
+            "eu.bitwalker:UserAgentUtils:$userAgentUtilsVersion",
+            //  ------------------------------
+
+            // org.apache.oro
+            "oro:oro:$apacheOroVersion",
+            //  ------------------------------
+
+
+
+    )
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

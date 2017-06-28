@@ -11,11 +11,6 @@
 
 package pers.roamer.boracay.aspect.businesslogger;
 
-import pers.roamer.boracay.configer.ConfigHelper;
-import pers.roamer.boracay.entity.BusinessLogEntity;
-import pers.roamer.boracay.helper.JsonUtilsHelper;
-import pers.roamer.boracay.service.log.BusinessLogService;
-import pers.roamer.boracay.util.HttpServletRequestUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
@@ -24,14 +19,16 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.roamer.boracay.configer.ConfigHelper;
+import pers.roamer.boracay.entity.BusinessLogEntity;
+import pers.roamer.boracay.helper.JsonUtilsHelper;
+import pers.roamer.boracay.service.log.BusinessLogService;
+import pers.roamer.boracay.util.HttpServletRequestUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -52,9 +49,8 @@ import java.util.UUID;
 @Aspect
 @Order(1)
 @Log4j2
-@Component("com.ninelephas.common.aspect.businesslogger.BusinessLogAspect")
+@Component("pers.roamer.boracay.aspect.businesslogger.BusinessLogAspect")
 public class BusinessLogAspect {
-
 
     @Autowired
     private HttpSession session;
@@ -65,32 +61,34 @@ public class BusinessLogAspect {
     @Autowired
     BusinessLogService businessLogService;
 
+//    下面2个切入点，因为通过 xml 配置了。所以不再需要用注解的方式定义了
 
-    /**
-     * logTheController
-     *
-     * @Auther 徐泽宇
-     * @Date 2016年10月9日 上午11:20:58
-     * @Title: logTheController
-     * @Description: 定义一个切面，指向所有的controller类，并且排除掉登出的方法
-     */
-    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..))  && !execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))")
-    public void logTheController() {
-        // Nothing to clean up
-    }
+//    /**
+//     * logTheController
+//     *
+//     * @Auther 徐泽宇
+//     * @Date 2016年10月9日 上午11:20:58
+//     * @Title: logTheController
+//     * @Description: 定义一个切面，指向项目中的所有的controller类，并且排除掉登出的方法。
+//     */
+//    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..))  && !execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))") //通过xml 来配置
+//    public void logTheController() {
+//        // Nothing to clean up
+//    }
 
-    /**
-     * logTheLogout
-     *
-     * @Auther 徐泽宇
-     * @Date 2016年10月10日 下午3:44:01
-     * @Title: logTheLogout
-     * @Description: 定义一个处理拦截前处理的部分
-     */
-    @Pointcut("execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))")
-    public void logBefore() {
-        // Nothing to clean up
-    }
+//    /**
+//     * beforeLog
+//     *
+//     * @Auther 徐泽宇
+//     * @Date 2016年10月10日 下午3:44:01
+//     * @Title: logTheLogout
+//     * @Description: 定义一个拦截前处理的切面。比如用于 记录登出信息。
+//     * 登出要先拦截的目的是为了能够获取当前 session 中的用户 key-word，以便记录在日志数据表中
+//     */
+//    // @Pointcut("execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))") //通过 xml 来配置
+//    public void beforeLog() {
+//        // Nothing to clean up
+//    }
 
     /**
      * logService
@@ -103,8 +101,8 @@ public class BusinessLogAspect {
      * @Title: logService
      * @Description: 织入所有的controller类中的方法，进行日志记录的功能
      */
-    @Around("logTheController()")
-    private Object logService(ProceedingJoinPoint joinPoint) {
+    //@Around("logTheController()") // 通过xml 文件来进行配置
+    private Object logAroundAction(ProceedingJoinPoint joinPoint) {
         Object rtnObject = null;
         boolean recordBusinessLog = ConfigHelper.getConfig().getBoolean("System.RecordBusinessLog");
 
@@ -144,7 +142,7 @@ public class BusinessLogAspect {
      * @Title: logBeforeAction
      * @Description: 运行前进行拦截，并且记录日志
      */
-    @Before("logBefore()")
+    //@Before("beforeLog()") // 通过xml 文件来进行配置
     private void logBeforeAction(JoinPoint joinPoint) throws BussinessLoggerException {
         if (log.isDebugEnabled()) {
             log.debug("logBeforeAction(JoinPoint joinPoint={}) - start", joinPoint); //$NON-NLS-1$
@@ -260,7 +258,7 @@ public class BusinessLogAspect {
             // 设置设备类型
             businessLog.setClientDeviceType(operatingSystem.getDeviceType().toString());
             // 当前的操作人
-            String operator = (session.getAttribute("user_mobile") == null) ? "session 中未获取用户信息" : (String) session.getAttribute("user_mobile");
+            String operator = (session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword")) == null) ? "session 中未获取用户信息" : (String) session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"));
             businessLog.setOperator(operator);
 
             // 切入的方法是否执行成功

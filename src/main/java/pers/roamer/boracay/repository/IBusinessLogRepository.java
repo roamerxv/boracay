@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @Description: BusinessLog的JpaRepository接口
  * @date 2016年10月21日 下午5:50:25
  */
-@Repository("com.ninelephas.common.repository.IBusinessLogRepository")
+@Repository("pers.roamer.boracay.repository.IBusinessLogRepository")
 public interface IBusinessLogRepository extends JpaRepository<BusinessLogEntity, String>, PagingAndSortingRepository<BusinessLogEntity, String> {
 
     /**

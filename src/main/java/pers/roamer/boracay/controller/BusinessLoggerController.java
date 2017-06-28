@@ -39,7 +39,7 @@ import java.util.List;
  * @date 2016年9月19日 下午11:35:43
  */
 @Log4j2
-@Controller("com.ninelephas.common.controller.log.BusinessLoggerController")
+@Controller("pers.roamer.boracay.controller.log.BusinessLoggerController")
 @RequestMapping(value = "/system/businesslog/")
 public class BusinessLoggerController {
 

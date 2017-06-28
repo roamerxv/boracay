@@ -27,11 +27,11 @@ import javax.persistence.criteria.Root;
  * @date 2016年10月13日 下午3:54:58
  */
 @Log4j2
-@Service("com.ninelephas.common.service.log.BusinessLogService")
+@Service("pers.roamer.boracay.service.log.BusinessLogService")
 public class BusinessLogService {
 
 
-    @Qualifier("com.ninelephas.common.repository.IBusinessLogRepository")
+    @Qualifier("pers.roamer.boracay.repository.IBusinessLogRepository")
     @Autowired
     private IBusinessLogRepository iBusinessLogRepository;
 

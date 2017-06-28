@@ -1,45 +1,38 @@
 package pers.roamer.boracay.application;
 
 
-import pers.roamer.boracay.configer.ConfigHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
+import pers.roamer.boracay.configer.ConfigHelper;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
+ * @author Comsys-"徐泽宇"
  * @ClassName: StartedListener
  * @Description: Spring容器成功载入后执行的任务
- * @author Comsys-"徐泽宇"
  * @date 2016年7月6日 下午12:39:33
- *
  */
 @Log4j2
-@Service("com.ninelephas.raccoon.application.StartedListener")
+@Service("pers.roamer.boracay.application.StartedListener")
 public class StartedListener implements ApplicationListener<ContextRefreshedEvent> {
+
+
     /**
      * @author 徐泽宇
      * @version 1.0.0
      * @date
      */
-
-    /*
-      * <p>Title: onApplicationEvent</p>
-      * <p>Description: </p>
-      * @param event
-      * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
-      */
-    
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         if (event.getApplicationContext().getParent() == null)// root application context
-                                                              // 没有parent，他就是老大.
+        // 没有parent，他就是老大.
         {
             //  读取配置文件
             log.info(String.format("项目:[%s],开始启动。。。", ConfigHelper.getConfig().getString("System.AppName")));
@@ -63,7 +56,7 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
             for (String beanName : beans) {
                 log.debug(beanName);
             }
-            log. debug("所有被装备的Bean列表显示完成");
+            log.debug("所有被装备的Bean列表显示完成");
             log.info(String.format("项目:[%s],启动完成", ConfigHelper.getConfig().getString("System.AppName")));
         }
     }

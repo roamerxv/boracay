@@ -1,15 +1,13 @@
 package pers.roamer.boracay.aspect.controller;
 
-import pers.roamer.boracay.BoracayException;
-import pers.roamer.boracay.configer.ConfigHelper;
-import pers.roamer.boracay.util.Ipv4WhiteList;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import pers.roamer.boracay.BoracayException;
+import pers.roamer.boracay.configer.ConfigHelper;
+import pers.roamer.boracay.util.Ipv4WhiteList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,23 +21,24 @@ import javax.servlet.http.HttpServletRequest;
 @Log4j2
 @Aspect
 @Order(3)
-@Component("com.ninelephas.common.aspect.controller.WhiteListCheckAspect")
+@Component("pers.roamer.boracay.aspect.controller.WhiteListCheckAspect")
 public class WhiteListCheckAspect {
     @Autowired
     private HttpServletRequest request;
 
-    /**
-     * runControllerMethod
-     *
-     * @Auther 徐泽宇
-     * @Date 2016年12月10日 上午3:15:59
-     * @Title: logTheController
-     * @Description: 定义一个切面，指向所有的controller类中的所有方法
-     */
-    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..)) ")
-    public void beforeRunControllerMethod() {
-        // Nothing to clean up
-    }
+//    下面切入点，因为通过 xml 配置了。所以不再需要用注解的方式定义了
+//    /**
+//     * runControllerMethod
+//     *
+//     * @Auther 徐泽宇
+//     * @Date 2016年12月10日 上午3:15:59
+//     * @Title: logTheController
+//     * @Description: 定义一个切面，指向所有的controller类中的所有方法
+//     */
+//    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..)) ")
+//    public void beforeRunControllerMethod() {
+//        // Nothing to clean up
+//    }
 
     /**
      * runControllerMethod
@@ -49,7 +48,7 @@ public class WhiteListCheckAspect {
      * @Title: runControllerMethod
      * @Description: 进行白名单授权检查
      */
-    @Before("beforeRunControllerMethod()")
+//    @Before("beforeRunControllerMethod()")
     private void whiteListCheck() throws BoracayException {
         if (log.isDebugEnabled()) {
             log.debug("whitePaperCheck() - start"); //$NON-NLS-1$
