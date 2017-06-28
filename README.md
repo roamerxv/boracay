@@ -1,6 +1,8 @@
 # boracay
 提供 web 应用的一些实用功能框架
 
+[ ![Download](https://api.bintray.com/packages/roamerxv/maven/boracay/images/download.svg) ](https://bintray.com/roamerxv/maven/boracay/_latestVersion)
+
 ## 1. 使用方法
 ### a. 在项目的 applicationContext.xml 文件中增加配置 jpa 扫描目录
 例如
