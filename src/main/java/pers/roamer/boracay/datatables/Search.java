@@ -10,12 +10,14 @@
 package pers.roamer.boracay.datatables;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author roamer - 徐泽宇
  * @version 1.0.0 2017-06-2017/6/21  下午6:32
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Search {
     /**
      * Global search value. To be applied to all columns which have searchable as true.

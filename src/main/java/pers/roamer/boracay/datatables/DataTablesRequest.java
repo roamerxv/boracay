@@ -12,6 +12,7 @@ package pers.roamer.boracay.datatables;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.extern.log4j.Log4j2;
 import pers.roamer.boracay.helper.JsonUtilsHelper;
 
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @Data
 @Log4j2
+@EqualsAndHashCode(callSuper=false)
 public class DataTablesRequest {
     /**
      * Draw counter. This is used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables
