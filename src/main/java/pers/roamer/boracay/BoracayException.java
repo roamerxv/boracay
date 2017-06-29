@@ -40,7 +40,7 @@ public class BoracayException extends Exception {
     /**
      * 创建一个新的实例 BoracayException.
      *
-     * @param bindingResult result
+     * @param bindingResult bindingResult
      *
      * @author 徐泽宇
      * @since 1.0.0 2017/6/29 下午5:21
