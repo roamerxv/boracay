@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.configer;
 
 import lombok.extern.log4j.Log4j2;
@@ -9,10 +18,10 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 
 
 /**
+ * 读取配置文件，获取系统全局配置参数
+ *
  * @author 徐泽宇
- * @ClassName: ConfigHelper
- * @Description: 读取配置文件，获取系统全局配置参数
- * @date 2016年10月24日 下午10:48:32
+ * @version 1.0.0 2017/6/29 下午5:22
  */
 @Log4j2
 public class ConfigHelper {
@@ -51,7 +60,8 @@ public class ConfigHelper {
      *
      * @param key
      * @param value
-     * @throws ConfigurationException
+     *
+     * @exception ConfigurationException
      */
     public static void setProperty(String key, Object value) throws ConfigurationException {
         config.setProperty(key, value);
@@ -61,10 +71,12 @@ public class ConfigHelper {
 
     /**
      * 移除一个配置项
-     * @param key
-     * @throws ConfigurationException
+     *
+     * @param key   需要移除内容的 key 值
+     *
+     * @exception ConfigurationException
      */
-    public static void removeProperty(String key) throws ConfigurationException{
+    public static void removeProperty(String key) throws ConfigurationException {
         config.clearProperty(key);
         builder.save();
     }

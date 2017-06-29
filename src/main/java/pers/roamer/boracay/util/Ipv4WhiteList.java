@@ -1,11 +1,20 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.util;
 
-import pers.roamer.boracay.BoracayException;
 import lombok.extern.log4j.Log4j2;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
+import pers.roamer.boracay.BoracayException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,12 +22,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
-  * @ClassName: Ipv4WhiteList
-  * @Description: 用作匹配ipv4地址黑/白名单的工具
-  * @author  徐泽宇
-  * @date 2016年12月21日 下午1:34:57
-  *
+ * 用作匹配ipv4地址黑/白名单的工具
+ *
+ * @author 徐泽宇
+ * @since 1.0.0  2016年10月21日 下午3:56:44
  */
 @Log4j2
 public class Ipv4WhiteList {
@@ -29,6 +36,7 @@ public class Ipv4WhiteList {
 
     // num cache
     private static final Integer[] numTab = new Integer[256];
+
     static {
         try {
             allPat = new Perl5Compiler().compile("^\\s*(\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?(\\s*,\\s*\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?\\.\\d{1,3}(\\-\\d{1,3})?)*)?\\s*$");
@@ -47,9 +55,9 @@ public class Ipv4WhiteList {
 
     /**
      * 编译、构造匹配内容
-     * 
+     *
      * @param ipRules 符合ipList语法规范的ip规则，支持精确ip，如“127.0.0.1”和范围ip,
-     *            如"192.168.1-2.5-103"或"204-208.119.5-13.0-255"两种形式
+     *                如"192.168.1-2.5-103"或"204-208.119.5-13.0-255"两种形式
      */
     public Ipv4WhiteList(String ipRules) throws BoracayException {
         if (ipRules == null || new Perl5Matcher().matches(ipRules, blankPat))
@@ -58,15 +66,16 @@ public class Ipv4WhiteList {
             throw new BoracayException("Ip rules syntax error.");
         }
         String[] ips = ipRules.split(",");
-        if (ips == null || ips.length == 0)
+        if (ips == null || ips.length == 0) {
             return;
+        }
         for (String ip : ips) {
             ip = ip.trim();
             addToMapping(ip);
         }
     }
 
-    private void addToMapping(String ip)throws BoracayException {
+    private void addToMapping(String ip) throws BoracayException {
         String[] segs = ip.split("\\.");
         if (segs[0].contains("-")) {
             String[] p = segs[0].split("\\-");
@@ -107,7 +116,7 @@ public class Ipv4WhiteList {
     }
 
     private void putOnMap(Map<Integer, Set<String>> map, Integer key, String ip) {
-        Set<String> set ;
+        Set<String> set;
         if (map.containsKey(key)) {
             set = map.get(key);
         } else {
@@ -119,9 +128,10 @@ public class Ipv4WhiteList {
 
     /**
      * 判断是否在ip名单中
-     * 
-     * @param ip
-     * @return
+     *
+     * @param ip ip 地址
+     *
+     * @return 是否在白名单中
      */
     public boolean isIn(String ip) {
         if (ip == null)
@@ -160,7 +170,7 @@ public class Ipv4WhiteList {
 
     private static Integer getCachedInteger(int i) throws BoracayException {
         try {
-            return   numTab[i];
+            return numTab[i];
         } catch (ArrayIndexOutOfBoundsException e) {
             log.error("getCachedInteger(int)", e); //$NON-NLS-1$
             throw new BoracayException(new StringBuilder("Illegal ipv4 address, each part of a address must be in range 0 ~ 255. But found: ").append(i).toString());

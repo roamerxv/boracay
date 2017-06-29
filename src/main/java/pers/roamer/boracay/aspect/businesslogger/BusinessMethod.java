@@ -1,13 +1,10 @@
-/**
- * @Title: BusinessMethod.java
- * @Package com.ninelephas.whale.aspect.businessLogger
- * @Description: 定义标注需要记录日志的业务方法
- *               Copyright: Copyright (c) 2016
- *               Company:九象网络科技（上海）有限公司
- * 
- * @author 徐泽宇
- * @date 2016年9月19日 下午3:48:56
- * @version V1.0.0
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
  */
 
 package pers.roamer.boracay.aspect.businesslogger;
@@ -16,12 +13,11 @@ import java.lang.annotation.*;
 
 
 /**
-  * @ClassName: BusinessMethod
-  * @Description: 定义一个业务方法的注解接口
-  * @author  徐泽宇
-  * @date 2016年10月13日 下午1:16:38
-  *
-  */
+ * 定义一个业务方法的注解接口
+ *
+ * @author 徐泽宇
+ * @version 1.0.0 2016年10月13日 下午1:16:38
+ */
 @Target({ElementType.METHOD})
 /*
  * @Retention(RetentionPolicy.RUNTIME)
@@ -31,26 +27,24 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface BusinessMethod {
-        
+
     /**
-      * value
-      * 
-      * @Auther 徐泽宇
-      * @Date   2016年10月13日 下午1:18:50
-      * @Title: value
-      * @Description: 业务方法名字的缺省值
-      * @return
-      */
+     * 业务方法名字的缺省值
+     *
+     * @return
+     *
+     * @author 徐泽宇
+     * @since 1.0.0   2016年10月13日 下午1:18:50
+     */
     String value() default "没有设置业务方法名字";
 
     /**
-     * value
+     * 业务方法是否要进行日志记录
      *
-     * @Auther 徐泽宇
-     * @Date   2017年06月29日 下午7:08:10
-     * @Title: isLogged
-     * @Description: 业务方法是否要进行日志记录
      * @return
+     *
+     * @author 徐泽宇
+     * @since 1.0.0   2017年06月29日 下午7:08:10
      */
     boolean isLogged() default true;
 }

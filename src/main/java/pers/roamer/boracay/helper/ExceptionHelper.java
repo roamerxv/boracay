@@ -1,24 +1,29 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.helper;
 
-import pers.roamer.boracay.configer.ConfigHelper;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import pers.roamer.boracay.configer.ConfigHelper;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * @Title: ExceptionHelper.java
- * @Package com.ninelephas.whale.helper
- * @Description: 配置文件的exception解析类
- *               Copyright: Copyright (c) 2016
- *               Company:九象网络科技（上海）有限公司
- * 
+ * Exception 的 helper 类
+ *
  * @author 徐泽宇
- * @date 2016年11月3日 下午11:41:51
- * @version V1.0.0
+ * @version 1.0.0
+ * @since 1.0.0 2017/6/29 下午5:11
  */
 @Log4j2
 @Data
@@ -27,24 +32,24 @@ public class ExceptionHelper {
 
     String exceptionMessage;
     String[] nodesName;
-    String  errorPath ;
+    String errorPath;
 
 
     /**
-     * 
      * 创建一个新的实例 ExceptionHelper.
-     * 
-     * @Auther 徐泽宇
-     * @Date 2016年11月3日 下午11:57:45
-     * @param propertyKey
+     *
+     * @param propertyKey 属性 key
+     *
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:12
      */
     public ExceptionHelper(String propertyKey) {
-        this.errorPath = propertyKey ;
+        this.errorPath = propertyKey;
         String exceptionMapString = ConfigHelper.getConfig().getString(propertyKey);
         if (StringUtils.isEmpty(exceptionMapString)) {
             // 无法从配置文件中获取到映射信息
             this.exceptionMessage = propertyKey;
-            this.nodesName = new String[] {"publicError"};
+            this.nodesName = new String[]{"publicError"};
             String expMessage = new StringBuilder("无法从配置文件里面获取[").append(propertyKey).append("]对应的信息！").toString();
             log.debug(expMessage);
         } else {
@@ -54,30 +59,29 @@ public class ExceptionHelper {
             if (items.length == 2) {
                 this.nodesName = items[1].split(",");
                 //把前后的空格去掉
-                for(int i = 0 ; i < this.nodesName.length ; i++){
+                for (int i = 0; i < this.nodesName.length; i++) {
                     this.nodesName[i] = this.nodesName[i].trim();
                 }
             } else {
-                this.nodesName = new String[] {"publicError"};
+                this.nodesName = new String[]{"publicError"};
             }
         }
     }
 
 
     /**
-     * genErrorHash
+     * 根据构造好的内容，生成一个error的hashMap
      *
-     * @Auther 徐泽宇
-     * @Date 2016年11月4日 下午2:55:36
-     * @Title: genErrorHash
-     * @Description: 根据构造好的内容，生成一个error的hashMap
-     * @return
+     * @return Map 值
+     *
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:13
      */
     public Map<String, Object> genErrorHash() {
         HashMap<String, Object> errorHash = new HashMap<>();
         errorHash.put("errorMessage", this.getExceptionMessage());
         errorHash.put("nodesName", this.getNodesName());
-        errorHash.put("errorPath",this.getErrorPath());
+        errorHash.put("errorPath", this.getErrorPath());
         return errorHash;
     }
 

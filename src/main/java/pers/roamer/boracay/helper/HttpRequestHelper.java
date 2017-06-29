@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.helper;
 
 import lombok.extern.log4j.Log4j2;
@@ -8,11 +17,18 @@ import java.util.Enumeration;
 /**
  * HttpRequest 的helper 类
  *
- * @author roamer - 徐泽宇
- * @create 2017-06-2017/6/20  下午5:37
+ * @author 徐泽宇
+ * @version 1.0.0   2017/6/29 下午5:13
  */
 @Log4j2
 public class HttpRequestHelper {
+
+    /**
+     * 私有化 构造函数，以确保不被不安全的的 new 一个实例
+     *
+     * @author 徐泽宇
+     * @since 1.0.0  2016年10月21日 下午3:56:44
+     */
     private HttpRequestHelper() {
         // don't init for static
     }
@@ -20,9 +36,11 @@ public class HttpRequestHelper {
     /**
      * log 出当前 request 中所有的 paramater 值
      *
-     * @param request
+     * @param request HttpServletRequest
+     *
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:14
      */
-
     public static void showAllParams(HttpServletRequest request) {
         Enumeration paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {

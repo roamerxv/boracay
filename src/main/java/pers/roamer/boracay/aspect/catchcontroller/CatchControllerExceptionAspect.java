@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.aspect.catchcontroller;
 
 import lombok.extern.log4j.Log4j2;
@@ -10,7 +19,6 @@ import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.helper.ExceptionHelper;
 import pers.roamer.boracay.helper.HttpResponseHelper;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,11 +28,11 @@ import java.util.Map;
 
 
 /**
- * @author 徐泽宇
- * @ClassName: CatchControllerExceptionAspect
- * @Description: 捕获所有Controller中的方法的Exception
+ * 捕获所有Controller中的方法的Exception
  * 通过HttpServletResponse输出到浏览器
- * @date 2016年11月1日 下午10:05:29
+ *
+ * @author 徐泽宇
+ * @version 1.0.0 2016年11月1日 下午10:05:29
  */
 @SuppressWarnings("ALL")
 @Log4j2
@@ -43,8 +51,8 @@ public class CatchControllerExceptionAspect {
 //    /**
 //     * catch appliction Controller
 //     *
-//     * @Auther 徐泽宇
-//     * @Date 2017年05月10日 下午10:08:50
+//     * @author 徐泽宇
+//     * @since 1.0.0 2017年05月10日 下午10:08:50
 //     * @Title: catchControllerMethod
 //     * @Description: 切入所有需要切入的controller中方法的切面
 //     */
@@ -55,14 +63,13 @@ public class CatchControllerExceptionAspect {
 
 
     /**
-     * writeToHttpResponse
+     * 捕捉到切面产生的Exception后，写入HttpServletResponse
+     *
+     * @param ex 需要处理的 Exception
      *
      * @throws IOException
-     * @throws ServletException
-     * @Auther 徐泽宇
-     * @Date 2016年11月1日 下午10:11:24
-     * @Title: writeToHttpResponse
-     * @Description: 捕捉到切面产生的Exception后，写入HttpServletResponse
+     * @author 徐泽宇
+     * @since 1.0.0 2016年11月1日 下午10:11:24
      */
     //@AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
     private void writeToHttpResponse(Throwable ex) throws IOException {

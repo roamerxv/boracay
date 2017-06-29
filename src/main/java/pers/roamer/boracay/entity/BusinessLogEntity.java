@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 /**
  * @author roamer - 徐泽宇
- * @create 2017-06-2017/6/1  下午4:36
+ * @version 1.0.0   2017/6/29 下午5:19
  */
 @Entity
 @Table(name = "business_log", schema = "musichain", catalog = "")

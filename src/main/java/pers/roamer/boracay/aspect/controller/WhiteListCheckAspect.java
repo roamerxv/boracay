@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.aspect.controller;
 
 import lombok.extern.log4j.Log4j2;
@@ -13,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * 访问白名单处理
+ *
  * @author 徐泽宇
- * @ClassName: WhitePaperCheckAspect
- * @Description: 访问白名单处理
- * @date 2016年12月21日 下午12:13:26
+ * @version 1.0.0 2016年12月21日 下午12:13:26
  */
 @Log4j2
 @Aspect
@@ -30,8 +39,8 @@ public class WhiteListCheckAspect {
 //    /**
 //     * runControllerMethod
 //     *
-//     * @Auther 徐泽宇
-//     * @Date 2016年12月10日 上午3:15:59
+//     * @author 徐泽宇
+//     * @since 1.0.0 2016年12月10日 上午3:15:59
 //     * @Title: logTheController
 //     * @Description: 定义一个切面，指向所有的controller类中的所有方法
 //     */
@@ -41,12 +50,10 @@ public class WhiteListCheckAspect {
 //    }
 
     /**
-     * runControllerMethod
+     * 进行白名单授权检查
      *
-     * @Auther 徐泽宇
-     * @Date 2016年12月10日 上午3:17:12
-     * @Title: runControllerMethod
-     * @Description: 进行白名单授权检查
+     * @author 徐泽宇
+     * @since 1.0.0 2016年12月10日 上午3:17:12
      */
 //    @Before("beforeRunControllerMethod()")
     private void whiteListCheck() throws BoracayException {

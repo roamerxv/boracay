@@ -1,12 +1,10 @@
-/**
- * @Title: SystemLogAspect.java
- * @Package com.ninelephas.meerkat.aspect
- * @Description: 系统日志的AOP类
- * Copyright: Copyright (c) 2016
- * Company:九象网络科技（上海）有限公司
- * @author "徐泽宇"
- * @date 2016年8月1日 下午5:25:15
- * @version V1.0.0
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
  */
 
 package pers.roamer.boracay.aspect.businesslogger;
@@ -41,10 +39,10 @@ import java.util.UUID;
 
 
 /**
+ * 记录系统日志
+ *
  * @author Comsys-"徐泽宇"
- * @ClassName: SystemLogAspect
- * @Description: 记录系统日志
- * @date 2016年8月1日 下午5:25:15
+ * @since 1.0.0 2016年8月1日 下午5:25:15
  */
 @Aspect
 @Order(1)
@@ -66,8 +64,8 @@ public class BusinessLogAspect {
 //    /**
 //     * logTheController
 //     *
-//     * @Auther 徐泽宇
-//     * @Date 2016年10月9日 上午11:20:58
+//     * @author 徐泽宇
+//     * @since 1.0.0 2016年10月9日 上午11:20:58
 //     * @Title: logTheController
 //     * @Description: 定义一个切面，指向项目中的所有的controller类，并且排除掉登出的方法。
 //     */
@@ -79,8 +77,8 @@ public class BusinessLogAspect {
 //    /**
 //     * beforeLog
 //     *
-//     * @Auther 徐泽宇
-//     * @Date 2016年10月10日 下午3:44:01
+//     * @author 徐泽宇
+//     * @since 1.0.0 2016年10月10日 下午3:44:01
 //     * @Title: logTheLogout
 //     * @Description: 定义一个拦截前处理的切面。比如用于 记录登出信息。
 //     * 登出要先拦截的目的是为了能够获取当前 session 中的用户 key-word，以便记录在日志数据表中
@@ -91,15 +89,13 @@ public class BusinessLogAspect {
 //    }
 
     /**
-     * logService
+     * 织入所有的controller类中的方法，进行日志记录的功能
      *
      * @param joinPoint
      *
      * @throws Throwable
-     * @Auther 徐泽宇
-     * @Date 2016年9月19日 下午3:40:29
-     * @Title: logService
-     * @Description: 织入所有的controller类中的方法，进行日志记录的功能
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:25
      */
     //@Around("logTheController()") // 通过xml 文件来进行配置
     private Object logAroundAction(ProceedingJoinPoint joinPoint) {
@@ -137,8 +133,8 @@ public class BusinessLogAspect {
      *
      * @param joinPoint
      *
-     * @Auther 徐泽宇
-     * @Date 2016年10月10日 下午3:53:22
+     * @author 徐泽宇
+     * @since 1.0.0 2016年10月10日 下午3:53:22
      * @Title: logBeforeAction
      * @Description: 运行前进行拦截，并且记录日志
      */
@@ -167,8 +163,8 @@ public class BusinessLogAspect {
      * @param exceptionString
      *
      * @throws BussinessLoggerException
-     * @Auther 徐泽宇
-     * @Date 2016年10月10日 下午12:47:59
+     * @author 徐泽宇
+     * @since 1.0.0 2016年10月10日 下午12:47:59
      * @Title: parseJoinPointAndSave2DB
      * @Description: 把joinPoint对象解析成pojo的BusinessLog对象，并且保存到数据库
      */
@@ -195,8 +191,8 @@ public class BusinessLogAspect {
      *
      * @throws JsonProcessingException
      * @throws Exception
-     * @Auther 徐泽宇
-     * @Date 2016年10月10日 下午1:20:10
+     * @author 徐泽宇
+     * @since 1.0.0 2016年10月10日 下午1:20:10
      * @Title: genBusinessLog
      * @Description: 生成BusinessLog 对象
      */
@@ -219,13 +215,13 @@ public class BusinessLogAspect {
         String joinPointMethod = method.getName();
         BusinessMethod methodAnnotation = method.getAnnotation(BusinessMethod.class);
         String methodDesc = "";
-        boolean isLogged = true ;
+        boolean isLogged = true;
         if (methodAnnotation != null) {
             methodDesc = methodAnnotation.value();
             isLogged = methodAnnotation.isLogged();
         }
         //如果业务方法标记为不需要记录日志，则返回 null
-        if (! isLogged){
+        if (!isLogged) {
             return null;
         }
         BusinessLogEntity businessLog = new BusinessLogEntity();
@@ -286,8 +282,8 @@ public class BusinessLogAspect {
      * @param data
      *
      * @throws Exception
-     * @Auther 徐泽宇
-     * @Date 2016年9月19日 下午5:54:18
+     * @author 徐泽宇
+     * @since 1.0.0 2016年9月19日 下午5:54:18
      * @Title: addLog
      * @Description: 保存业务操作到业务日志数据库
      */

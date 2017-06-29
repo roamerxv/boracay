@@ -1,10 +1,10 @@
-/**
- * @Title: JsonUtilsHelper.java
- * @Package com.ninelephas.common.helper
- * @Description: Json 转换工具包
- * @author 徐泽宇
- * @date 2016年5月6日 上午11:59:18
- * @version V1.0
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
  */
 package pers.roamer.boracay.helper;
 
@@ -16,11 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * @author 徐泽宇
- * @ClassName: JsonUtilsHelper
- * @Description: 使用Json工具包进行json和对象的相互转换的helper类
+ * 使用Json工具包进行json和对象的相互转换的helper类
  * <p>把对象转换成 string 的时候，使用 jackson ， 把 string 转化成对象的时候使用alibaba 的fastjson</p>
- * @date 2016年5月6日 上午11:59:18
+ *
+ * @author 徐泽宇
+ * @version 1.0.0 2017/6/29 下午5:16
  */
 @Log4j2
 public class JsonUtilsHelper {
@@ -28,6 +28,12 @@ public class JsonUtilsHelper {
 
     private static ObjectMapper mapper;
 
+    /**
+     * 私有化 构造函数，以确保不被不安全的的 new 一个实例
+     *
+     * @author 徐泽宇
+     * @since 1.0.0  2016年10月21日 下午3:56:44
+     */
     private JsonUtilsHelper() {
         // do nothing
     }
@@ -44,12 +50,13 @@ public class JsonUtilsHelper {
      * ObjectToJsonString
      * 把一个对象转换成json字符串
      *
-     * @param obj
+     * @param obj 需要转换成 json 字符串的对象
      *
      * @return json字符串
      *
-     * @throws Exception String    返回类型
-     * @throws
+     * @throws JsonProcessingException
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:17
      */
     public static String objectToJsonString(Object obj) throws JsonProcessingException {
         return mapper.writeValueAsString(obj);
@@ -58,12 +65,14 @@ public class JsonUtilsHelper {
     /**
      * 把一个字符串转换成一个 java 类
      *
-     * @param jsonString
-     * @param clazz
+     * @param jsonString 需要转换成对象的 json 字符串
+     * @param clazz      转换后的对象的类型
      *
-     * @return
+     * @return 转换成功的对象
      *
      * @throws JsonProcessingException
+     * @author 徐泽宇
+     * @since 1.0.0 2017/6/29 下午5:18
      */
     public static <T> T parseStringToObject(String jsonString, Class<T> clazz) throws JsonProcessingException {
         return JSON.parseObject(jsonString, clazz, new Feature[0]);

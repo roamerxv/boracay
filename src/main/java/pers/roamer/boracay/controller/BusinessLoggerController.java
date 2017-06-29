@@ -1,21 +1,14 @@
-/**
- * @Title: BusinessLoggerController.java
- * @Package com.ninelephas.whale.controller.businesslog
- * @Description: 记录信息处理的controller
- * Copyright: Copyright (c) 2016
- * Company:九象网络科技（上海）有限公司
- * @author 徐泽宇
- * @date 2016年9月19日 下午11:35:43
- * @version V1.0.0
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
  */
 
 package pers.roamer.boracay.controller;
 
-import pers.roamer.boracay.BoracayException;
-import pers.roamer.boracay.datatables.DataTablesRequest;
-import pers.roamer.boracay.entity.BusinessLogEntity;
-import pers.roamer.boracay.helper.JsonUtilsHelper;
-import pers.roamer.boracay.service.log.BusinessLogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pers.roamer.boracay.BoracayException;
+import pers.roamer.boracay.datatables.DataTablesRequest;
+import pers.roamer.boracay.entity.BusinessLogEntity;
+import pers.roamer.boracay.helper.JsonUtilsHelper;
+import pers.roamer.boracay.service.log.BusinessLogService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -33,10 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 业务日志
+ *
  * @author 徐泽宇
- * @ClassName: BusinessLoggerController
- * @Description: 业务日志
- * @date 2016年9月19日 下午11:35:43
+ * @version 1.0.0 2016年9月19日 下午11:35:43
  */
 @Log4j2
 @Controller("pers.roamer.boracay.controller.log.BusinessLoggerController")
@@ -51,15 +49,13 @@ public class BusinessLoggerController {
 
 
     /**
-     * indexForDatatable
+     * 分页查询所有的业务日志数据, 用于显示给 dataTables 控件
      *
      * @return
      *
      * @throws BoracayException
-     * @Auther 徐泽宇
-     * @Date 2016年9月20日 下午12:27:59
-     * @Title: indexForDatatable
-     * @Description: 分页查询所有的业务日志数据, 用于显示给 dataTables 控件
+     * @author 徐泽宇
+     * @since 1.0.0 2016年9月20日 下午12:27:59
      */
     @PostMapping(value = "/getDataWithPaged")
     @ResponseBody

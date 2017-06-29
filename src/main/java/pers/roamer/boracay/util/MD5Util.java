@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.util;
 
 
@@ -9,10 +18,17 @@ import java.security.MessageDigest;
 /**
  * MD5 工具类
  *
- * @author roamer - 徐泽宇
- * @create 2017-05-2017/5/15  下午3:21
+ * @author 徐泽宇
+ * @since 1.0.0 2017/6/29 下午4:57
  */
 public class MD5Util {
+
+    /**
+     * 私有化 构造函数，以确保不被不安全的的 new 一个实例
+     *
+     * @author 徐泽宇
+     * @since 1.0.0  2016年10月21日 下午3:56:44
+     */
     private MD5Util() {
         //do nothings
     }
@@ -20,9 +36,12 @@ public class MD5Util {
     /**
      * 对字符串md5加密
      *
-     * @param str
+     * @param str 需要加密的字符串
      *
-     * @return
+     * @return 加密后的字符串
+     *
+     * @author 徐泽宇
+     * @since 1.0.0  2016年10月21日 下午3:56:44
      */
     public static String getMD5(String str) throws BoracayException {
         try {

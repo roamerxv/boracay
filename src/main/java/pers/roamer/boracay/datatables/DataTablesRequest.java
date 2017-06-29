@@ -1,10 +1,19 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.datatables;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import pers.roamer.boracay.helper.JsonUtilsHelper;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import pers.roamer.boracay.helper.JsonUtilsHelper;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -13,7 +22,7 @@ import java.util.List;
  * 转换 dataTables 的 Request 对象的 javabean
  *
  * @author roamer - 徐泽宇
- * @create 2017-06-2017/6/21  下午5:44
+ * @version 1.0.0 2017-06-2017/6/21  下午5:44
  */
 @Data
 @Log4j2
@@ -70,10 +79,10 @@ public class DataTablesRequest {
         String m_rtn = "";
         try {
             m_rtn = MessageFormat.format(message, array);
-        }catch (Exception e){
+        } catch (Exception e) {
             log.warn(e.fillInStackTrace());
         }
-        return m_rtn ;
+        return m_rtn;
     }
 
 }

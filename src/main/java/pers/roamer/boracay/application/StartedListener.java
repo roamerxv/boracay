@@ -1,3 +1,12 @@
+/*
+ * Boracay - Web 项目实用组件框架
+ *
+ * @author 徐泽宇 roamerxv@gmail.com
+ * @version 1.0.0
+ * Copyright (c) 2017. 徐泽宇
+ *
+ */
+
 package pers.roamer.boracay.application;
 
 
@@ -13,10 +22,10 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
+ * Spring容器成功载入后执行的任务
+ *
  * @author Comsys-"徐泽宇"
- * @ClassName: StartedListener
- * @Description: Spring容器成功载入后执行的任务
- * @date 2016年7月6日 下午12:39:33
+ * @version 1.0.0 2016年7月6日 下午12:39:33
  */
 @Log4j2
 @Service("pers.roamer.boracay.application.StartedListener")
@@ -25,8 +34,7 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
 
     /**
      * @author 徐泽宇
-     * @version 1.0.0
-     * @date
+     * @since 1.0.0 2017/6/29 下午5:27
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
