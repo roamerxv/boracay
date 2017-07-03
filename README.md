@@ -4,8 +4,9 @@
 [ ![Download](https://api.bintray.com/packages/roamerxv/maven/boracay/images/download.svg) ](https://bintray.com/roamerxv/maven/boracay/_latestVersion)
 
 ## 1. 使用方法
+
 ### a. 在项目的 applicationContext.xml 文件中增加配置 jpa 扫描目录
-例如
+
 ```
 <!-- 配置Spring Data JPA扫描目录 -->
 <jpa:repositories base-package="pers.roamer.boracay,xxx.xxxxx.xxx(项目的 jpa 扫描目录)"/>
@@ -60,9 +61,11 @@
     ...
 </Config>    
 ```
-### e. 配置业务日志记录的切面
+
+### e. 配置记录业务日志记录的切面
 
 在 applicationContext.xml 中增加如下代码：
+
 ```
     <!-- 配置业务方法日志记录的功能 begin-->
     <bean id="businessLogInterceptor" class="pers.roamer.boracay.aspect.businesslogger.BusinessLogAspect"></bean>
@@ -87,7 +90,7 @@
 
 ②的表达式是配置所有需要在业务逻辑前进行日志记录的 controller bean 中的方法。典型的场景是 logout。
 
-这些包含在表单式中的方法，如果用了  @BusinessMethod(value = "登录") 这样的方法注解。就会自动记录日志到日志表中。
+这些包含在表达式中的方法，如果用了  @BusinessMethod(value = "登录") 这样的方法注解。就会自动记录日志到日志表中。
 
 可以再具体制定当前方法是否要日志记录，设置 isLogged = false 就可以对这个方法不记录日志。缺省是 true，代表记录日志。
 
@@ -128,6 +131,7 @@
 http://127.0.0.1:8080/creator/rest/login.json
 
 返回的错误数据信息如下：
+
 ```
 {
   "status": 500,
@@ -144,6 +148,7 @@ http://127.0.0.1:8080/creator/rest/login.json
   ]
 }
 ```
+
 其中：
 
 errorPath 是在 controller 中抛出的 ControllerException 的 message。
@@ -238,10 +243,11 @@ config.xml 中的相关内容如下:
     <!-- 配置项目访问白名单功能 end-->
 
 ```
+
 只有①的地方需要根据具体项目需求进行变更。
 
-
 <font color="red">
+
 项目的 exception 继承结构建议：
 
 ProjectException extends BoracayException
@@ -254,4 +260,32 @@ service 层捕获所有的错误，重新封装成 ServiceException 抛出！
 controller 层捕获所有的错误，重新封装成 ControllerException 抛出！
 
 这样才能比较好的用到 boracay 组件里面的 优化Exception的功能。 
+
 </font>
+
+### h. 系统日志表单的机构
+ 
+ ```
+ CREATE TABLE `business_log` (
+   `id` varchar(40) CHARACTER SET utf8 NOT NULL,
+   `operator` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+   `clazz` varchar(255) CHARACTER SET utf8 NOT NULL,
+   `method` varchar(255) CHARACTER SET utf8 NOT NULL,
+   `method_description` varchar(255) CHARACTER SET utf8 NOT NULL,
+   `success` tinyint(4) NOT NULL COMMENT '方法是否成功运行',
+   `exception_string` text COLLATE utf8_bin COMMENT '方法运行出错，抛出的exception堆栈转换成的string',
+   `args` text CHARACTER SET utf8 NOT NULL,
+   `remote_ip` varchar(32) COLLATE utf8_bin DEFAULT NULL,
+   `client_os` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+   `client_browser` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+   `browser_version` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+   `client_device_type` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='业务方法调用日志';
+ 
+ SET FOREIGN_KEY_CHECKS = 1;
+
+ ```
+
+### i. 短信网关发送短信验证码的功能
