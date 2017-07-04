@@ -96,7 +96,7 @@
         </aop:config>
         <!-- 配置业务方法日志记录的功能  end -->
     ```
-
+   
     - 只有①和②的地方需要根据具体项目需求进行变更。
     
     - ①的表达式是配置所有需要记录日志的 controller bean 中的方法，并且是排除了 logout 的方法。
@@ -135,11 +135,12 @@
     SET FOREIGN_KEY_CHECKS = 1;
    
     ```
+    
 ### c. 配置 对 exception 进行 json化, 国际化, 信息明细化的封装切面
 
 1. 在 applicationContext.xml 中增加如下代码：
     
-        ```
+    ```
             <!-- 配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ begin-->
             <bean id="catchControllerExceptionAspect"
                   class="pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect"></bean>
@@ -153,7 +154,7 @@
                 </aop:aspect>
             </aop:config>
             <!-- 配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ end-->
-        ```
+    ```
     
 2. 只有①的地方需要根据具体项目需求进行变更。
     
@@ -415,9 +416,9 @@
             <!-- ④配置项目中需要进行短信验证码验证的功能 end-->
     
     ```
-    只有①的地方需要根据具体项目需求进行变更。
+    1. 只有①的地方,需要根据具体项目需求进行变更。
     
-    在需要进行短信验证的方法上加入注解
+    2. 在需要进行短信验证的方法上加入注解
     
     @SMSValidateMethod(opId = "001")
     
