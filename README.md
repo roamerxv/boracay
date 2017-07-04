@@ -311,6 +311,81 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ```
 
+#### 2. 配置文件
+
+在 config/config.xml 文件中增加必须要的配置项
+
+```
+<!--短信接口-->
+        <Sms>
+            <Url>http://222.73.117.158/msg/HttpBatchSendSM</Url>
+            <Username>jiuxiangwang</Username>
+            <Password>JIUxiangwang2016</Password>
+
+
+            <Regist>
+                <Opid>001</Opid>
+                <!--注册验证码有效时长-->
+                <Duration>1800000</Duration>
+                <!--注册验证码长度-->
+                <Length>6</Length>
+                <Text>尊敬的用户，您注册的手机验证码为：${code}，请填入以完成注册。该验证码有效时间为${duration}分钟，限本次使用。</Text>
+            </Regist>
+            <ForgetPassword>
+                <Opid>010</Opid>
+                <!--忘记密码验证码有效时长-->
+                <Duration>1800000</Duration>
+                <!--忘记密码验证码长度-->
+                <Length>6</Length>
+                <Text>尊敬的用户，您正在使用忘记密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+            </ForgetPassword>
+            <ModifyPhoneNumber>
+                <Opid>011</Opid>
+                <!--修改手机号码验证码有效时长-->
+                <Duration>1800000</Duration>
+                <!--修改手机号码验证码长度-->
+                <Length>6</Length>
+                <Text>尊敬的用户，您正在使用修改手机号码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+            </ModifyPhoneNumber>
+            <ModifyPassword>
+                <Opid>100</Opid>
+                <!--修改密码验证码有效时长-->
+                <Duration>1800000</Duration>
+                <!--修改密码验证码长度-->
+                <Length>6</Length>
+                <Text>尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+            </ModifyPassword>
+        </Sms>
+    </System>
+    <!---->
+    
+    <exception>
+            <!--短信验证部分-->
+            <sms>
+                <validate>
+                    <vcode>
+                        <not_set>
+                            短信验证码没有设置!
+                        </not_set>
+                        <invalid>
+                            短信验证码不存在！
+                        </invalid>
+                        <expired>
+                            验证码过期！
+                        </expired>
+                        <not_match>
+                            验证码不匹配！
+                        </not_match>
+                    </vcode>
+                </validate>
+            </sms>
+            <!---->
+            
+            ...
+    <exception>
+
+```
+
 #### 3. 切面配置
 
 在 applicationContext.xml 中配置切面
@@ -340,11 +415,11 @@ SET FOREIGN_KEY_CHECKS = 1;
 其中的 opId 和生成短信验证码调用的时候定义的 opId一致
 
 
-#### 2. 发送短信验证码的方法
+#### 4. 发送短信验证码的方法
 
 http://127.0.0.1:8080/sms/send/{phoneNumber}/{opid}
 
-#### 3. 在需要进行短信验证的方法上加入注解。这个方法要求传入发送在手机上的验证码。
+#### 5. 在需要进行短信验证的controller方法上加入注解。这个方法要求传入发送在手机上的验证码。
 
 使用 formData 的方法进行 controller 的调用。
     
