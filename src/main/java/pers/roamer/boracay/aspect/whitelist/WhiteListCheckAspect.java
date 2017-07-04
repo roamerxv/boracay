@@ -7,7 +7,7 @@
  *
  */
 
-package pers.roamer.boracay.aspect.controller;
+package pers.roamer.boracay.aspect.whitelist;
 
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.annotation.Aspect;

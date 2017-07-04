@@ -3,7 +3,7 @@
 
 [ ![Download](https://api.bintray.com/packages/roamerxv/maven/boracay/images/download.svg) ](https://bintray.com/roamerxv/maven/boracay/_latestVersion)
 
-## 1. 使用方法
+## 一. 使用方法
 
 ### a. 在项目的 applicationContext.xml 文件中增加配置 jpa 扫描目录
 
@@ -111,7 +111,7 @@
     <aop:config>
         <aop:pointcut
                 id="catchControllerExceptionPointcut"
-                ①expression="execution(* com.ninelephas.raccoon.controller..*.*(..) )"/>
+                expression="expression="execution(* pers.roamer.boracay..*.*(..)) || ①execution(* com.ninelephas.raccoon.controller..*.*(..))"/>"/>
         <aop:aspect ref="catchControllerExceptionAspect">
             <aop:after-throwing throwing="ex" method="writeToHttpResponse"
                                 pointcut-ref="catchControllerExceptionPointcut"/>
@@ -230,7 +230,7 @@ config.xml 中的相关内容如下:
 ```
     <!-- 配置项目访问白名单功能 begin-->
     <bean id="whiteListCheckAspect"
-          class="pers.roamer.boracay.aspect.controller.WhiteListCheckAspect"></bean>
+          class="pers.roamer.boracay.aspect.whitelist.WhiteListCheckAspect"></bean>
     <aop:config>
         <aop:pointcut
                 id="whiteListCheckPointcut"
@@ -289,3 +289,96 @@ controller 层捕获所有的错误，重新封装成 ControllerException 抛出
  ```
 
 ### i. 短信网关发送短信验证码的功能
+    
+#### 1. 短信验证码的存放数据表单
+
+```
+CREATE TABLE `sms_verification_code` (
+  `id` varchar(40) NOT NULL,
+  `session_id` varchar(40) NOT NULL COMMENT 'session_id',
+  `op_id` varchar(40) NOT NULL COMMENT '操作类型',
+  `phone_number` varchar(40) NOT NULL COMMENT '手机号码',
+  `text` varchar(255) NOT NULL COMMENT '短信内容',
+  `duration` int(11) NOT NULL COMMENT '有效时长',
+  `is_used` tinyint(1) NOT NULL COMMENT '是否被使用',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `used_time` datetime DEFAULT NULL COMMENT '使用时间',
+  `code` varchar(255) NOT NULL COMMENT '验证码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='短信验证码';
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+```
+
+#### 3. 切面配置
+
+在 applicationContext.xml 中配置切面
+
+```
+     <!-- ④配置项目中需要进行短信验证码验证的功能 begin-->
+        <bean id="smsValidateCodeAspect"
+              class="pers.roamer.boracay.aspect.sms.SMSValidateCodeAspect"></bean>
+        <aop:config>
+            <aop:pointcut
+                    id="smsValidateCodePointcut"
+                    ①expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
+            <aop:aspect ref="smsValidateCodeAspect">
+                <aop:before method="smsValidateCodeCheck"
+                            pointcut-ref="smsValidateCodePointcut"/>
+            </aop:aspect>
+        </aop:config>
+        <!-- ④配置项目中需要进行短信验证码验证的功能 end-->
+
+```
+只有①的地方需要根据具体项目需求进行变更。
+
+在需要进行短信验证的方法上加入注解
+
+@SMSValidateMethod(opId = "001")
+
+其中的 opId 和生成短信验证码调用的时候定义的 opId一致
+
+
+#### 2. 发送短信验证码的方法
+
+http://127.0.0.1:8080/sms/send/{phoneNumber}/{opid}
+
+#### 3. 在需要进行短信验证的方法上加入注解。这个方法要求传入发送在手机上的验证码。
+
+使用 formData 的方法进行 controller 的调用。
+    
+例如：
+    
+```
+    传递的 formData
+    第一个参数(用于原来的逻辑) ：
+    
+    creatorEntity
+    
+        {
+            "mobile": "15800392200",
+            "passwd": "passwd11"
+        }
+        
+    第二个参数(短信验证码的参数结构，除去验证码参数值，其他都不能修改):
+    
+    smsValidateBean
+    
+        {
+            "validateCode":"24234"
+        }
+```
+
+对应的 spring mvc 中的 controller 的方法定义如下:
+    
+```
+    @BusinessMethod(value = "注册")
+    @SMSValidateMethod(opId = "001")
+    @PostMapping(value = "/creator/rest/register")
+    public String register(@RequestPart("creatorEntity") CreatorEntity creator , @RequestPart("smsValidateBean") SMSValidateBean smsValidateBean ) throws ControllerException {
+            ...
+    }
+    
+```
+@SMSValidateMethod(opId = "001") 这个注解起到了对这个方法进行短信验证码验证的功能

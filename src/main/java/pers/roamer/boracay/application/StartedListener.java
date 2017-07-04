@@ -62,9 +62,9 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
             String[] beans = context.getBeanDefinitionNames();
             log.info("所有被装备的Bean列表如下:");
             for (String beanName : beans) {
-                log.debug(beanName);
+                log.info(beanName);
             }
-            log.debug("所有被装备的Bean列表显示完成");
+            log.info("所有被装备的Bean列表显示完成");
             log.info(String.format("项目:[%s],启动完成", ConfigHelper.getConfig().getString("System.AppName")));
         }
     }

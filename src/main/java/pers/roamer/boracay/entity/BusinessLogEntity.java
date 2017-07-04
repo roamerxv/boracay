@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * @version 1.0.0   2017/6/29 下午5:19
  */
 @Entity
-@Table(name = "business_log", schema = "musichain", catalog = "")
+@Table(name = "business_log", catalog = "")
 public class BusinessLogEntity {
     private String id;
     private String operator;

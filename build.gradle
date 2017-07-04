@@ -47,7 +47,7 @@ tasks.withType(JavaCompile) {
 }
 
 def projectName = "Boracay"
-def projectDescription =  "Boracay WEB 应用框架"
+def projectDescription = "Boracay WEB 应用框架"
 def gitUrl = "https://github.com/roamerxv/boracay.git"
 def sourceUrl = "https://github.com/roamerxv/boracay"
 
@@ -59,7 +59,7 @@ ext {
     log4jVersion = "2.8.2"
     apacheOroVersion = "2.0.8"
     jacksonVersion = "2.9.0.pr4"
-    fastJsonVersion = "1.2.33"
+    fastJsonVersion = "1.2.34"
     javaxServletAPIVersion = "4.0.0-b07"
     mysqlJavaConnectorVersion = "6.0.6"
     hibernateVersion = "5.2.10.Final"
@@ -112,14 +112,17 @@ dependencies {
             //  ------------------------------
 
             // org.apache.oro
-            "oro:oro:$apacheOroVersion"
+            "oro:oro:$apacheOroVersion",
+            //  ------------------------------
+
+            // httpclient
+            "org.apache.httpcomponents:httpclient:4.5.3"
             //  ------------------------------
 
     )
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
-
 
 // 这个是配置 bintrayUpload
 bintray {
@@ -134,7 +137,7 @@ bintray {
         vcsUrl = gitUrl
         version {
             name = "2.0.0"
-            desc =  projectDescription
+            desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
@@ -180,7 +183,6 @@ install {
         }
     }
 }
-
 
 // java doc
 javadoc {
