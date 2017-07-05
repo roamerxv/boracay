@@ -37,7 +37,7 @@ import java.util.List;
  * @version 1.0.0 2016年9月19日 下午11:35:43
  */
 @Log4j2
-@Controller("pers.roamer.boracay.controller.log.BusinessLoggerController")
+@Controller("pers.roamer.boracay.controller.BusinessLoggerController")
 @RequestMapping(value = "/system/businesslog/")
 public class BusinessLoggerController {
 
