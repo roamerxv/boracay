@@ -9,6 +9,7 @@
 
 package pers.roamer.boracay.aspect.sms;
 
+
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,10 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pers.roamer.boracay.BoracayException;
-import pers.roamer.boracay.service.sms.SmsCodeVerticateService;
+import pers.roamer.boracay.service.sms.SmsVerificationService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 
 /**
@@ -30,7 +30,7 @@ import java.lang.reflect.Method;
  * @create 2017-07-2017/7/3  下午12:59
  */
 @Aspect
-@Order(3)
+@Order(4)
 @Log4j2
 @Component("pers.roamer.boracay.aspect.sms.SMSValidateCodeAspect")
 public class SMSValidateCodeAspect {
@@ -38,13 +38,10 @@ public class SMSValidateCodeAspect {
     private static String SMS_VCODE_NOT_SET = "exception.sms.validate.vcode.not_set";
 
     @Autowired
-    private HttpSession session;
-
-    @Autowired
     private HttpServletRequest request;
 
     @Autowired
-    private SmsCodeVerticateService smsCodeVerticateService;
+    private SmsVerificationService smsService;
 
     /***
      * 进行短信验证码的判断
@@ -53,12 +50,11 @@ public class SMSValidateCodeAspect {
      */
     private void smsValidateCodeCheck(JoinPoint joinPoint) throws BoracayException {
         //判断切入的方法是否被注解
-
         // 获取当前切入的方法的BSMSValidateMethodAnnotation注解内容
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
 
-        SMSValidateMethod methodAnnotation = method.getAnnotation(SMSValidateMethod.class);
+        SMSValidateCode methodAnnotation = method.getAnnotation(SMSValidateCode.class);
         String opID = (methodAnnotation != null ? methodAnnotation.opId() : "");
         if (opID.isEmpty()) {
         } else {
@@ -78,7 +74,7 @@ public class SMSValidateCodeAspect {
                 if (smsValidateBean.getValidateCode().isEmpty()) {
                     throw new BoracayException(SMS_VCODE_NOT_SET);
                 }
-                smsCodeVerticateService.validate(request.getSession().getId(), opID, smsValidateBean.getValidateCode());
+                smsService.validate(request.getSession().getId(), opID, smsValidateBean.getValidateCode());
             }
         }
     }

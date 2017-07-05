@@ -420,7 +420,7 @@
     
     2. 在需要进行短信验证的方法上加入注解
     
-    @SMSValidateMethod(opId = "001")
+    @SMSValidateCode(opId = "001")
     
     其中的 opId 和生成短信验证码调用的时候定义的 opId一致
 
@@ -467,3 +467,40 @@
         
     ```
     @SMSValidateMethod(opId = "001") 这个注解起到了对这个方法进行短信验证码验证的功能
+
+
+### f.  对所有 controller 层面的方法进行 session 的 keyword 判断，以便确定是否登录的切面功能
+1. 切面配置
+    在 applicationContext.xml 中配置切面
+    ```
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能 begin-->
+    <bean id="sessionCheckKeywordAspect"
+          class="pers.roamer.boracay.aspect.httprequest.SessionCheckKeywordAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="sessionKeywordCheckPointcut"
+                expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
+        <aop:aspect ref="sessionCheckKeywordAspect">
+            <aop:before method="sessionKeywordCheck"
+                        pointcut-ref="smsValidateCodePointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能  end-->
+    ```
+    1. 只有①的地方,需要根据具体项目需求进行变更。
+    
+    2. 在controller 层的类上加入注解 
+    
+        @SessionCheckKeyword()
+    
+        代表这个类下面的方法都需要做 登录认证。
+    
+    3. 如果要排除某个方法不需要登录认证。就在方法的上面加入注解
+    @SessionCheckKeyword(checkIt = false)
+
+2. 在 config/config.xml 文件中确定有必须要的配置项
+    
+    `System.SessionUserKeyword`
+    
+3. 在系统的登录功能中使用如下语句来设置 sessionCheck 的关键词
+    `httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "要设置的值");`

@@ -12,14 +12,18 @@ package pers.roamer.boracay.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.xml.internal.ws.util.UtilException;
 import lombok.extern.log4j.Log4j2;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
+import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -29,9 +33,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+
 
 /**
- * Created by zouwei on 2017/7/3.
+ * HttpClient 工具类
+ *
+ * @author 徐泽宇
+ * @since 1.0.2 2017/7/4 下午7:12
  */
 @Log4j2
 public class HttpClientUtil {
@@ -65,8 +74,6 @@ public class HttpClientUtil {
      *
      * @return String 请求结果
      *
-     * @throws UtilException
-     * @author:邹伟
      */
     public static String doGetWithParam(String url, Map<String, String> param) throws UtilException {
         String res = "";
@@ -205,8 +212,6 @@ public class HttpClientUtil {
                 log.error(e, e.fillInStackTrace());
             }
         }
-
-
         return res;
     }
 
@@ -241,6 +246,66 @@ public class HttpClientUtil {
 
         return res;
     }
+
+    /**
+     * 异步发送post请求
+     *
+     * @param url
+     * @param param
+     *
+     * @throws UtilException
+     */
+    public static void doAsyncPostWithParam(String url, Map<String, String> param) throws UtilException {
+        CloseableHttpAsyncClient httpclient = HttpAsyncClients.createDefault();
+        httpclient.start();
+        final CountDownLatch latch = new CountDownLatch(1);
+        HttpPost post = new HttpPost(url);
+        if (param != null) {
+            List<BasicNameValuePair> kvList = new ArrayList<>();
+            for (Map.Entry<String, String> e : param.entrySet()) {
+                kvList.add(new BasicNameValuePair(e.getKey(), param.get(e.getKey())));
+            }
+            try {
+                post.setEntity(new UrlEncodedFormEntity(kvList, URL_ENCODING));
+            } catch (Exception e) {
+                log.error(e, e.fillInStackTrace());
+                throw new UtilException(e.getMessage());
+            }
+        }
+        httpclient.execute(post, new FutureCallback<HttpResponse>() {
+            public void completed(final HttpResponse response) {
+                latch.countDown();
+                try {
+                    String content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                    log.debug(content);
+
+                } catch (IOException e) {
+                    log.error(e, e.fillInStackTrace());
+                }
+            }
+
+            public void failed(final Exception ex) {
+                latch.countDown();
+            }
+
+            public void cancelled() {
+                latch.countDown();
+            }
+        });
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            log.error(e, e.fillInStackTrace());
+            throw new UtilException(e.getMessage());
+        }
+        try {
+            httpclient.close();
+        } catch (IOException e) {
+            log.error(e, e.fillInStackTrace());
+            throw new UtilException(e.getMessage());
+        }
+    }
+
 
     /**
      * <p>

@@ -2,7 +2,7 @@
  * Boracay - Web 项目实用组件框架
  *
  * @author 徐泽宇 roamerxv@gmail.com
- * @version 1.0.2
+ * @version 1.0.0
  * Copyright (c) 2017. 徐泽宇
  *
  */
@@ -19,6 +19,7 @@ import java.lang.annotation.*;
  * @version 1.0.2 2017/7/3 下午1:07
  */
 @Target({ElementType.METHOD})
+
 /*
  * @Retention(RetentionPolicy.RUNTIME)
  * 表示这个注解可以在运行期通过反射访问。
@@ -26,7 +27,7 @@ import java.lang.annotation.*;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SMSValidateMethod {
+public @interface SMSValidateCode {
 
     /**
      * 需要进行验证的业务方法 ID

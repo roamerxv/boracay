@@ -65,6 +65,7 @@ ext {
     hibernateVersion = "5.2.10.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.20"
+    lombokVersion = "1.16.18"
 
 }
 
@@ -75,7 +76,7 @@ dependencies {
             //  ------------------------------
 
             //  lombok
-            "org.projectlombok:lombok:1.16.16",
+            "org.projectlombok:lombok:$lombokVersion",
             //  ------------------------------
 
             //  Spring framework
@@ -116,7 +117,8 @@ dependencies {
             //  ------------------------------
 
             // httpclient
-            "org.apache.httpcomponents:httpclient:4.5.3"
+            "org.apache.httpcomponents:httpclient:4.5.3",
+            "org.apache.httpcomponents:httpasyncclient:4.1.3"
             //  ------------------------------
 
     )
