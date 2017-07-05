@@ -9,7 +9,6 @@
 
 package pers.roamer.boracay.service.sms;
 
-import com.sun.xml.internal.ws.util.UtilException;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.service.spi.ServiceException;
@@ -22,6 +21,7 @@ import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.entity.SmsVerificationCodeEntity;
 import pers.roamer.boracay.repository.ISmsVerificationCodeRepository;
 import pers.roamer.boracay.util.HttpClientUtil;
+import pers.roamer.boracay.util.UtilException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
