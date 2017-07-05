@@ -138,7 +138,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.0.0"
+            name = "1.0.2"
             desc = projectDescription
             vcsTag = '1.0.2'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
