@@ -42,7 +42,7 @@ import javax.persistence.criteria.Root;
 public class BusinessLogService {
 
 
-    @Qualifier("pers.roamer.boracay.repository.log.IBusinessLogRepository")
+    @Qualifier("pers.roamer.boracay.repository.IBusinessLogRepository")
     @Autowired
     private IBusinessLogRepository iBusinessLogRepository;
 

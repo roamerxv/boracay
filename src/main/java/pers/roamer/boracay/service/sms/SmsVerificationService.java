@@ -36,10 +36,10 @@ import java.util.Map;
  */
 @Log4j2
 @Data
-@Service("com.ninelephas.raccoon.service.sms.SmsService")
+@Service("pers.roamer.boracay.service.sms.SmsService")
 public class SmsVerificationService {
 
-    @Qualifier("com.ninelephas.raccoon.repository.ISmsVerificationCodeRepository")
+    @Qualifier("pers.roamer.boracay.repository.ISmsVerificationCodeRepository")
     @Autowired
     ISmsVerificationCodeRepository iSmsVerificationCodeRepository;
 

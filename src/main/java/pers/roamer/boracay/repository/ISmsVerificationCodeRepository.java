@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by jyj on 2017/6/6.
  */
-@Repository("com.ninelephas.raccoon.repository.ISmsVerificationCodeRepository")
+@Repository("pers.roamer.boracay.repository.ISmsVerificationCodeRepository")
 public interface ISmsVerificationCodeRepository extends JpaRepository<SmsVerificationCodeEntity, String>, PagingAndSortingRepository<SmsVerificationCodeEntity, String> {
     ArrayList<SmsVerificationCodeEntity> findAllBySessionIdAndOpIdAndUsedOrderByCreatedTimeDesc(String sessionId, String opId, boolean used);
 }
