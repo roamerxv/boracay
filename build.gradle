@@ -134,7 +134,7 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'boracay'
-        userOrg = user
+        userOrg = "roamerxv"
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
