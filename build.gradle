@@ -22,8 +22,8 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '1.0.2'
-description = 'Boracay WEB 项目实用框架'
+version '1.0.0'
+description = 'Boracay WEB 项目实用组件'
 
 
 allprojects {
@@ -138,9 +138,9 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "1.0.2"
+            name = "1.0.0"
             desc = projectDescription
-            vcsTag = '1.0.2'
+            vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
     }
