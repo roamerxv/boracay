@@ -63,12 +63,12 @@ public class SmsVerificationService {
     }
 
 
-    public void send(String phoneNumber, String text) throws ServiceException {
+    public void send(String phoneNumber, String text) throws BoracayException {
         if (StringUtils.isEmpty(phoneNumber)) {//做一个电话号码的判断
-            throw new ServiceException("无效的电话号码");
+            throw new BoracayException("无效的电话号码");
         }
         if (StringUtils.isEmpty(text)) {
-            throw new ServiceException("不能发送空内容");
+            throw new BoracayException("不能发送空内容");
         }
         String url = ConfigHelper.getConfig().getString(URL_KEY);
         String username = ConfigHelper.getConfig().getString(USERNAME_KEY);
