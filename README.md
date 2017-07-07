@@ -501,3 +501,5 @@
     
 3. 在系统的登录功能中使用如下语句来设置 sessionCheck 的关键词
     `httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "要设置的值");`
+
+4. 短发发送的方法类在 SmsController.java 里面
