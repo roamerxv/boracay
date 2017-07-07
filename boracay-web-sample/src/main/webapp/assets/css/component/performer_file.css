@@ -1,0 +1,72 @@
+.pic_show{
+  padding-left:6px;
+  padding-top:8px;
+}
+.register_div{
+  margin-left:10px;
+  width:300px;
+  height:300px;
+  border:1px solid #eaeaea;
+}
+.upfilebox input {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  z-index: 9;
+  opacity: 0;
+}
+.upfilebox .lable {
+  position: absolute;
+  left:52px;
+  display: inline-block;
+  color: #fff;
+  width: 300px;
+  height: 300px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 5px;
+}
+.sign{
+  position: absolute;
+  left: 342px;
+  top: 93px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #f30026;
+  border-radius: 100%;
+  color:#fff;
+  cursor: pointer;
+  text-align: center;
+  line-height: 19px;
+  z-index:-1;
+}
+#register-view{
+  width:300px;
+  height:300px;
+}
+#register-view:hover .sign{
+  z-index: 30;
+}
+#myModalLabel{
+  position:relative;
+  top:7px;
+}
+.hide{
+  display:none;
+}
+.lable-pic{
+  background: url(../../imgs/common-icon-img1.png) no-repeat;
+}
+.lable {
+  background-position: 90px 100px;
+}
+.img{
+  position:absolute;
+  left:51px;
+  z-index:20;
+  cursor:pointer;
+}
+.modal-title{
+  color:#666666;
+}

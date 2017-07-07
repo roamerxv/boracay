@@ -1,0 +1,74 @@
+.base_pic_show{
+    padding-left:6px;
+}
+.base_register_div{
+    width:360px;
+    height:230px;
+    border:1px solid #eaeaea;
+}
+.img_upload{
+    text-align: center;
+    position: absolute;
+    top:230px;
+    margin-left: 100px;
+}
+.title_img{
+    height:20px;
+}
+.base_upfile_box input {
+    width: 360px;
+    height: 230px;
+    position: absolute;
+    z-index: 9;
+    opacity: 0;
+}
+.base_upfile_box .lable {
+    position: absolute;
+    display: inline-block;
+    color: #fff;
+    width: 360px;
+    left:100px;
+    height: 230px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 5px;
+}
+.baseInfo_sign{
+    position: absolute;
+    left: 370px;
+    top: 24px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #f30026;
+    border-radius: 100%;
+    color:#fff;
+    cursor: pointer;
+    text-align: center;
+    line-height: 19px;
+    z-index:-1;
+}
+#card_negative_view{
+    width:360px;
+    height:230px;
+}
+#card_negative_view:hover .baseInfo_sign{
+    z-index: 30;
+}
+.hide{
+    display:none;
+}
+.lable-pic{
+    background: url(../../imgs/common-icon-img1.png) no-repeat;
+}
+.base_lable {
+    background-position: 40px 42px !important;
+}
+.img{
+    position:absolute;
+    z-index:20;
+    cursor:pointer;
+}
+.modal-title{
+    color:#666666;
+}

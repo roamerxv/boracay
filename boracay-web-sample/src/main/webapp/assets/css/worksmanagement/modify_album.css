@@ -1,0 +1,44 @@
+.waring{
+  padding-left:20px;
+  padding-top:70px
+}
+.errorImg p{
+  position:absolute;
+  left:90px;
+  top:350px;
+  color:red;
+  font-size: 14px;
+}
+#record_company_select2-error,#music_type_select2-error,#languages_type_select2-error,#performers_type_select2-error,#music_genre_select2-error{
+  position:absolute;
+  top:40px;
+  left:20px;
+}
+.red {
+  color: #f30026;
+}
+.errorSize{
+  position:absolute;
+  left:90px;
+  top:350px;
+  color:red;
+  font-size: 14px;
+}
+.title_waring{
+  position:absolute;
+  right:30px;
+  top:30px;
+}
+.title_waring a{
+  list-style: none;
+  text-decoration: none;
+}
+.add_newContent{
+  margin-left:0px !important
+}
+.performers_add,.record_company_modal{
+  width:1200px !important
+}
+.am-modal-bd{
+  text-align: left !important;
+}

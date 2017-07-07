@@ -1,0 +1,8 @@
+label.error {
+    position: absolute;
+    color: #f30026;
+    font-weight: normal;
+}
+.red{
+    color: red;
+}

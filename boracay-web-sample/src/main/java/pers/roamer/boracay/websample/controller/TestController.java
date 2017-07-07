@@ -13,11 +13,13 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import pers.roamer.boracay.aspect.businesslogger.BusinessMethod;
 import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
 import pers.roamer.boracay.helper.HttpResponseHelper;
 
@@ -33,12 +35,13 @@ import java.util.Enumeration;
 @Log4j2
 @Controller("com.ninelephas.raccoon.controller.test")
 @RequestMapping(value = "/test")
-public class TestController extends  BaseController {
+public class TestController extends BaseController {
 
     /**
      * 登出功能
      *
      * @return
+     *
      * @throws ServiceException
      */
     // @BusinessMethod(value = "登出", isLogged = true)
@@ -54,6 +57,7 @@ public class TestController extends  BaseController {
         log.debug("登出完成");
         return new ModelAndView("/");
     }
+
     /**
      * Test500ErrorController
      *
@@ -88,16 +92,32 @@ public class TestController extends  BaseController {
         return HttpResponseHelper.successInfoInbox("ok");
     }
 
-    @RequestMapping(value = "/uploadAndJson" , consumes = {"multipart/form-data;charset=utf-8"})
+    @RequestMapping(value = "/uploadAndJson", consumes = {"multipart/form-data;charset=utf-8"})
     @ResponseBody
-    public String uploadFileAndJson(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean , @RequestPart("files") MultipartFile[] files) throws ControllerException {
-        log.debug("获取上传文件和 json 对象:{} , {}", formDataJsonBean , files);
+    public String uploadFileAndJson(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean, @RequestPart("files") MultipartFile[] files) throws ControllerException {
+        log.debug("获取上传文件和 json 对象:{} , {}", formDataJsonBean, files);
         for (MultipartFile file : files) {
             log.debug(file.getOriginalFilename());
-        };
+        }
+        ;
 
         return HttpResponseHelper.successInfoInbox("ok");
     }
+
+    /**
+     * 测试需要记录日志的业务方法
+     *
+     * @return
+     *
+     * @throws ControllerException
+     */
+    @GetMapping(value = "/businessMethodLog")
+    @BusinessMethod(value = "测试需要记录日志的业务方法")
+    @ResponseBody
+    public String businessMethodLog() throws ControllerException {
+        return HttpResponseHelper.successInfoInbox("ok");
+    }
+
 }
 
 @Data

@@ -1,0 +1,28 @@
+/*.top_div {
+    height: 60px;
+    width: 100%;
+    margin: 0;
+}
+
+.footer_div {
+    width: 100%;
+    background: transparent;
+    height: 40px;
+    right: 20px;
+    bottom: 0;
+    position: absolute;
+    text-align: right;
+}
+
+.wrapper {
+    overflow:hidden;
+}
+
+.left_div {
+    float: left;
+}
+
+.main_body_div{
+    float: left;
+    text-align:center;
+}*/

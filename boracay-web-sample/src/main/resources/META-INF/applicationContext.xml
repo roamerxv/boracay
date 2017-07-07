@@ -32,7 +32,7 @@
     <!--开启这个配置，spring识别@Scheduled注解 -->
     <task:annotation-driven/>
     <!-- -->
-    <context:component-scan base-package="pers.roamer.boracay,com.ninelephas.raccoon"/>
+    <context:component-scan base-package="pers.roamer.boracay,pers.roamer.boracay.websample"/>
     <!-- 激活自动代理功能 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!-- -->
@@ -41,9 +41,9 @@
           init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="url"
-                  value="jdbc:mysql://192.168.1.111:3306/musichain?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
-        <property name="username" value="musichain"/>
-        <property name="password" value="musichain"/>
+                  value="jdbc:mysql://192.168.1.111:3306/boracay-web-sample?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+        <property name="username" value="boracay-sample"/>
+        <property name="password" value="boracay-sample"/>
 
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="10"/>
@@ -82,7 +82,7 @@
             <bean id="persistenceProvider"
                   class="org.hibernate.jpa.HibernatePersistenceProvider"/>
         </property>
-        <property name="packagesToScan" value="com.ninelephas.raccoon.entity,pers.roamer.boracay.entity"/>
+        <property name="packagesToScan" value="pers.roamer.boracay.entity"/>
         <property name="jpaVendorAdapter">
             <bean
                     class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -115,7 +115,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"
                           proxy-target-class="true"/>
     <!-- 配置Spring Data JPA扫描目录 -->
-    <jpa:repositories base-package="pers.roamer.boracay,com.ninelephas.raccoon"/>
+    <jpa:repositories base-package="pers.roamer.boracay"/>
 
 
     <!-- 配置_Druid和Spring关联监控配置 begin -->
@@ -128,9 +128,7 @@
           scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.ninelephas.raccoon.service.*</value>
-                <value>com.ninelephas.raccoon.controller.*</value>
-
+                <value>pers.roamer.boracay.websample.controller.*</value>
             </list>
         </property>
     </bean>
