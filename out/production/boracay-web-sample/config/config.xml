@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Boracay - Web 项目实用组件框架
+  ~
+  ~ @author 徐泽宇 roamerxv@gmail.com
+  ~ @version 1.0.0
+  ~ Copyright (c) 2017. 徐泽宇
+  ~
+  -->
+
+<Config>
+    <!--应用系统部分 -->
+    <System>
+        <!-- 用于 boracay 组件必须使用到的配置 begin-->
+        <AppName>Raccoon Web Sample</AppName>
+        <!--写入到数据表中的 created_by 和 update_by  系统用户-->
+        <SystemAdminName>
+            systemadmin
+        </SystemAdminName>
+        <!--访问白名单-->
+        <!--# 系统能访问的IP白名单。只有在这个白名单里面的IP才能访问-->
+        <!--#内网地址都纳入-->
+        <!--#A类10.0.0.0&#45;&#45;10.255.255.255-->
+        <!--#B类172.16.0.0&#45;&#45;172.31.255.255-->
+        <!--#C类192.168.0.0&#45;&#45;192.168.255.255-->
+        <Whitelist>
+            127.0.0.1,192.168.0-255.0-255,172.16-31.0-255.0-255,10.0-255.0-255.0-255
+        </Whitelist>
+        <!---->
+        <!--设置是否要做session判断，以便确定用户是否登录-->
+        <SessionCheck>false</SessionCheck>
+        <!-- 设置是否要做业务活动日志记录 -->
+        <RecordBusinessLog>true</RecordBusinessLog>
+        <!---->
+        <!-- 设置判断 session 中被用于保存用户信息的关键词 -->
+        <SessionUserKeyword>
+            user_mobile
+        </SessionUserKeyword>
+
+        <!-- 用于 boracay 组件必须使用到的配置 end -->
+
+        <!-- 设置上传文件的路径 -->
+        <UploadFilePath>/local</UploadFilePath>
+        <!-- -->
+
+        <!--短信接口-->
+        <Sms>
+            <Url>http://222.73.117.158/msg/HttpBatchSendSM</Url>
+            <Username>jiuxiangwang</Username>
+            <Password>JIUxiangwang2016</Password>
+            <BusinessMethod>
+                <Regist>
+                    <!--注册验证码有效时长-->
+                    <Duration>1800000</Duration>
+                    <!--注册验证码长度-->
+                    <Length>6</Length>
+                    <Text>尊敬的用户，您注册的手机验证码为：${code}，请填入以完成注册。该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                </Regist>
+                <ForgetPassword>
+                    <!--忘记密码验证码有效时长-->
+                    <Duration>1800000</Duration>
+                    <!--忘记密码验证码长度-->
+                    <Length>6</Length>
+                    <Text>尊敬的用户，您正在使用忘记密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                </ForgetPassword>
+                <ModifyPhoneNumber>
+                    <!--修改手机号码验证码有效时长-->
+                    <Duration>1800000</Duration>
+                    <!--修改手机号码验证码长度-->
+                    <Length>6</Length>
+                    <Text>尊敬的用户，您正在使用修改手机号码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                </ModifyPhoneNumber>
+                <ModifyPassword>
+                    <!--修改密码验证码有效时长-->
+                    <Duration>1800000</Duration>
+                    <!--修改密码验证码长度-->
+                    <Length>6</Length>
+                    <Text>尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                </ModifyPassword>
+            </BusinessMethod>
+
+
+
+
+        </Sms>
+    </System>
+    <!---->
+
+
+    <!--定义错误信息-->
+    <exception>
+        <system>
+            <need_login>
+                必须登录系统
+            </need_login>
+        </system>
+        <!--短信验证部分-->
+        <sms>
+            <validate>
+                <vcode>
+                    <not_set>
+                        短信验证码没有设置!
+                    </not_set>
+                    <invalid>
+                        短信验证码不存在！
+                    </invalid>
+                    <expired>
+                        验证码过期！
+                    </expired>
+                    <not_match>
+                        验证码不匹配！
+                    </not_match>
+                    <invalid_method>
+                        无效的业务请求
+                    </invalid_method>
+                </vcode>
+            </validate>
+        </sms>
+        <!---->
+
+    <!--测试部分-->
+    <Test>
+        <Item>
+            阿萨德飞洒地方111阿斯蒂芬1111
+        </Item>
+    </Test>
+</Config>

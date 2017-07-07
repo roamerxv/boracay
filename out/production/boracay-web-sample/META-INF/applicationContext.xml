@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.3.xsd     
+          http://www.springframework.org/schema/context     
+          http://www.springframework.org/schema/context/spring-context-4.3.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+          http://www.springframework.org/schema/aop     
+          http://www.springframework.org/schema/aop/spring-aop-4.3.xsd     
+          http://www.springframework.org/schema/task
+          http://www.springframework.org/schema/task/spring-task-4.3.xsd
+          http://www.springframework.org/schema/data/jpa
+          http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
+       default-lazy-init="false">
+    <!--<context:property-placeholder location="classpath:config/*.properties"/>-->
+    <!--开启这个配置，spring识别@Scheduled注解 -->
+    <task:annotation-driven/>
+    <!-- -->
+    <context:component-scan base-package="pers.roamer.boracay,com.ninelephas.raccoon"/>
+    <!-- 激活自动代理功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- -->
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url"
+                  value="jdbc:mysql://192.168.1.111:3306/musichain?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+        <property name="username" value="musichain"/>
+        <property name="password" value="musichain"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="10"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxActive" value="200"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+                  value="20"/>
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat"/>
+    </bean>
+
+    <!-- JPA实体管理器工厂 -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--<property name="persistenceUnitName" value="Raccoon_PU" />-->
+        <property name="persistenceProvider">
+            <bean id="persistenceProvider"
+                  class="org.hibernate.jpa.HibernatePersistenceProvider"/>
+        </property>
+        <property name="packagesToScan" value="com.ninelephas.raccoon.entity,pers.roamer.boracay.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean
+                    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="false"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+        <property name="jpaDialect">
+            <bean id="jpaDialect"
+                  class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.use_sql_comments">false</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+        <property name="jpaDialect">
+            <bean
+                    class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+    </bean>
+
+    <!-- 启用 annotation事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true"/>
+    <!-- 配置Spring Data JPA扫描目录 -->
+    <jpa:repositories base-package="pers.roamer.boracay,com.ninelephas.raccoon"/>
+
+
+    <!-- 配置_Druid和Spring关联监控配置 begin -->
+    <bean id="druid-stat-interceptor"
+          class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+
+    <bean id="druid-stat-pointcut"
+          class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+          scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.ninelephas.raccoon.service.*</value>
+                <value>com.ninelephas.raccoon.controller.*</value>
+
+            </list>
+        </property>
+    </bean>
+
+    <aop:config>
+        <aop:advisor advice-ref="druid-stat-interceptor"
+                     pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
+    <!-- 配置_Druid和Spring关联监控配置 end-->
+
+    <!-- 配置徐泽宇的 boracay 框架要到的 aop begin-->
+    <!-- ①配置业务方法日志记录的功能 begin-->
+    <bean id="businessLogAspect" class="pers.roamer.boracay.aspect.businesslogger.BusinessLogAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="logControllerPointcut"
+                expression="execution(* com.ninelephas.raccoon.controller..*.*(..)) &amp;&amp; !execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))"/>
+        <aop:pointcut
+                id="beforeLogControllerPointcut"
+                expression="execution(* com.ninelephas.raccoon.controller.creator.CreatorController.logout(..))"/>
+        <aop:aspect ref="businessLogAspect">
+            <aop:around method="logAroundAction" pointcut-ref="logControllerPointcut"/>
+            <aop:before method="logBeforeAction" pointcut-ref="beforeLogControllerPointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ①配置业务方法日志记录的功能  end -->
+
+    <!-- ②配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ begin-->
+    <bean id="catchControllerExceptionAspect"
+          class="pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="catchControllerExceptionPointcut"
+                expression="execution(* pers.roamer.boracay..*.*(..)) || execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
+        <aop:aspect ref="catchControllerExceptionAspect">
+            <aop:after-throwing throwing="ex" method="writeToHttpResponse"
+                                pointcut-ref="catchControllerExceptionPointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ②配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ end-->
+
+    <!-- ③配置项目访问白名单功能 begin-->
+    <!--<bean id="whiteListCheckAspect"-->
+          <!--class="pers.roamer.boracay.aspect.whitelist.WhiteListCheckAspect"></bean>-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut-->
+                <!--id="whiteListCheckPointcut"-->
+                <!--expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>-->
+        <!--<aop:aspect ref="whiteListCheckAspect">-->
+            <!--<aop:before method="whiteListCheck"-->
+                        <!--pointcut-ref="whiteListCheckPointcut"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!-- ③配置项目访问白名单功能 end-->
+
+
+    <!-- ④配置项目中需要进行短信验证码验证的功能 begin-->
+    <bean id="smsValidateCodeAspect"
+          class="pers.roamer.boracay.aspect.sms.SMSValidateCodeAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="smsValidateCodePointcut"
+                expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
+        <aop:aspect ref="smsValidateCodeAspect">
+            <aop:before method="smsValidateCodeCheck"
+                        pointcut-ref="smsValidateCodePointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ④配置项目中需要进行短信验证码验证的功能 end-->
+
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能 begin-->
+    <bean id="sessionCheckKeywordAspect"
+          class="pers.roamer.boracay.aspect.httprequest.SessionCheckKeywordAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="sessionKeywordCheckPointcut"
+                expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
+        <aop:aspect ref="sessionCheckKeywordAspect">
+            <aop:before method="sessionKeywordCheck"
+                        pointcut-ref="smsValidateCodePointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能  end-->
+
+    <!-- 配置徐泽宇的 boracay 框架要到的 aop end-->
+
+</beans>
