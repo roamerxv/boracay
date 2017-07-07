@@ -46,5 +46,22 @@
         </li>
     </ol>
 </div>
+<div>
+    session 判断
+    <ol>
+        <li>
+            <a href="<%=request.getContextPath()%>/test/noSessionCheck.json" target="_test">访问一个不需要 session 判断的方法</a>
+        </li>
+        <li>
+            <a href="<%=request.getContextPath()%>/test/sessionCheck.json" target="_test">访问一个需要 session 判断的方法</a>
+        </li>
+        <li>
+            <a href="<%=request.getContextPath()%>/test/setSessionKeyword.json" target="_test">在 session 中设置一个 keyword(login)</a>
+        </li>
+        <li>
+            <a href="<%=request.getContextPath()%>/test/logout.json" target="_test">清理 session 中所有的值（logout）</a>
+        </li>
+    </ol>
+</div>
 </body>
 </html>

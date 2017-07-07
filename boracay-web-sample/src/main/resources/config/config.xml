@@ -46,8 +46,8 @@
         <!--短信接口-->
         <Sms>
             <Url>http://222.73.117.158/msg/HttpBatchSendSM</Url>
-            <Username>jiuxiangwang</Username>
-            <Password>JIUxiangwang2016</Password>
+            <Username>xxxx</Username>
+            <Password>xxxx</Password>
             <BusinessMethod>
                 <Regist>
                     <!--注册验证码有效时长-->

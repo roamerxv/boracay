@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import pers.roamer.boracay.aspect.businesslogger.BusinessMethod;
 import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
+import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.helper.HttpResponseHelper;
 
 import java.util.Enumeration;
@@ -35,6 +36,7 @@ import java.util.Enumeration;
 @Log4j2
 @Controller("com.ninelephas.raccoon.controller.test")
 @RequestMapping(value = "/test")
+@SessionCheckKeyword(checkIt = false)
 public class TestController extends BaseController {
 
     /**
@@ -116,6 +118,46 @@ public class TestController extends BaseController {
     @ResponseBody
     public String businessMethodLog() throws ControllerException {
         return HttpResponseHelper.successInfoInbox("ok");
+    }
+
+    /**
+     * 不用做 session check
+     * @return
+     * @throws ControllerException
+     */
+    @GetMapping(value = "/noSessionCheck")
+    @BusinessMethod(value = "不做 session check 的方法")
+    @SessionCheckKeyword(checkIt = false)
+    @ResponseBody
+    public String noSessionCheck() throws ControllerException {
+        return HttpResponseHelper.successInfoInbox("ok");
+    }
+
+    /**
+     * 做 session check
+     * @return
+     * @throws ControllerException
+     */
+    @GetMapping(value = "/sessionCheck")
+    @BusinessMethod(value = "进行 session check 的方法")
+    @SessionCheckKeyword(checkIt = true)
+    @ResponseBody
+    public String sessionCheck() throws ControllerException {
+        return HttpResponseHelper.successInfoInbox("ok");
+    }
+
+    /**
+     * 设置 session 的 keyword
+     * @return
+     * @throws ControllerException
+     */
+    @GetMapping(value = "/setSessionKeyword")
+    @BusinessMethod(value = "在 session 中设置 keyword")
+    @SessionCheckKeyword(checkIt = false)
+    @ResponseBody
+    public String setSessionKeyword() throws ControllerException {
+        httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "keyword");
+        return HttpResponseHelper.successInfoInbox("设置 session keyword 成功");
     }
 
 }

@@ -19,7 +19,6 @@ import pers.roamer.boracay.websample.ProjectException;
  * @date 2016年10月13日 下午4:03:04
  *
  */
-
 public class ControllerException extends ProjectException {
 
     /**
