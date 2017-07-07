@@ -50,7 +50,7 @@ public class SmsController {
      */
     private Map<String, Object> getConfig(String businessMethod) throws BoracayException {
         if (StringUtils.isEmpty(businessMethod)) {
-            throw new BoracayException("无效的业务请求");
+            throw new BoracayException("exception.sms.validate.vcode.invalid_method");
         }
         String method = BUSINESS_METHOD_PERFIX + "." + businessMethod;
         long duration = ConfigHelper.getConfig().getLong(method + ".Duration");
@@ -116,7 +116,7 @@ public class SmsController {
     @ResponseBody
     public void delete(@PathVariable("method") String method, @PathVariable("user_mobile") String user_mobile) throws BoracayException {
         if (!Arrays.asList(METHODS).contains(method)) {
-            throw new BoracayException("无效的业务请求");
+            throw new BoracayException("exception.sms.validate.vcode.invalid_method");
         }
         String sessionId = httpSession.getId();
 
@@ -129,6 +129,5 @@ public class SmsController {
         //保存
         smsVerificationService.save(genereateSmsVerificationCodeEntity(method, sessionId, user_mobile, text, code, duration));
         smsVerificationService.send(user_mobile, text);
-
     }
 }

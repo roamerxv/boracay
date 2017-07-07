@@ -326,47 +326,44 @@
     在 config/config.xml 文件中增加必须要的配置项
 
     ```
-    <!--短信接口-->
+     <!--短信接口-->
+     <System>
             <Sms>
                 <Url>http://222.73.117.158/msg/HttpBatchSendSM</Url>
-                <Username>jiuxiangwang</Username>
-                <Password>JIUxiangwang2016</Password>
-    
-    
-                <Regist>
-                    <Opid>001</Opid>
-                    <!--注册验证码有效时长-->
-                    <Duration>1800000</Duration>
-                    <!--注册验证码长度-->
-                    <Length>6</Length>
-                    <Text>尊敬的用户，您注册的手机验证码为：${code}，请填入以完成注册。该验证码有效时间为${duration}分钟，限本次使用。</Text>
-                </Regist>
-                <ForgetPassword>
-                    <Opid>010</Opid>
-                    <!--忘记密码验证码有效时长-->
-                    <Duration>1800000</Duration>
-                    <!--忘记密码验证码长度-->
-                    <Length>6</Length>
-                    <Text>尊敬的用户，您正在使用忘记密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
-                </ForgetPassword>
-                <ModifyPhoneNumber>
-                    <Opid>011</Opid>
-                    <!--修改手机号码验证码有效时长-->
-                    <Duration>1800000</Duration>
-                    <!--修改手机号码验证码长度-->
-                    <Length>6</Length>
-                    <Text>尊敬的用户，您正在使用修改手机号码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
-                </ModifyPhoneNumber>
-                <ModifyPassword>
-                    <Opid>100</Opid>
-                    <!--修改密码验证码有效时长-->
-                    <Duration>1800000</Duration>
-                    <!--修改密码验证码长度-->
-                    <Length>6</Length>
-                    <Text>尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
-                </ModifyPassword>
-            </Sms>
-        </System>
+                <Username>xxxxxx</Username>
+                <Password>xxxxxx</Password>
+                <BusinessMethod>
+                    <Regist>
+                        <!--注册验证码有效时长-->
+                        <Duration>1800000</Duration>
+                        <!--注册验证码长度-->
+                        <Length>6</Length>
+                        <Text>尊敬的用户，您注册的手机验证码为：${code}，请填入以完成注册。该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                    </Regist>
+                    <ForgetPassword>
+                        <!--忘记密码验证码有效时长-->
+                        <Duration>1800000</Duration>
+                        <!--忘记密码验证码长度-->
+                        <Length>6</Length>
+                        <Text>尊敬的用户，您正在使用忘记密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                    </ForgetPassword>
+                    <ModifyPhoneNumber>
+                        <!--修改手机号码验证码有效时长-->
+                        <Duration>1800000</Duration>
+                        <!--修改手机号码验证码长度-->
+                        <Length>6</Length>
+                        <Text>尊敬的用户，您正在使用修改手机号码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                    </ModifyPhoneNumber>
+                    <ModifyPassword>
+                        <!--修改密码验证码有效时长-->
+                        <Duration>1800000</Duration>
+                        <!--修改密码验证码长度-->
+                        <Length>6</Length>
+                        <Text>尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
+                    </ModifyPassword>
+                </BusinessMethod>
+             </Sms>
+        </System>     
         <!---->
         
         <exception>
