@@ -44,11 +44,11 @@ public class MD5Util {
      */
     public static String getMD5(String input) throws BoracayException {
         try {
-            if (StringUtils.isEmpty(input)){
+            if (StringUtils.isEmpty(input)) {
                 throw new BoracayException("can not get MD5  with null String");
             }
             // 生成一个MD5加密计算摘要
-            return DigestUtils.md5Hex(input) ;
+            return DigestUtils.md5Hex(input);
         } catch (Exception e) {
             throw new BoracayException(e.getMessage());
         }
