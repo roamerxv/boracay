@@ -37,6 +37,6 @@ public @interface SMSValidateCode {
      * @author 徐泽宇
      * @since 1.0.1   2017/7/3 下午1:07
      */
-    String opId() default "";
+    String[] opId() default "";
 
 }

@@ -15,8 +15,11 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import pers.roamer.boracay.BoracayException;
+import pers.roamer.boracay.aspect.sms.SMSValidateBean;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.entity.SmsVerificationCodeEntity;
 import pers.roamer.boracay.repository.ISmsVerificationCodeRepository;
@@ -93,32 +96,37 @@ public class SmsVerificationService {
     /**
      * 进行短信验证码校验
      *
-     * @param sessionId sessionID
-     * @param opId      操作 id
-     * @param vCode     验证码
+     * @param sessionId                sessionID
+     * @param opIdArrayList            操作 id 数组
+     * @param smsValidateBeanArrayList 验证码数组
      *
      * @return
      *
      * @throws BoracayException
      */
-    public boolean validate(String sessionId, String opId, String vCode) throws BoracayException {
-        ArrayList<SmsVerificationCodeEntity> smsVerificationCodeEntityArrayList = iSmsVerificationCodeRepository.findAllBySessionIdAndOpIdAndUsedOrderByCreatedTimeDesc(sessionId, opId, false);
-        if (smsVerificationCodeEntityArrayList == null || smsVerificationCodeEntityArrayList.size() <= 0) {
-            throw new BoracayException(SMS_VCODE_INVALID);
-        }
-        SmsVerificationCodeEntity smsVerificationCodeEntity = smsVerificationCodeEntityArrayList.get(0);
-        if (smsVerificationCodeEntity.getCode().equalsIgnoreCase(vCode)) {
-            //判断是否过期
-            if ((smsVerificationCodeEntity.getCreatedTime().getTime() + smsVerificationCodeEntity.getDuration() < new Date().getTime())) {
-                throw new BoracayException(SMS_VCODE_EXPIRED);
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = {BoracayException.class})
+    public boolean validate(String sessionId, ArrayList<String> opIdArrayList, ArrayList<SMSValidateBean> smsValidateBeanArrayList) throws BoracayException {
+        for (int i = 0; i < opIdArrayList.size(); i++) {
+            String opId = opIdArrayList.get(i);
+            String vCode = smsValidateBeanArrayList.get(i).getValidateCode();
+            ArrayList<SmsVerificationCodeEntity> smsVerificationCodeEntityArrayList = iSmsVerificationCodeRepository.findAllBySessionIdAndOpIdAndUsedOrderByCreatedTimeDesc(sessionId, opId, false);
+            if (smsVerificationCodeEntityArrayList == null || smsVerificationCodeEntityArrayList.size() <= 0) {
+                throw new BoracayException(SMS_VCODE_INVALID);
             }
-            //修改验证码状态为已经使用
-            smsVerificationCodeEntity.setUsed(true);
-            smsVerificationCodeEntity.setUsedTime(new Timestamp(new Date().getTime()));
-            iSmsVerificationCodeRepository.saveAndFlush(smsVerificationCodeEntity);
-            return true;
-        } else {
-            throw new BoracayException(SMS_VCODE_NOT_MATCH);
+            SmsVerificationCodeEntity smsVerificationCodeEntity = smsVerificationCodeEntityArrayList.get(0);
+            if (smsVerificationCodeEntity.getCode().equalsIgnoreCase(vCode)) {
+                //判断是否过期
+                if ((smsVerificationCodeEntity.getCreatedTime().getTime() + smsVerificationCodeEntity.getDuration() < new Date().getTime())) {
+                    throw new BoracayException(SMS_VCODE_EXPIRED);
+                }
+                //修改验证码状态为已经使用
+                smsVerificationCodeEntity.setUsed(true);
+                smsVerificationCodeEntity.setUsedTime(new Timestamp(new Date().getTime()));
+                iSmsVerificationCodeRepository.save(smsVerificationCodeEntity);
+            } else {
+                throw new BoracayException(SMS_VCODE_NOT_MATCH);
+            }
         }
+        return true;
     }
 }

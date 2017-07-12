@@ -15,10 +15,7 @@ import pers.roamer.boracay.service.sms.SmsVerificationService;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by zouwei on 2017/7/3.
@@ -37,7 +34,6 @@ public class SmsController {
 
     private static final String X = "0123456789";
 
-    private static final String[] METHODS = {"Regist", "ForgetPassword", "ModifyPhoneNumber", "ModifyPassword"};
 
     private static final String BUSINESS_METHOD_PERFIX = "System.Sms.BusinessMethod";
 
@@ -115,7 +111,8 @@ public class SmsController {
     @GetMapping(value = "/sms/send/{user_mobile}/{method}")
     @ResponseBody
     public void delete(@PathVariable("method") String method, @PathVariable("user_mobile") String user_mobile) throws BoracayException {
-        if (!Arrays.asList(METHODS).contains(method)) {
+        //判断当前的业务方法是否在 config.xml 里面正确配置
+        if (!ConfigHelper.getConfig().getKeys(BUSINESS_METHOD_PERFIX + "." + method).hasNext()) {
             throw new BoracayException("exception.sms.validate.vcode.invalid_method");
         }
         String sessionId = httpSession.getId();

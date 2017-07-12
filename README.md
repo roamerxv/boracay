@@ -421,7 +421,6 @@
     
     其中的 opId 和生成短信验证码调用的时候定义的 opId一致
 
-
 4. 发送短信验证码的方法
 
     `http://127.0.0.1:8080/sms/send/{phoneNumber}/{opid}`
@@ -464,6 +463,11 @@
         
     ```
     @SMSValidateMethod(opId = "001") 这个注解起到了对这个方法进行短信验证码验证的功能
+    
+6. 这个切面可以支持一个方法需要对多个手机校验码的需求。例如 重新绑定手机的功能，就需要输入发往老手机号码的验证码和发往新手机号码的验证码。
+    调用方式：
+    在 controller方法上加入注解 @SMSValidateCode(opId = {"ReboundOldMobile","ReboundNewMobile"}) 
+    同理，这几个 opID 也需要在 config.xml 中定义
 
 
 ### f.  对所有 controller 层面的方法进行 session 的 keyword 判断，以便确定是否登录的切面功能
