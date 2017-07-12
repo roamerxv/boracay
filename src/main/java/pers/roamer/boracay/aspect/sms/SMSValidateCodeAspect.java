@@ -53,12 +53,14 @@ public class SMSValidateCodeAspect {
      * @throws BoracayException
      */
     private void smsValidateCodeCheck(JoinPoint joinPoint) throws BoracayException {
-        //判断切入的方法是否被注解
         // 获取当前切入的方法的BSMSValidateMethodAnnotation注解内容
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-
         SMSValidateCode methodAnnotation = method.getAnnotation(SMSValidateCode.class);
+        //判断切入的方法是否被注解
+        if (methodAnnotation == null) {
+            return;
+        }
         for (int i = 0; i < methodAnnotation.opId().length; i++) {
             log.debug("需要进行短信验证码功能的 opId 是：{}", methodAnnotation.opId()[i].toString());
         }
