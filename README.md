@@ -147,7 +147,7 @@
             <aop:config>
                 <aop:pointcut
                         id="catchControllerExceptionPointcut"
-                        expression="expression="execution(* pers.roamer.boracay..*.*(..)) || ①execution(* com.ninelephas.raccoon.controller..*.*(..))"/>"/>
+                        expression="expression="execution(* pers.roamer.boracay.controller..*.*(..)) || ①execution(* com.ninelephas.raccoon.controller..*.*(..))"/>"/>
                 <aop:aspect ref="catchControllerExceptionAspect">
                     <aop:after-throwing throwing="ex" method="writeToHttpResponse"
                                         pointcut-ref="catchControllerExceptionPointcut"/>

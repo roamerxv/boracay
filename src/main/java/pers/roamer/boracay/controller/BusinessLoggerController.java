@@ -92,8 +92,6 @@ public class BusinessLoggerController {
         } catch (JsonProcessingException e) {
             throw new BoracayException(e.getMessage());
         }
-
-        log.debug(rtnString.toString());
         return rtnString.toString();
     }
 

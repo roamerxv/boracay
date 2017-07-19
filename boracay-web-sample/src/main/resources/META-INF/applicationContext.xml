@@ -162,7 +162,7 @@
     <aop:config>
         <aop:pointcut
                 id="catchControllerExceptionPointcut"
-                expression="execution(* pers.roamer.boracay..*.*(..)) || execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
+                expression="execution(* pers.roamer.boracay.controller..*.*(..)) || execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
         <aop:aspect ref="catchControllerExceptionAspect">
             <aop:after-throwing throwing="ex" method="writeToHttpResponse"
                                 pointcut-ref="catchControllerExceptionPointcut"/>
