@@ -3,6 +3,9 @@
 
 <body>
 
+<%@ include file="../views/layouts/_included_js.jsp" %>
+
+
 <script src="<%=request.getContextPath()%>/assets/js/systemLogger/index.js"></script>
 <link href="<%=request.getContextPath()%>/assets/css/systemLogger/index.css" rel="stylesheet"/>
 
