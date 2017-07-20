@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>Boracay Web Sample</title>
     <meta name="description" content="Boracay Web Smaple">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,69 @@
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/css/amazeui.min.css"/>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/css/admin.css">
+
+    <%--以下是项目用到的js 和 css--%>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-3.3.7/bootstrap.min.js"></script>
+    <link href="<%=request.getContextPath()%>/assets/css/lib/bootstrap-3.3.7/bootstrap.css" rel="stylesheet">
+
+    <%--使用HubSpot Messager做提示对话框 --%>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/messenger-1.4.1/messenger.min.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/messenger-1.4.1/messenger-theme-flat.js"></script>
+    <link href="<%=request.getContextPath()%>/assets/css/lib/messenger-1.4.1/messenger.css" rel="stylesheet"/>
+    <link href="<%=request.getContextPath()%>/assets/css/lib/messenger-1.4.1/messenger-theme-future.css"
+          rel="stylesheet"/>
+    <link href="<%=request.getContextPath()%>/assets/css/lib/messenger-1.4.1/messenger-theme-air.css" rel="stylesheet">
+    <%--调用结束--%>
+    <%----%>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jquery-validation-1.16.0/jquery.validate.min.js"></script>
+
+    <%-- DataTables --%>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/jquery.dataTables.min.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/dataTables.bootstrap.js"></script>
+    <link href="<%=request.getContextPath()%>/assets/css/lib/DataTables-1.10.15/jquery.dataTables.min.css"
+          rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/assets/css/lib/DataTables-1.10.15/dataTables.bootstrap.min.css"
+          rel="stylesheet">
+    <%----%>
+    <!-- bootstrap-datetimepicker -->
+    <link href="<%=request.getContextPath()%>/assets/css/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css"
+          rel="stylesheet">
+    <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.js"
+            type="text/javascript"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"
+            type="text/javascript" charset="UTF-8"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.fr.js"
+            type="text/javascript"></script>
+
+    <!-- end  -->
+    <%--使用jonnyreeves/js-logger--%>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jonnyreeves-js-logger/logger.min.js"></script>
+    <%----%>
+
+    <%--引入显示错误信息的组件所需要的 js 文件和 css 文件--%>
+    <%@include file="../component/showExceptionJSComponent.jsp" %>
+    <%--引入结束--%>
+
+    <script src="<%=request.getContextPath()%>/assets/js/application.js"></script>
+    <link href="<%=request.getContextPath()%>/assets/css/application.css" rel="stylesheet"/>
+
+    <link href="<%=request.getContextPath()%>/assets/css/lib/layui/css/layui.css" rel="stylesheet"/>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/layui/layui.js"></script>
+
+
+    <%--<script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.xdr-transport.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.ui.widget.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.iframe-transport.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.fileupload.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.fileupload-ui.js"></script>--%>
+    <script type="text/javascript">
+        var contextPath = "<%=request.getContextPath()%>";
+    </script>
+
 </head>
+
+
 <body>
 <!--[if lte IE 9]>
 <p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
@@ -87,7 +149,7 @@
                         <li><a href=""<%=request.getContextPath()%>/test/businessMethodLog.json" target="_test"
                             class="am-cf"><span class="am-icon-check"></span>调用一个需要记录日志的方法<span
                                     class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/views/systemLoggerIndex.jsp" target="_test"
+                        <li><a href="<%=request.getContextPath()%>/views/systemLoggerIndex.jsp"
                                class="am-cf"><span
                                 class="am-icon-check"></span> 日志结果查看<span
                                 class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
@@ -123,8 +185,9 @@
     <!-- sidebar end -->
 
     <!-- content start -->
-
-    <sitemesh:write property='body'/>
+    <div class="admin-content">
+        <sitemesh:write property='body'/>
+    </div>
     <!-- content end -->
 
 </div>
@@ -133,15 +196,17 @@
    data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
 <!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<!--<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>-->
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/jquery.min.js"></script>
+<%--<script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/jquery.min.js"></script>--%>
 <!--<![endif]-->
 <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/amazeui.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/app.js"></script>
+
+
 </body>
 </html>

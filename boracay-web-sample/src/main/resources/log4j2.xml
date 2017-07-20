@@ -69,7 +69,7 @@
         <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"></logger>
 
         <!--关闭个人组件的 log-->
-        <logger name="pers.roamer.boracay" level="info"></logger>
+        <logger name="pers.roamer.boracay" level="debug"></logger>
 
         <!-- 设置springframe的log -->
         <logger name="org.springframework" level="error" additivity="false"></logger>
