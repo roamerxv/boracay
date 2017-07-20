@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+    <!-- 默认装饰器，当下面的路径都不匹配时，启用该装饰器进行装饰 -->
+    <!--<mapping decorator="/views/decorators/decorator.jsp"/>-->
+
+    <!-- 指明满足path的页面，将被"main.jsp"所装饰 -->
+    <mapping path="/*" decorator="/views/decorators/decorator.jsp" exclue="false"/>
+
+
+    <!-- 指明满足path的页面，将被排除，不被装饰 -->
+    <mapping path="/assets/*" exclue="true" />
+</sitemesh>

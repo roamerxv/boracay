@@ -24,6 +24,16 @@
         <filter-name>HttpMethodFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <!--sitemesh 3-->
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--配置结束-->
     <!--durid 配置开始-->
     <servlet>
         <servlet-name>DruidStatView</servlet-name>
