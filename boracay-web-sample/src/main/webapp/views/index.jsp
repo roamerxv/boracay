@@ -75,6 +75,9 @@ Service 层以及 Repository 层都抛出自己的Exception。不做截获。
                                     需要在数据库中建立 business_log 表。
                                 </li>
                                 <li>
+                                    <font color="red">可以在项目和方法2个层面进行精细控制。</font>
+                                </li>
+                                <li>
                                     详细 配置见 README.md 文件。
                                 </li>
                             </ul>

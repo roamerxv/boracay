@@ -27,8 +27,6 @@
             127.0.0.1,192.168.0-255.0-255,172.16-31.0-255.0-255,10.0-255.0-255.0-255
         </Whitelist>
         <!---->
-        <!--设置是否要做session判断，以便确定用户是否登录-->
-        <SessionCheck>false</SessionCheck>
         <!-- 设置是否要做业务活动日志记录 -->
         <RecordBusinessLog>true</RecordBusinessLog>
         <!---->
