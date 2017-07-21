@@ -103,7 +103,7 @@ public class TestController extends BaseController {
         }
         ;
 
-        return HttpResponseHelper.successInfoInbox("ok");
+        return HttpResponseHelper.successInfoInbox("上传成功");
     }
 
     /**
