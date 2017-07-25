@@ -48,17 +48,27 @@ Service 层以及 Repository 层都抛出自己的Exception。不做截获。
 如果需要，则构建ServiceException 然后抛出，以便于 Controller 层进行截获！
 返回的 json 的 data 结构中有nodesName,errorMessage,errorPath 3个节点。对应的含义和用途是：
     1. nodesName ：是一个数组！ 可以和前端的 html 中的 dom 配合，可以用于错误信息提示或者绑定在那个 dom 上。如果在 config.xml 中没有配置，则命名为 publicError
-    2. errorMessage： 错误信息。一般这个是配置在 config.xml 中，用于把 错误信息进行 il18 化
+    2. errorMessage： 错误信息。一般这个是配置在 config.xml 中，用于把 错误信息进行 I18N 化
     3. errorPath:  错误路径。和 Exception 构建的时候传递的字符串一致。例如：new ControllerException("exception.test.exception");则会获取exception.test.exception 这样的errprPath.
                         </pre>
                         Controller 层如果需要返回成功的 json 字符串。可以采用如下代码:
                         <pre><font color="red">return HttpResponseHelper.successInfoInbox("操作成功");</font>
                         </pre>
-                        <li>
-                                举个🌰（调用server 的一个业务功能，出现错误。通过配置错误信息，和前端的 html 中的 dom 绑定。然后通过响应的 js 组件，提示错误信息！）
-                        </li>
-                        <%@include  file="exception/showException.jsp" %>
-                        </ul>
+
+                        <section data-am-widget="accordion" class="am-accordion am-accordion-gapped" data-am-accordion='{  }'>
+                            <dl class="am-accordion-item am-active">
+                                <dt class="am-accordion-title">
+                                    举个🌰（调用server 的一个业务功能，出现错误。通过配置错误信息，和前端的 html 中的 dom 绑定。然后通过响应的 js 组件，提示错误信息！）
+                                </dt>
+                                <dd class="am-accordion-bd am-collapse am-in">
+                                    <!-- 规避 Collapase 处理有 padding 的折叠内容计算计算有误问题， 加一个容器 -->
+                                    <div class="am-accordion-content">
+                                        <%@include  file="exception/showException.jsp" %>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </section>
+
                     </div>
 
                 </div>
@@ -115,7 +125,7 @@ Service 层以及 Repository 层都抛出自己的Exception。不做截获。
                                     sessionCheck 根据 session 中这个System.SessionUserKeyword所指定的 value 这个关键词是否有内容，来进行判断是否登录。
                                 </li>
                                 <li>
-                                    所有，在登录后需要调用这样的方法，来对 session 中进行设置关键词的值
+                                    所以，在登录后需要调用这样的方法，来对 session 中进行设置关键词的值
                                     <pre>httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "要设置的值");
                                     </pre>
                                 </li>
