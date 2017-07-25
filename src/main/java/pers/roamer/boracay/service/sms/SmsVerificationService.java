@@ -111,20 +111,20 @@ public class SmsVerificationService {
             String vCode = smsValidateBeanArrayList.get(i).getValidateCode();
             ArrayList<SmsVerificationCodeEntity> smsVerificationCodeEntityArrayList = iSmsVerificationCodeRepository.findAllBySessionIdAndOpIdAndUsedOrderByCreatedTimeDesc(sessionId, opId, false);
             if (smsVerificationCodeEntityArrayList == null || smsVerificationCodeEntityArrayList.size() <= 0) {
-                throw new BoracayException(SMS_VCODE_INVALID);
+                throw new BoracayException(SMS_VCODE_INVALID+"."+opId);
             }
             SmsVerificationCodeEntity smsVerificationCodeEntity = smsVerificationCodeEntityArrayList.get(0);
             if (smsVerificationCodeEntity.getCode().equalsIgnoreCase(vCode)) {
                 //判断是否过期
                 if ((smsVerificationCodeEntity.getCreatedTime().getTime() + smsVerificationCodeEntity.getDuration() < new Date().getTime())) {
-                    throw new BoracayException(SMS_VCODE_EXPIRED);
+                    throw new BoracayException(SMS_VCODE_EXPIRED+"."+ opId);
                 }
                 //修改验证码状态为已经使用
                 smsVerificationCodeEntity.setUsed(true);
                 smsVerificationCodeEntity.setUsedTime(new Timestamp(new Date().getTime()));
                 iSmsVerificationCodeRepository.save(smsVerificationCodeEntity);
             } else {
-                throw new BoracayException(SMS_VCODE_NOT_MATCH);
+                throw new BoracayException(SMS_VCODE_NOT_MATCH+"."+ opId);
             }
         }
         return true;
