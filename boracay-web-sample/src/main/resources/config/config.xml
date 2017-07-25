@@ -83,6 +83,11 @@
 
     <!--定义错误信息-->
     <exception>
+        <test>
+            <exception>
+                测试用的错误！由Controller 层抛出。| user_name , user_passwd
+            </exception>
+        </test>
         <system>
             <need_login>
                 必须登录系统

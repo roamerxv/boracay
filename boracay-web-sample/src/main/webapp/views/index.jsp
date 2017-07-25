@@ -54,6 +54,11 @@ Service 层以及 Repository 层都抛出自己的Exception。不做截获。
                         Controller 层如果需要返回成功的 json 字符串。可以采用如下代码:
                         <pre><font color="red">return HttpResponseHelper.successInfoInbox("操作成功");</font>
                         </pre>
+                        <li>
+                                举个🌰（调用server 的一个业务功能，出现错误。通过配置错误信息，和前端的 html 中的 dom 绑定。然后通过响应的 js 组件，提示错误信息！）
+                        </li>
+                        <%@include  file="exception/showException.jsp" %>
+                        </ul>
                     </div>
 
                 </div>

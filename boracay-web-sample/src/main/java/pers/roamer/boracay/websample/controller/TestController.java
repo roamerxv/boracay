@@ -117,7 +117,7 @@ public class TestController extends BaseController {
     @BusinessMethod(value = "测试需要记录日志的业务方法")
     @ResponseBody
     public String businessMethodLog() throws ControllerException {
-        return HttpResponseHelper.successInfoInbox("ok");
+        return HttpResponseHelper.successInfoInbox("记录业务日志的方法被成功调用！现在可以到日志结果查看功能里面去查看日志是否被成功记录！");
     }
 
     /**

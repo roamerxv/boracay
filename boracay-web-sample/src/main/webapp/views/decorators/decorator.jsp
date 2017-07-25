@@ -28,7 +28,7 @@
     <script src="<%=request.getContextPath()%>/assets/js/lib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/amazeui.min.js"></script>
     <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/app.js"></script>
-
+    <%@ include file="../layouts/_included_js.jsp" %>
 </head>
 
 
@@ -80,23 +80,19 @@
                         exception josn 化的功能<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
                         <li><a href="<%=request.getContextPath()%>/test/500_error.json" target="_test"
-                               class="am-cf"><span class="am-icon-check"></span> exception josn 化<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                        <li><a href="<%=request.getContextPath()%>/test/500_error" target="_test" class="am-cf"><span
-                                class="am-icon-check"></span> exception 不 josn 化<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                               class="am-cf">exception josn 化</a></li>
+                        <li><a href="<%=request.getContextPath()%>/test/500_error" target="_test" class="am-cf">exception
+                            不 josn 化</a></li>
                     </ul>
                 </li>
                 <li>
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span>
                         记录日志的业务方法<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-                        <li><a href=""<%=request.getContextPath()%>/test/businessMethodLog.json" target="_test"
-                            class="am-cf"><span class="am-icon-check"></span>调用一个需要记录日志的方法<span
-                                    class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                        <li><a href="<%=request.getContextPath()%>/test/businessMethodLog.json" target="_test"
+                               class="am-cf">调用一个需要记录日志的方法</a></li>
                         <li><a href="<%=request.getContextPath()%>/views/systemLoggerIndex.jsp"
-                               class="am-cf"><span
-                                class="am-icon-check"></span> 日志结果查看<span
+                               class="am-cf">日志结果查看<span
                                 class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                     </ul>
                 </li>
@@ -105,22 +101,15 @@
                         自动 session 判断<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
                         <li><a href=""<%=request.getContextPath()%>/test/noSessionCheck.json" target="_test"
-                            class="am-cf"><span class="am-icon-check"></span>访问一个不需要 session 判断的方法<span
-                                    class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                            class="am-cf">访问一个不需要 session 判断的方法</a></li>
 
                         <li><a href="<%=request.getContextPath()%>/test/sessionCheck.json" target="_test"
-                               class="am-cf"><span
-                                class="am-icon-check"></span> 访问一个需要 session 判断的方法<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                               class="am-cf">访问一个需要 session 判断的方法</a></li>
 
                         <li><a href="<%=request.getContextPath()%>/test/setSessionKeyword.json" target="_test"
-                               class="am-cf"><span
-                                class="am-icon-check"></span> 在 session 中设置一个keyword(login)<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                               class="am-cf">在 session 中设置一个keyword(login)</a></li>
                         <li><a href="<%=request.getContextPath()%>/test/logout.json" target="_test"
-                               class="am-cf"><span
-                                class="am-icon-check"></span>清理 session 中所有的值（logout）<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                               class="am-cf">清理 session 中所有的值（logout</a></li>
                     </ul>
                 </li>
                 <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
