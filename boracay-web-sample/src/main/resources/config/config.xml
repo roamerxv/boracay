@@ -76,10 +76,6 @@
                     <Text>尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。</Text>
                 </ModifyPassword>
             </BusinessMethod>
-
-
-
-
         </Sms>
     </System>
     <!---->
@@ -96,20 +92,41 @@
         <sms>
             <validate>
                 <vcode>
+                    <opid_size_no_match>
+                        需要短信验证的方法和传入的验证码数目不一致！| code
+                    </opid_size_no_match>
                     <not_set>
-                        短信验证码没有设置!
+                        短信验证码没有设置!| code
                     </not_set>
                     <invalid>
-                        短信验证码不存在！
+                        该用户没有发送过短信 ！| code
+                        <ReboundOldMobile>
+                            需要解绑手机的验证码没有发送过!
+                        </ReboundOldMobile>
+                        <ReboundNewMobile>
+                            需要绑定的手机的验证码没有发送过!
+                        </ReboundNewMobile>
                     </invalid>
                     <expired>
-                        验证码过期！
+                        验证码过期！| code
+                        <ReboundOldMobile>
+                            需要解绑手机的验证码已经过期!
+                        </ReboundOldMobile>
+                        <ReboundNewMobile>
+                            需要绑定的手机的验证码已经过期!
+                        </ReboundNewMobile>
                     </expired>
                     <not_match>
-                        验证码不匹配！
+                        验证码不匹配！| code
+                        <ReboundOldMobile>
+                            需要解绑手机的验证码不匹配!
+                        </ReboundOldMobile>
+                        <ReboundNewMobile>
+                            需要绑定的手机的验证码不匹配!
+                        </ReboundNewMobile>
                     </not_match>
                     <invalid_method>
-                        无效的业务请求
+                        无效的业务请求| code
                     </invalid_method>
                 </vcode>
             </validate>
