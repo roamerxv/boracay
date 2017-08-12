@@ -96,6 +96,11 @@
         <!--短信验证部分-->
         <sms>
             <validate>
+                <mobile>
+                    <not_set>
+                        验证的手机号没有设置！
+                    </not_set>
+                </mobile>
                 <vcode>
                     <opid_size_no_match>
                         需要短信验证的方法和传入的验证码数目不一致！| code

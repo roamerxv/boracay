@@ -20,4 +20,5 @@ import lombok.Data;
 @Data
 public class SMSValidateBean {
     private String validateCode;
+    private String mobile;
 }

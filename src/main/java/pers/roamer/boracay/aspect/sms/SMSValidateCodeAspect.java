@@ -84,7 +84,7 @@ public class SMSValidateCodeAspect {
             if (smsValidateBeanArrayList.size() != opIdArrayList.size()) {
                 throw new BoracayException(SMS_VCODE_AND_OPIDS_SIZE_NOT_MATCH);
             }
-            smsService.validate(request.getSession().getId(), opIdArrayList, smsValidateBeanArrayList);
+            smsService.validate(opIdArrayList, smsValidateBeanArrayList);
 
         }
     }
