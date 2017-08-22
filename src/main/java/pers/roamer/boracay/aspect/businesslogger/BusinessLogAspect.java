@@ -261,7 +261,7 @@ public class BusinessLogAspect {
             // 设置设备类型
             businessLog.setClientDeviceType(operatingSystem.getDeviceType().toString());
             // 当前的操作人
-            String operator = (session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword")) == null) ? "session 中未获取用户信息" : (String) session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"));
+            String operator = (session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword")) == null) ? "访客" : (String) session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"));
             businessLog.setOperator(operator);
 
             // 切入的方法是否执行成功

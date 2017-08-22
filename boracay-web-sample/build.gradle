@@ -23,7 +23,7 @@ ext {
     fastJsonVersion = "1.2.35"
     apacheOroVersion = "2.0.8"
     javaxServletAPIVersion = "4.0.0-b07"
-    mysqlJavaConnectorVersion = "6.0.6"
+    mysqlJavaConnectorVersion = "5.1.43"
     druidVersion = "1.1.1"
     hibernateVersion = "5.2.10.Final"
     siteMeshVersion = "3.0.1"
@@ -164,7 +164,7 @@ dependencies {
             //  ------------------------------
 
             // 徐泽宇的web 实用框架
-            "pers.roamer:boracay:2.0.3"
+            "pers.roamer:boracay:2.0.5"
     )
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
