@@ -1,3 +1,6 @@
 rootProject.name = 'boracay'
-rootProject.name = 'boracay'
+include 'core'
+include 'web'
+include 'core'
+findProject(':core')?.name = 'boracay'
 

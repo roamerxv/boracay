@@ -69,7 +69,13 @@ public class BusinessLogService {
 
 
     /**
-     * 分页查询所有的业务日志, 并且支持method-desc,created-at,operator,method的复合like查询
+     * 分页查询所有的业务日志, 并且支持以下字段内容
+     * method（调用方法）
+     * method-desc（调用方法描述）
+     * created-at（日志记录产生时间）
+     * operator（操作人）
+     * IP（IP 地址）
+     * 的复合like查询
      *
      * @param dataTablesRequest 基于 jquery datatables 组件的查询条件
      *
@@ -122,8 +128,12 @@ public class BusinessLogService {
             Predicate methodLike = cb.or((Predicate) cb.like(root.get("method"), "%" + extraSearch + "%"));
             // 加入操作员字段的like查询
             Predicate operatorLike = cb.or((Predicate) cb.like(root.get("operator"), "%" + extraSearch + "%"));
+            // 加入IP字段的like查询
+            Predicate remoteIpLike = cb.or((Predicate) cb.like(root.get("remoteIp"), "%" + extraSearch + "%"));
+            // 加入日志发生时间字段的like查询
+            Predicate createdAt = cb.or((Predicate) cb.like(root.get("createdAt"), "%" + extraSearch + "%"));
             // 用or来复合这些查询
-            query.where(cb.or(methodLike, methodDescriptionLike, operatorLike));
+            query.where(cb.or(methodLike, methodDescriptionLike, operatorLike ,remoteIpLike,createdAt));
             return null;
         }
     }
