@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/layui.css">
+	<script type="text/javascript" src="layui.js"></script>
+</head>
+<body>
+	<textarea id="demo" style="display: none;"></textarea>
+<script>
+layui.use('layedit', function(){
+  var layedit = layui.layedit;
+  layedit.build('demo'); //建立编辑器
+});
+</script>
+</body>
+</html>
