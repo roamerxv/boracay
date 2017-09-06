@@ -20,15 +20,20 @@
 <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/jquery.dataTables.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/dataTables.bootstrap.js"></script>
 <link href="<%=request.getContextPath()%>/assets/css/lib/DataTables-1.10.15/jquery.dataTables.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/assets/css/lib/DataTables-1.10.15/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/assets/css/lib/DataTables-1.10.15/dataTables.bootstrap.min.css"
+      rel="stylesheet">
 <%----%>
 <!-- bootstrap-datetimepicker -->
-<link href="<%=request.getContextPath()%>/assets/css/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
-<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="UTF-8"></script>
-<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.fr.js" type="text/javascript"></script>
+<link href="<%=request.getContextPath()%>/assets/css/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css"
+      rel="stylesheet">
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.js"
+        type="text/javascript"></script>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js"
+        type="text/javascript" charset="UTF-8"></script>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.fr.js"
+        type="text/javascript"></script>
 
-<!-- end  -->
+<!-- end -->
 <%--使用jonnyreeves/js-logger--%>
 <script src="<%=request.getContextPath()%>/assets/js/lib/jonnyreeves-js-logger/logger.min.js"></script>
 <%----%>
@@ -44,9 +49,27 @@
 <script src="<%=request.getContextPath()%>/assets/js/lib/layui/layui.js"></script>
 
 <%-- jQuery.dateTimePicker-2.5.4--%>
-<link href="<%=request.getContextPath()%>/assets/css/lib/jQuery.dateTimePicker-2.5.4/jquery.datetimepicker.min.css" rel="stylesheet"/>
+<link href="<%=request.getContextPath()%>/assets/css/lib/jQuery.dateTimePicker-2.5.4/jquery.datetimepicker.min.css"
+      rel="stylesheet"/>
 <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery.dateTimePicker-2.5.4/jquery.datetimepicker.full.js"></script>
 <%--引入结束--%>
+
+<%-- 引入 jQuery.file-input css 和js 的引用必须按照下面顺序。 https://github.com/kartik-v/bootstrap-fileinput --%>
+<link href="<%=request.getContextPath()%>/assets/css/lib/bootstrap-file-input/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/>
+
+<!-- piexif.min.js is only needed if you wish to resize images before upload to restore exif data.This must be loaded before fileinput.min.js -->
+<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/piexif.min.js" type="text/javascript"></script>--%>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.This must be loaded before fileinput.min.js -->
+<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/sortable.min.js" type="text/javascript"></script>--%>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.This must be loaded before fileinput.min.js -->
+<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input//plugins/purify.min.js" type="text/javascript"></script>--%>
+<!-- the main fileinput plugin file -->
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/fileinput.min.js"/>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/themes/explorer/theme.js"
+        type="text/javascript"></script>
+
+<%-- 引入结束--%>
 
 <%--<script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.xdr-transport.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.ui.widget.js"></script>

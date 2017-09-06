@@ -159,6 +159,19 @@ Service 层以及 Repository 层都抛出自己的Exception。不做截获。
                 </div>
             </div>
 
+            <div class="am-u-md-12">
+                <div class="am-panel am-panel-default">
+                    <div class="am-panel-hd am-cf" data-am-collapse="{target: '#collapse-panel-6'}">文件上传功能<span
+                            class="am-icon-chevron-down am-fr"></span></div>
+                    <div id="collapse-panel-6" class="am-panel-collapse am-collapse">
+                        <div class="am-accordion-content">
+                            <a href="../views/fileUpload/fileUpload.jsp">测试同时提交表单和文件</a>
+                            <%--<%@include  file="fileUpload/fileUpload.jsp" %>--%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>

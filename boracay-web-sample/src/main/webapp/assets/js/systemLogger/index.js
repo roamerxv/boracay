@@ -1,14 +1,20 @@
 var businesslog_table;
 
 $().ready(function () {
-    var datetimepickerformat = "Y-m-d H:i"
-    jQuery.datetimepicker.setLocale('zh');
-    $('#begin_time').datetimepicker({
-        format: datetimepickerformat
-    });
-    $('#end_time').datetimepicker({
-        format: datetimepickerformat
-    });
+    if ($('#begin_time') == undefined || $('#begin_time') == undefined){
+        Logger.error("没有定义开始时间和结束时间的 UI 组件");
+    }else
+    {
+        var datetimepickerformat = "Y-m-d H:i"
+        jQuery.datetimepicker.setLocale('zh');
+        $('#begin_time').datetimepicker({
+            format: datetimepickerformat
+        });
+        $('#end_time').datetimepicker({
+            format: datetimepickerformat
+        });
+    }
+
 
     // 设置 datatables 的错误，不做抛出。以便接管错误信息
     $.fn.dataTable.ext.errMode = 'none';

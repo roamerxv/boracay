@@ -13,10 +13,7 @@ import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import pers.roamer.boracay.aspect.businesslogger.BusinessMethod;
@@ -34,7 +31,7 @@ import java.util.Enumeration;
  * @date 2016年12月2日 下午6:52:03
  */
 @Log4j2
-@Controller("com.ninelephas.raccoon.controller.test")
+@Controller("com.ninelephas.raccoon.controller.TestController")
 @RequestMapping(value = "/test")
 @SessionCheckKeyword(checkIt = false)
 public class TestController extends BaseController {
@@ -94,17 +91,6 @@ public class TestController extends BaseController {
         return HttpResponseHelper.successInfoInbox("ok");
     }
 
-    @RequestMapping(value = "/uploadAndJson", consumes = {"multipart/form-data;charset=utf-8"})
-    @ResponseBody
-    public String uploadFileAndJson(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean, @RequestPart("files") MultipartFile[] files) throws ControllerException {
-        log.debug("获取上传文件和 json 对象:{} , {}", formDataJsonBean, files);
-        for (MultipartFile file : files) {
-            log.debug(file.getOriginalFilename());
-        }
-        ;
-
-        return HttpResponseHelper.successInfoInbox("上传成功");
-    }
 
     /**
      * 测试需要记录日志的业务方法
@@ -122,7 +108,9 @@ public class TestController extends BaseController {
 
     /**
      * 不用做 session check
+     *
      * @return
+     *
      * @throws ControllerException
      */
     @GetMapping(value = "/noSessionCheck")
@@ -135,7 +123,9 @@ public class TestController extends BaseController {
 
     /**
      * 做 session check
+     *
      * @return
+     *
      * @throws ControllerException
      */
     @GetMapping(value = "/sessionCheck")
@@ -148,7 +138,9 @@ public class TestController extends BaseController {
 
     /**
      * 设置 session 的 keyword
+     *
      * @return
+     *
      * @throws ControllerException
      */
     @GetMapping(value = "/setSessionKeyword")
@@ -159,6 +151,31 @@ public class TestController extends BaseController {
         httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "keyword");
         return HttpResponseHelper.successInfoInbox("设置 session keyword 成功");
     }
+
+
+    /**
+     * 测试提交表单的同时，也进行多文件上传
+     *
+     * @param formDataJsonBean
+     * @param files
+     *
+     * @return
+     *
+     * @throws ControllerException
+     */
+    @ResponseBody
+    @PostMapping(value = "/submitWithFile", consumes = {"multipart/form-data;charset=utf-8"})
+    public String uploadTest(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean, @RequestPart("files") MultipartFile[] files) throws ControllerException {
+        log.debug("开始处理");
+        log.debug("ID是:" + formDataJsonBean.getId());
+        log.debug("需要上传的文件有"+files.length+"个");
+        for (MultipartFile file : files) {
+            log.debug(file.getOriginalFilename());
+        }
+        return HttpResponseHelper.successInfoInbox("处理成功");
+    }
+
+    ;
 
 }
 
