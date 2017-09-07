@@ -5,3 +5,6 @@ gradle
 boracay-web-sample/guild
 boracay-web-sample/out
 out
+boracay-web-sample/src/test/
+src/main/resources/
+src/test/

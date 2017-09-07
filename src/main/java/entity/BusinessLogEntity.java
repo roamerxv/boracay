@@ -5,25 +5,26 @@ import java.sql.Timestamp;
 
 /**
  * @author roamer - 徐泽宇
- * @version 1.0.0   2017/6/29 下午5:19
+ * @create 2017-09-2017/9/7  下午3:04
  */
 @Entity
-@Table(name = "business_log", catalog = "")
+@Table(name = "business_log", schema = "boracay-web-sample", catalog = "")
 public class BusinessLogEntity {
     private String id;
     private String operator;
     private String clazz;
     private String method;
+    private String methodDescription;
     private boolean success;
     private String exceptionString;
     private String args;
+    private long timeConsuming;
     private String remoteIp;
     private String clientOs;
     private String clientBrowser;
     private String browserVersion;
     private String clientDeviceType;
     private Timestamp createdAt;
-    private String methodDescription;
 
     @Id
     @Column(name = "id", nullable = false, length = 40)
@@ -66,6 +67,16 @@ public class BusinessLogEntity {
     }
 
     @Basic
+    @Column(name = "method_description", nullable = false, length = 255)
+    public String getMethodDescription() {
+        return methodDescription;
+    }
+
+    public void setMethodDescription(String methodDescription) {
+        this.methodDescription = methodDescription;
+    }
+
+    @Basic
     @Column(name = "success", nullable = false)
     public boolean isSuccess() {
         return success;
@@ -93,6 +104,16 @@ public class BusinessLogEntity {
 
     public void setArgs(String args) {
         this.args = args;
+    }
+
+    @Basic
+    @Column(name = "time_consuming", nullable = false)
+    public long getTimeConsuming() {
+        return timeConsuming;
+    }
+
+    public void setTimeConsuming(long timeConsuming) {
+        this.timeConsuming = timeConsuming;
     }
 
     @Basic
@@ -155,16 +176,6 @@ public class BusinessLogEntity {
         this.createdAt = createdAt;
     }
 
-    @Basic
-    @Column(name = "method_description", nullable = false, length = 255)
-    public String getMethodDescription() {
-        return methodDescription;
-    }
-
-    public void setMethodDescription(String methodDescription) {
-        this.methodDescription = methodDescription;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -173,10 +184,13 @@ public class BusinessLogEntity {
         BusinessLogEntity that = (BusinessLogEntity) o;
 
         if (success != that.success) return false;
+        if (timeConsuming != that.timeConsuming) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (operator != null ? !operator.equals(that.operator) : that.operator != null) return false;
         if (clazz != null ? !clazz.equals(that.clazz) : that.clazz != null) return false;
         if (method != null ? !method.equals(that.method) : that.method != null) return false;
+        if (methodDescription != null ? !methodDescription.equals(that.methodDescription) : that.methodDescription != null)
+            return false;
         if (exceptionString != null ? !exceptionString.equals(that.exceptionString) : that.exceptionString != null)
             return false;
         if (args != null ? !args.equals(that.args) : that.args != null) return false;
@@ -189,8 +203,6 @@ public class BusinessLogEntity {
         if (clientDeviceType != null ? !clientDeviceType.equals(that.clientDeviceType) : that.clientDeviceType != null)
             return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
-        if (methodDescription != null ? !methodDescription.equals(that.methodDescription) : that.methodDescription != null)
-            return false;
 
         return true;
     }
@@ -201,16 +213,17 @@ public class BusinessLogEntity {
         result = 31 * result + (operator != null ? operator.hashCode() : 0);
         result = 31 * result + (clazz != null ? clazz.hashCode() : 0);
         result = 31 * result + (method != null ? method.hashCode() : 0);
+        result = 31 * result + (methodDescription != null ? methodDescription.hashCode() : 0);
         result = 31 * result + (success ? 1 : 0);
         result = 31 * result + (exceptionString != null ? exceptionString.hashCode() : 0);
         result = 31 * result + (args != null ? args.hashCode() : 0);
+        result = 31 * result + (int) (timeConsuming ^ (timeConsuming >>> 32));
         result = 31 * result + (remoteIp != null ? remoteIp.hashCode() : 0);
         result = 31 * result + (clientOs != null ? clientOs.hashCode() : 0);
         result = 31 * result + (clientBrowser != null ? clientBrowser.hashCode() : 0);
         result = 31 * result + (browserVersion != null ? browserVersion.hashCode() : 0);
         result = 31 * result + (clientDeviceType != null ? clientDeviceType.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (methodDescription != null ? methodDescription.hashCode() : 0);
         return result;
     }
 }

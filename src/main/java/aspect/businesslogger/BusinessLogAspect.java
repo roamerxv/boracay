@@ -112,6 +112,7 @@ public class BusinessLogAspect {
             }
         } else {
             boolean isSuccess = true;
+            long beginTime = System.currentTimeMillis();
             StringBuilder exceptionString = new StringBuilder();
             try {
                 rtnObject = joinPoint.proceed();
@@ -120,7 +121,7 @@ public class BusinessLogAspect {
                 exceptionString = new StringBuilder(ExceptionUtils.getStackTrace(e));
             }
             try {
-                parseJoinPointAndSave2DB(joinPoint, isSuccess, exceptionString);
+                parseJoinPointAndSave2DB(joinPoint, isSuccess, exceptionString, beginTime);
             } catch (Exception e) {
                 log.error(e);
             }
@@ -134,9 +135,9 @@ public class BusinessLogAspect {
      * @param joinPoint
      *
      * @author 徐泽宇
-     * @since 1.0.0 2016年10月10日 下午3:53:22
      * @Title: logBeforeAction
      * @Description: 运行前进行拦截，并且记录日志
+     * @since 1.0.0 2016年10月10日 下午3:53:22
      */
     //@Before("beforeLog()") // 通过xml 文件来进行配置
     private void logBeforeAction(JoinPoint joinPoint) throws BussinessLoggerException {
@@ -145,7 +146,8 @@ public class BusinessLogAspect {
         }
 
         try {
-            parseJoinPointAndSave2DB(joinPoint, true, new StringBuilder(""));
+            long beginTime = System.currentTimeMillis();
+            parseJoinPointAndSave2DB(joinPoint, true, new StringBuilder(""), beginTime);
         } catch (BussinessLoggerException e) {
             throw e;
         }
@@ -161,15 +163,18 @@ public class BusinessLogAspect {
      * @param joinPoint
      * @param isSuccess
      * @param exceptionString
+     * @param begintTime      业务调用开始时间
      *
      * @throws BussinessLoggerException
      * @author 徐泽宇
-     * @since 1.0.0 2016年10月10日 下午12:47:59
      * @Title: parseJoinPointAndSave2DB
      * @Description: 把joinPoint对象解析成pojo的BusinessLog对象，并且保存到数据库
+     * @since 1.0.0 2016年10月10日 下午12:47:59
      */
-    private void parseJoinPointAndSave2DB(JoinPoint joinPoint, boolean isSuccess, StringBuilder exceptionString) throws BussinessLoggerException {
+    private void parseJoinPointAndSave2DB(JoinPoint joinPoint, boolean isSuccess, StringBuilder exceptionString, long begintTime) throws BussinessLoggerException {
         BusinessLogEntity businessLog = genBusinessLog(joinPoint, isSuccess, exceptionString);
+        // 记录业务调用耗时
+        businessLog.setTimeConsuming(System.currentTimeMillis() - begintTime);
         // 如果没有标注业务逻辑的方法，就不入库
         if (businessLog == null || businessLog.getMethodDescription().isEmpty()) {
             // 如果业务方法的注解是 null，或者注解的 value 是空，则不入日志数据表单
@@ -192,9 +197,9 @@ public class BusinessLogAspect {
      * @throws JsonProcessingException
      * @throws Exception
      * @author 徐泽宇
-     * @since 1.0.0 2016年10月10日 下午1:20:10
      * @Title: genBusinessLog
      * @Description: 生成BusinessLog 对象
+     * @since 1.0.0 2016年10月10日 下午1:20:10
      */
     @SuppressWarnings("unchecked")
     private BusinessLogEntity genBusinessLog(JoinPoint joinPoint, boolean isSuccess, StringBuilder exceptionString) throws BussinessLoggerException {
@@ -283,9 +288,9 @@ public class BusinessLogAspect {
      *
      * @throws Exception
      * @author 徐泽宇
-     * @since 1.0.0 2016年9月19日 下午5:54:18
      * @Title: addLog
      * @Description: 保存业务操作到业务日志数据库
+     * @since 1.0.0 2016年9月19日 下午5:54:18
      */
     private void addLog(BusinessLogEntity data) throws BussinessLoggerException {
         try {

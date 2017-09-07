@@ -1,10 +1,9 @@
 var businesslog_table;
 
 $().ready(function () {
-    if ($('#begin_time') == undefined || $('#begin_time') == undefined){
+    if ($('#begin_time') == undefined || $('#begin_time') == undefined) {
         Logger.error("没有定义开始时间和结束时间的 UI 组件");
-    }else
-    {
+    } else {
         var datetimepickerformat = "Y-m-d H:i"
         jQuery.datetimepicker.setLocale('zh');
         $('#begin_time').datetimepicker({
@@ -37,7 +36,7 @@ $().ready(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 var responseText = JSON.parse(jqXHR.responseText);
                 Logger.debug(responseText);
-                showMessage("error",responseText.data[0].errorMessage);
+                showMessage("error", responseText.data[0].errorMessage);
             },
             dataType: "json",
             processData: true,
@@ -64,16 +63,14 @@ $().ready(function () {
         }, {
             "data": "clientDeviceType" // 访问设备
         }, {
-            "data": "clazz" // 调用类
+            "data": "timeConsuming" // 耗时
         }, {
-            "data": "method" // 调用方法
-        }, {
-            "data": "success" // 调用方法
+            "data": "success" // 调用是否成功
         }],
         "order": [[0, "desc"]],
         "columnDefs": [{
             "orderable": false,
-            "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            "targets": [1, 2, 3, 4, 5, 6, 7, 8]
         }, {
             "render": function (data, type, row) {
                 var prompt = "";
@@ -84,13 +81,13 @@ $().ready(function () {
                 }
                 return prompt;
             },
-            "targets": 10
+            "targets": 9
         }],
         "createdRow": function (row, data, index) {
             if (data.success) {
-                $('td', row).eq(10).addClass('success_type');
+                $('td', row).eq(9).addClass('success_type');
             } else {
-                $('td', row).eq(10).addClass('fail_type');
+                $('td', row).eq(9).addClass('fail_type');
             }
         },
         "dom": 'lf<"toolbar">itip', //在显示条数的部分后面插入一个 div . 查看文档 https://datatables.net/reference/option/dom

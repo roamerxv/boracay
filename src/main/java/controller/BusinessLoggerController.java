@@ -76,8 +76,9 @@ public class BusinessLoggerController {
             itemHash.put("clientBrowser", item.getClientBrowser());
             itemHash.put("browserVersion", item.getBrowserVersion());
             itemHash.put("clientDeviceType", item.getClientDeviceType());
-            itemHash.put("clazz", item.getClazz());
-            itemHash.put("method", item.getMethod());
+//            itemHash.put("clazz", item.getClazz());
+//            itemHash.put("method", item.getMethod());
+            itemHash.put("timeConsuming", item.getTimeConsuming());
             itemHash.put("success", item.isSuccess());
             data.add(itemHash);
         }
@@ -88,6 +89,7 @@ public class BusinessLoggerController {
         StringBuilder rtnString;
         try {
             rtnString = new StringBuilder(JsonUtilsHelper.objectToJsonString(root));
+            log.debug("返回给浏览器的结果值是:{}：", rtnString.toString());
         } catch (JsonProcessingException e) {
             throw new BoracayException(e.getMessage());
         }
