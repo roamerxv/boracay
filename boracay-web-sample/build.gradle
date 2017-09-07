@@ -24,7 +24,7 @@ ext {
     apacheOroVersion = "2.0.8"
     javaxServletAPIVersion = "4.0.0"
     mysqlJavaConnectorVersion = "5.1.43"
-    druidVersion = "1.1.2"
+    druidVersion = "1.1.3"
     hibernateVersion = "5.2.10.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.20"
@@ -51,7 +51,7 @@ buildscript {
 
     dependencies {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-        classpath 'mysql:mysql-connector-java:6.0.6'
+        classpath 'mysql:mysql-connector-java:5.1.43'
     }
 }
 

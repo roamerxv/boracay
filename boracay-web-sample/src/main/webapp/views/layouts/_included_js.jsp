@@ -59,17 +59,20 @@
 <link href="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/>
 
 <!-- piexif.min.js is only needed if you wish to resize images before upload to restore exif data.This must be loaded before fileinput.min.js -->
-<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/piexif.min.js" type="text/javascript"></script>--%>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/piexif.min.js" type="text/javascript"></script>
 <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.This must be loaded before fileinput.min.js -->
-<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/sortable.min.js" type="text/javascript"></script>--%>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/sortable.min.js" type="text/javascript"></script>
 <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.This must be loaded before fileinput.min.js -->
-<%--<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input//plugins/purify.min.js" type="text/javascript"></script>--%>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/plugins/purify.min.js" type="text/javascript"></script>
 <!-- the main fileinput plugin file -->
 <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/fileinput.min.js"/>
 <script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-file-input/themes/explorer/theme.js"
         type="text/javascript"></script>
-
 <%-- 引入结束--%>
+
+<%--bootstrap progressbar  http://www.htmleaf.com/jQuery/Layout-Interface/201505121816.html--%>
+<script src="<%=request.getContextPath()%>/assets/js/lib/bootstrap-progressbar/bootstrap-progressbar.min.js" type="text/javascript"></script>
+<%--end--%>
 
 <%--<script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.xdr-transport.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/jQuery-File-Upload-9.18.0/js/jquery.ui.widget.js"></script>
