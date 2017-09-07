@@ -28,14 +28,12 @@ $().ready(function () {
             url: contextPath + "/system/businesslog/getDataWithPaged.json",
             type: 'post',
             data: function (data) {
-                Logger.debug(data);
                 data.beginTime = $("#begin_time").val();
                 data.endTime = $("#end_time").val();
                 return JSON.stringify(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 var responseText = JSON.parse(jqXHR.responseText);
-                Logger.debug(responseText);
                 showMessage("error", responseText.data[0].errorMessage);
             },
             dataType: "json",
