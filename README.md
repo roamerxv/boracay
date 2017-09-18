@@ -485,7 +485,7 @@
                 expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
         <aop:aspect ref="sessionCheckKeywordAspect">
             <aop:before method="sessionKeywordCheck"
-                        pointcut-ref="smsValidateCodePointcut"/>
+                        pointcut-ref="sessionKeywordCheckPointcut"/>
         </aop:aspect>
     </aop:config>
     <!-- ⑤配置项目中需要进行session check，确定是否登录的功能  end-->
@@ -509,3 +509,12 @@
     `httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "要设置的值");`
 
 4. 短发发送的方法类在 SmsController.java 里面
+
+### g.  在 Controller 或者 Service 的类方法中，使用工具类，把上传的文件保存在服务器端
+
+1.  调用方法：
+    
+    `ArrayList<FileUploadResult> fileUploadResultArrayList1 = new UploadFileUtil().saveFile(files1, true);`
+
+    第二个参数表示 是否把文件的摘要作为保存的文件的 id。
+    保存在服务器端目录结构： 是根据 config.xml中的 System.UploadFile.saveFilePath 部分所指定的路径+以ID为名字的目录+上传的文件名

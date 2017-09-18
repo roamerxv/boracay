@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.0.7'
+version '2.1.0'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -53,15 +53,15 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 
 ext {
-    springVersion = "4.3.10.RELEASE"
-    springJpaVersion = "1.11.6.RELEASE"
+    springVersion = "4.3.11.RELEASE"
+    springJpaVersion = "1.11.7.RELEASE"
     aspectjVersion = "1.8.10"
     log4jVersion = "2.9.0"
     apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.0"
+    jacksonVersion = "2.9.1"
     fastJsonVersion = "1.2.38"
     javaxServletAPIVersion = "4.0.0"
-    hibernateVersion = "5.2.10.Final"
+    hibernateVersion = "5.2.11.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.20"
     lombokVersion = "1.16.18"
@@ -137,7 +137,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.0.7"
+            name = "2.1.0"
             desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']

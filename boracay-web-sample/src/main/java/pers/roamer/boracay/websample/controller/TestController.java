@@ -9,6 +9,7 @@
 
 package pers.roamer.boracay.websample.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.service.spi.ServiceException;
@@ -20,7 +21,13 @@ import pers.roamer.boracay.aspect.businesslogger.BusinessMethod;
 import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.helper.HttpResponseHelper;
+import pers.roamer.boracay.helper.JsonUtilsHelper;
+import pers.roamer.boracay.util.web.FileUploadResult;
+import pers.roamer.boracay.util.web.UploadFileUtil;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 
@@ -148,7 +155,7 @@ public class TestController extends BaseController {
     @SessionCheckKeyword(checkIt = false)
     @ResponseBody
     public String setSessionKeyword() throws ControllerException {
-        httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "keyword");
+        httpSession.setAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"), "登录用户");
         return HttpResponseHelper.successInfoInbox("设置 session keyword 成功");
     }
 
@@ -157,7 +164,8 @@ public class TestController extends BaseController {
      * 测试提交表单的同时，也进行多文件上传
      *
      * @param formDataJsonBean
-     * @param files
+     * @param files1
+     * @param files2
      *
      * @return
      *
@@ -165,12 +173,35 @@ public class TestController extends BaseController {
      */
     @ResponseBody
     @PostMapping(value = "/submitWithFile", consumes = {"multipart/form-data;charset=utf-8"})
-    public String uploadTest(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean, @RequestPart("files") MultipartFile[] files) throws ControllerException {
+    public String uploadTest(@RequestPart("requestBean") FormDataJsonBean formDataJsonBean, @RequestPart("files-1") MultipartFile[] files1, @RequestPart("files-2") MultipartFile[] files2) throws ControllerException {
         log.debug("开始处理");
-        log.debug("ID是:" + formDataJsonBean.getId());
-        log.debug("需要上传的文件有"+files.length+"个");
-        for (MultipartFile file : files) {
-            log.debug(file.getOriginalFilename());
+        try {
+            log.debug("传入的表单内容是：{}", JsonUtilsHelper.objectToJsonString(formDataJsonBean));
+        } catch (JsonProcessingException e) {
+            new ControllerException(e.getMessage());
+        }
+        //log.debug(fileDigest[0].getDigest());
+        for (MultipartFile file : files1) {
+            log.debug(file.getClass().getName());
+        }
+        for (MultipartFile file : files2) {
+            log.debug(file.getClass().getName());
+        }
+        try {
+            ArrayList<FileUploadResult> fileUploadResultArrayList1 = new UploadFileUtil().saveFile(files1, true);
+            ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false);
+            if (log.isDebugEnabled()){
+                fileUploadResultArrayList1.forEach(item -> {
+                    log.debug("保存的文件信息是：{}", item.toString());
+                });
+                fileUploadResultArrayList2.forEach(item -> {
+                    log.debug("保存的文件信息是：{}", item.toString());
+                });
+            }
+
+        } catch (IOException | NoSuchAlgorithmException e) {
+            log.error(e.getMessage());
+            throw new ControllerException(e.getMessage());
         }
         return HttpResponseHelper.successInfoInbox("处理成功");
     }

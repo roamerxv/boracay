@@ -172,15 +172,15 @@
 
     <!-- ③配置项目访问白名单功能 begin-->
     <!--<bean id="whiteListCheckAspect"-->
-          <!--class="pers.roamer.boracay.aspect.whitelist.WhiteListCheckAspect"></bean>-->
+    <!--class="pers.roamer.boracay.aspect.whitelist.WhiteListCheckAspect"></bean>-->
     <!--<aop:config>-->
-        <!--<aop:pointcut-->
-                <!--id="whiteListCheckPointcut"-->
-                <!--expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>-->
-        <!--<aop:aspect ref="whiteListCheckAspect">-->
-            <!--<aop:before method="whiteListCheck"-->
-                        <!--pointcut-ref="whiteListCheckPointcut"/>-->
-        <!--</aop:aspect>-->
+    <!--<aop:pointcut-->
+    <!--id="whiteListCheckPointcut"-->
+    <!--expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>-->
+    <!--<aop:aspect ref="whiteListCheckAspect">-->
+    <!--<aop:before method="whiteListCheck"-->
+    <!--pointcut-ref="whiteListCheckPointcut"/>-->
+    <!--</aop:aspect>-->
     <!--</aop:config>-->
     <!-- ③配置项目访问白名单功能 end-->
 
@@ -208,10 +208,26 @@
                 expression="execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
         <aop:aspect ref="sessionCheckKeywordAspect">
             <aop:before method="sessionKeywordCheck"
-                        pointcut-ref="smsValidateCodePointcut"/>
+                        pointcut-ref="sessionKeywordCheckPointcut"/>
         </aop:aspect>
     </aop:config>
     <!-- ⑤配置项目中需要进行session check，确定是否登录的功能  end-->
+
+
+    <!-- 不使用aop 方式，使用工具类的方式。以便更灵活的调用-->
+    <!-- ⑥配置项目中需要启动自动保存上传文件的功能 -->
+    <!--<bean id="uploadFileAutoSaveAspect"-->
+    <!--class="pers.roamer.boracay.aspect.fileupload.FileAutoSaveAspect"></bean>-->
+    <!--<aop:config>-->
+    <!--<aop:pointcut-->
+    <!--id="autoSavePointcut"-->
+    <!--expression="execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>-->
+    <!--<aop:aspect ref="uploadFileAutoSaveAspect">-->
+    <!--<aop:around method="saveFileAction"-->
+    <!--pointcut-ref="smsValidateCodePointcut"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!-- ⑥配置项目中需要启动自动保存上传文件的功能 end -->
 
     <!-- 配置徐泽宇的 boracay 框架要到的 aop end-->
 

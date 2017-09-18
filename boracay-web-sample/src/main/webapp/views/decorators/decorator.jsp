@@ -7,126 +7,70 @@
   ~
   --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html class="no-js fixed-layout">
+<!DOCTYPE html>
+<html lang="zh">
+
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boracay Web Sample</title>
-    <meta name="description" content="Boracay Web Smaple">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed"
-          href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/css/amazeui.min.css"/>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/css/admin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <script src="<%=request.getContextPath()%>/assets/js/lib/jquery-3.2.1/jquery-3.2.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/amazeui.min.js"></script>
-    <script src="<%=request.getContextPath()%>/assets/AmazeUI-2.7.2/assets/js/app.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title></title>
+
+    <!-- Custom styles for this template -->
+    <link href="<%=request.getContextPath()%>/assets/css/decorator/decorator.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript -->
     <%@ include file="../layouts/_included_js.jsp" %>
+
 </head>
-
-
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-    以获得更好的体验！</p>
-<![endif]-->
-
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <strong>Boracay Web Smaple</strong>
-        <small>应用例子</small>
-    </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-            <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span
-                    class="am-badge am-badge-warning">5</span></a></li>
-            <li class="am-dropdown" data-am-dropdown>
-                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                    <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
-                </a>
-                <ul class="am-dropdown-content">
-                    <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
-                    <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-                    <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
-                </ul>
-            </li>
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span
-                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
-        </ul>
-    </div>
-</header>
-
-<div class="am-cf admin-main">
-    <!-- sidebar start -->
-    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
-        <div class="am-offcanvas-bar admin-offcanvas-bar">
-            <ul class="am-list admin-sidebar-list">
-                <li><a href="<%=request.getContextPath()%>/"><span class="am-icon-home"></span> 首页</a></li>
-                <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
-                        exception josn 化的功能<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                        <li><a href="<%=request.getContextPath()%>/test/500_error.json" target="_test"
-                               class="am-cf">exception josn 化</a></li>
-                        <li><a href="<%=request.getContextPath()%>/test/500_error" target="_test" class="am-cf">exception
-                            不 josn 化</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span>
-                        记录日志的业务方法<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-                        <li><a href="<%=request.getContextPath()%>/test/businessMethodLog.json" target="_test"
-                               class="am-cf">调用一个需要记录日志的方法</a></li>
-                        <li><a href="<%=request.getContextPath()%>/views/systemLoggerIndex.jsp"
-                               class="am-cf">日志结果查看<span
-                                class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span>
-                        自动 session 判断<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
-                        <li><a href=""<%=request.getContextPath()%>/test/noSessionCheck.json" target="_test"
-                            class="am-cf">访问一个不需要 session 判断的方法</a></li>
-
-                        <li><a href="<%=request.getContextPath()%>/test/sessionCheck.json" target="_test"
-                               class="am-cf">访问一个需要 session 判断的方法</a></li>
-
-                        <li><a href="<%=request.getContextPath()%>/test/setSessionKeyword.json" target="_test"
-                               class="am-cf">在 session 中设置一个keyword(login)</a></li>
-                        <li><a href="<%=request.getContextPath()%>/test/logout.json" target="_test"
-                               class="am-cf">清理 session 中所有的值（logout</a></li>
-                    </ul>
-                </li>
-                <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
-            </ul>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Boracay Web Samples</a>
         </div>
-    </div>
-    <!-- sidebar end -->
 
-    <!-- content start -->
-    <div class="admin-content" style="padding: 5px">
-        <sitemesh:write property='body'/>
-    </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
 
+            </ul>
 
-    <!-- content end -->
-
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="admin-content" style="padding: 5px">
+    <sitemesh:write property='body'/>
 </div>
-
 </body>
+
+<!-- Custom scripts for this template -->
+<script src="<%=request.getContextPath()%>/assets/js/decorator/decorator.js"></script>
+
+
 </html>

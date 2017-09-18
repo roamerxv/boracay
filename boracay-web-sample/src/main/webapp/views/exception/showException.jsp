@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<form class="am-form">
+<form class="">
     <fieldset>
         <div class="am-form-group">
             <label for="user_name">用户名</label>
@@ -11,7 +11,7 @@
             <input type="password" class="" id="user_passwd" placeholder="设置个密码吧">
         </div>
         <div>
-            <input type="button" class="am-btn am-btn-success" value="确定" onclick="fun_submit()"/>
+            <input type="button" class="btn btn-success" value="确定" onclick="fun_submit()"/>
         </div>
     </fieldset>
 </form>

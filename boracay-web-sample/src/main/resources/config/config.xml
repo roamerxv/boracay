@@ -38,7 +38,11 @@
         <!-- 用于 boracay 组件必须使用到的配置 end -->
 
         <!-- 设置上传文件的路径 -->
-        <UploadFilePath>/local</UploadFilePath>
+        <UploadFile>
+            <saveFilePath>
+                /Users/roamer/Desktop/upload
+            </saveFilePath>
+        </UploadFile>
         <!-- -->
 
         <!--短信接口-->
