@@ -7,7 +7,7 @@
 
     <div style="margin-top: 10px">
         <input id="id" value="测试表单内容1">
-        <input id="name" value="测试表单内容2">
+        <input id="name" value="测试表单内容21">
         <div style="width:600px">
             <input type="file" id="files-1" multiple>
         </div>
@@ -19,21 +19,22 @@
         </div>
     </div>
 
-     <!--模态框-->
+
+    <!--模态框-->
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
-                            <!--aria-hidden="true">&times;</span>-->
+                    <!--aria-hidden="true">&times;</span>-->
                     <!--</button>-->
                     <h4 class="modal-title">进度查看</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="progress" style="margin-top: 20px;">
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                 data-transitiongoal="0"></div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 0%;">
+                            <span class="sr-only"></span>
                         </div>
                     </div>
                 </div>
@@ -85,8 +86,6 @@
                     formData.append(requestPartName, files[index]);
                 }
             })
-            // 使用 bootstrap progress bar
-            var pb = $('.progress .progress-bar').progressbar({display_text: 'fill'});
 
             $.ajax({
                 url: contextPath + '/test/submitWithFile.json',
@@ -96,6 +95,7 @@
                 contentType: false,
                 data: formData,
                 beforeSend: function () {
+                    $("#promptMessage").html("");
                     myModal = $('#myModal').modal({
                         backdrop: 'static',
                         keyboard: false
@@ -109,13 +109,11 @@
                             if (e.lengthComputable) {
                                 var percent = Math.floor(e.loaded / e.total * 100);
                                 if (percent <= 100) {
-                                    pb.attr('data-transitiongoal', percent);
-                                    pb.progressbar();
+                                    $(".progress-bar").css("width", percent + "%").text(percent + " %");
                                 }
                                 if (percent >= 100) {
                                     $("#promptMessage").html("上传已经成功，等待服务器处理！");
-//                                pb.attr('data-transitiongoal', 0);
-//                                pb.progressbar();
+
                                 }
                             }
                         }, false);
@@ -135,8 +133,7 @@
 
             function clear_message() {
                 myModal.modal('hide');
-                pb.attr('data-transitiongoal', 0);
-                pb.progressbar();
+                $(".progress-bar").css("width", "0%").text("");
                 $("#promptMessage").html("");
             }
         }
