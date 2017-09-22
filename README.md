@@ -1,8 +1,12 @@
 # boracay
 
+WebSample For SpringFrame 的项目停止更新。转向以 Spring Boot + thymeleaf  的演示项目
+
 提供 web 应用的一些实用功能框架
 
 [ ![Download](https://api.bintray.com/packages/roamerxv/maven/boracay/images/download.svg) ](https://bintray.com/roamerxv/maven/boracay/_latestVersion)
+
+
 
 ## 一. 提供的功能
 
@@ -14,7 +18,7 @@
  
     
 
-## 二. 使用方法
+## 二. 在 spring framework 中的使用方法
 
 ### a. 全局配置 
 
@@ -148,7 +152,7 @@
             <aop:config>
                 <aop:pointcut
                         id="catchControllerExceptionPointcut"
-                        expression="expression="execution(* pers.roamer.boracay.controller..*.*(..)) || ①execution(* com.ninelephas.raccoon.controller..*.*(..))"/>"/>
+                        expression="execution(* pers.roamer.boracay.controller..*.*(..)) || ①execution(* com.ninelephas.raccoon.controller..*.*(..))"/>
                 <aop:aspect ref="catchControllerExceptionAspect">
                     <aop:after-throwing throwing="ex" method="writeToHttpResponse"
                                         pointcut-ref="catchControllerExceptionPointcut"/>
@@ -518,3 +522,191 @@
 
     第二个参数表示 是否把文件的摘要作为保存的文件的 id。
     保存在服务器端目录结构： 是根据 config.xml中的 System.UploadFile.saveFilePath 部分所指定的路径+以ID为名字的目录+上传的文件名
+
+
+## 三. 在 spring boot 中的使用方法。
+
+### a.在 spring boot 项目中启动 ApplicationListener
+#### 1.在 spring boot 的配置文件application.yaml 中加入
+```
+context:
+    listener:
+        classes: pers.roamer.boracay.application.StartedListener
+```
+#### 2.配置 config.xml
+把 config/config.xml 文件保存在 spring boot项目下的/src/main/resources目录下。
+确定 spring boot 项目启动后的控制台，有相应的info 信息产生。
+
+```
+......
+17-09-21 10:48:43 INFO  pers.roamer.boracay.application.StartedListener 65 行 onApplicationEvent - org.springframework.orm.jpa.SharedEntityManagerCreator#0
+2017-09-21 10:48:43 INFO  pers.roamer.boracay.application.StartedListener 67 行 onApplicationEvent - 所有被装备的Bean列表显示完成
+2017-09-21 10:48:43 INFO  pers.roamer.boracay.application.StartedListener 68 行 onApplicationEvent - 项目:[Raccoon Web Sample],启动完成
+......
+```
+
+### 3.增加对Boracay 组件的扫描
+在 spring boot 的Application 的 class 中，增加 
+@ComponentScan("pers.roamer.boracay")
+@EnableJpaRepositories("pers.roamer.boracay")
+@EntityScan("pers.roamer.boracay.entity")
+
+```
+package pers.roamer.boracay.websample;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+@RestController
+@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan
+@ImportResource(locations={"classpath:boracay-config.xml"})
+@ComponentScan("pers.roamer.boracay")
+@EnableJpaRepositories("pers.roamer.boracay")
+@EntityScan("pers.roamer.boracay.entity")
+public class BoracayWebSampleApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(BoracayWebSampleApplication.class, args);
+    }
+
+    @RequestMapping("/")
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView("/index");
+        return modelAndView;
+    }
+}
+```
+
+### 4.读取组件的配置信息
+由于 Boracay 组件需要对各个项目的类包和类进行扫描和方法切入。这个配置是通过上面 spring framework 中的 applicationContext.xml 配置的。
+同样，这些配置也必须给 spring boot 使用,
+因此,在 resources 目录下建立一个 boracay-config.xml 文件。并且在 spring boot 的 主程序里面加入读取这个文件的配置
+`@ImportResource(locations={"classpath:boracay-config.xml"})`
+
+ boracay-config.xml 内容如下：, 配置的详细功能和前面的一样。
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Boracay - Web 项目实用组件框架
+  ~
+  ~ @author 徐泽宇 roamerxv@gmail.com
+  ~ @version 1.0.0
+  ~ Copyright (c) 2017. 徐泽宇
+  ~
+  -->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+          http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop-4.3.xsd"
+       >
+
+
+    <!-- 配置徐泽宇的 boracay 框架要到的 aop begin-->
+    <!-- ①配置业务方法日志记录的功能 begin-->
+    <bean id="businessLogAspect" class="pers.roamer.boracay.aspect.businesslogger.BusinessLogAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="logControllerPointcut"
+                expression="execution(* pers.roamer.boracay.websample.controller..*.*(..)) &amp;&amp; !execution(* pers.roamer.boracay.websample.controller.TestController.logout(..))"/>
+        <aop:pointcut
+                id="beforeLogControllerPointcut"
+                expression="execution(* pers.roamer.boracay.websample.controller.TestController.logout(..))"/>
+        <aop:aspect ref="businessLogAspect">
+            <aop:around method="logAroundAction" pointcut-ref="logControllerPointcut"/>
+            <aop:before method="logBeforeAction" pointcut-ref="beforeLogControllerPointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ①配置业务方法日志记录的功能  end -->
+
+    <!-- ②配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ begin-->
+    <bean id="catchControllerExceptionAspect"
+          class="pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="catchControllerExceptionPointcut"
+                expression="execution(* pers.roamer.boracay.controller..*.*(..)) || execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
+        <aop:aspect ref="catchControllerExceptionAspect">
+            <aop:after-throwing throwing="ex" method="writeToHttpResponse"
+                                pointcut-ref="catchControllerExceptionPointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ②配置controller 方法中抛出的错误进行 json封装，并且和 config.xml 中进行对应！ end-->
+
+    <!-- ③配置项目访问白名单功能 begin-->
+    <!--<bean id="whiteListCheckAspect"-->
+    <!--class="pers.roamer.boracay.aspect.whitelist.WhiteListCheckAspect"></bean>-->
+    <!--<aop:config>-->
+    <!--<aop:pointcut-->
+    <!--id="whiteListCheckPointcut"-->
+    <!--expression="execution(* com.ninelephas.raccoon.controller..*.*(..))"/>-->
+    <!--<aop:aspect ref="whiteListCheckAspect">-->
+    <!--<aop:before method="whiteListCheck"-->
+    <!--pointcut-ref="whiteListCheckPointcut"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!-- ③配置项目访问白名单功能 end-->
+
+
+    <!-- ④配置项目中需要进行短信验证码验证的功能 begin-->
+    <bean id="smsValidateCodeAspect"
+          class="pers.roamer.boracay.aspect.sms.SMSValidateCodeAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="smsValidateCodePointcut"
+                expression="execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
+        <aop:aspect ref="smsValidateCodeAspect">
+            <aop:before method="smsValidateCodeCheck"
+                        pointcut-ref="smsValidateCodePointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ④配置项目中需要进行短信验证码验证的功能 end-->
+
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能 begin-->
+    <bean id="sessionCheckKeywordAspect"
+          class="pers.roamer.boracay.aspect.httprequest.SessionCheckKeywordAspect"></bean>
+    <aop:config>
+        <aop:pointcut
+                id="sessionKeywordCheckPointcut"
+                expression="execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>
+        <aop:aspect ref="sessionCheckKeywordAspect">
+            <aop:before method="sessionKeywordCheck"
+                        pointcut-ref="sessionKeywordCheckPointcut"/>
+        </aop:aspect>
+    </aop:config>
+    <!-- ⑤配置项目中需要进行session check，确定是否登录的功能  end-->
+
+
+    <!-- 不使用aop 方式，使用工具类的方式。以便更灵活的调用-->
+    <!-- ⑥配置项目中需要启动自动保存上传文件的功能 -->
+    <!--<bean id="uploadFileAutoSaveAspect"-->
+    <!--class="pers.roamer.boracay.aspect.fileupload.FileAutoSaveAspect"></bean>-->
+    <!--<aop:config>-->
+    <!--<aop:pointcut-->
+    <!--id="autoSavePointcut"-->
+    <!--expression="execution(* pers.roamer.boracay.websample.controller..*.*(..))"/>-->
+    <!--<aop:aspect ref="uploadFileAutoSaveAspect">-->
+    <!--<aop:around method="saveFileAction"-->
+    <!--pointcut-ref="smsValidateCodePointcut"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!-- ⑥配置项目中需要启动自动保存上传文件的功能 end -->
+
+    <!-- 配置徐泽宇的 boracay 框架要到的 aop end-->
+
+</beans>
+
+```
+
+

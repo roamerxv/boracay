@@ -1,10 +1,31 @@
 .gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
 .idea
-build
-gradle
-boracay-web-sample/guild
-boracay-web-sample/out
-out
-boracay-web-sample/src/test/
-src/main/resources/
-src/test/
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+boracay/gradle
+boracay/out
+BoracayWebSample(SpringBoot)/gradle
+BoracayWebSample(SpringBoot)/out
+boracayWebSample(SrpingFrame)/gradle
+boracayWebSample(SrpingFrame)/out
