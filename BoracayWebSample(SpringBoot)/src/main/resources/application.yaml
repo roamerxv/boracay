@@ -25,7 +25,10 @@ spring:
 
     devtools:
         restart:
-            exclude:    static/**,public/**
+            exclude: static/**,public/**
+
+server:
+    contextPath: /
 
 hibernate:
     show_sql: true

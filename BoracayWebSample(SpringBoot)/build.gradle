@@ -15,16 +15,21 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
 
 /* 这里定义一个检查 dependency 版本的插件 begin*/
 apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group = 'pers.roamer'
-version = '0.0.1-SNAPSHOT'
+version = '2.1.0'
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 
 repositories {
 	jcenter()
@@ -88,6 +93,10 @@ dependencies {
 
 	runtime('mysql:mysql-connector-java')
 	compileOnly('org.projectlombok:lombok')
+
+	//发布成 War ,如果要内嵌 webserver 需要屏蔽
+//	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 }
