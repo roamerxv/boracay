@@ -5,11 +5,11 @@ buildscript {
     }
     dependencies {
         // 这是 上传 jar 文件到 jcenter 实用的 插件
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
         // -----
 
         // 这是版本检测用的插件
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
         // -----
     }
 }
@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.1.0'
+version '2.1.1'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -53,15 +53,15 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 
 ext {
-    springVersion = "4.3.11.RELEASE"
-    springJpaVersion = "1.11.7.RELEASE"
-    aspectjVersion = "1.8.10"
+    springVersion = "5.0.1.RELEASE"
+    springJpaVersion = "2.0.1.RELEASE"
+    aspectjVersion = "1.8.12"
     log4jVersion = "2.9.1"
     apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.1"
-    fastJsonVersion = "1.2.38"
+    jacksonVersion = "2.9.2"
+    fastJsonVersion = "1.2.40"
     javaxServletAPIVersion = "4.0.0"
-    hibernateVersion = "5.2.11.Final"
+    hibernateVersion = "5.2.12.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.20"
     lombokVersion = "1.16.18"
@@ -104,7 +104,7 @@ dependencies {
             //  ------------------------------
 
             // org.apache.commons
-            "org.apache.commons:commons-configuration2:2.1.1",
+            "org.apache.commons:commons-configuration2:2.2",
             //  ------------------------------
 
             //  解析user-agent
@@ -137,7 +137,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.1.0"
+            name = "2.1.1"
             desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']

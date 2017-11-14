@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pers.roamer.boracay.BoracayException;
+import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
 import pers.roamer.boracay.entity.BusinessLogEntity;
 import pers.roamer.boracay.helper.JsonUtilsHelper;
 import pers.roamer.boracay.service.log.BusinessLogService;
@@ -38,6 +39,7 @@ import java.util.List;
 @Log4j2
 @Controller("pers.roamer.boracay.controller.BusinessLoggerController")
 @RequestMapping(value = "/system/businesslog/")
+@SessionCheckKeyword()
 public class BusinessLoggerController {
 
     @Autowired
