@@ -3,7 +3,6 @@ package pers.roamer.boracay.util.web;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.multipart.MultipartFile;
-import pers.roamer.boracay.configer.ConfigHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,13 +26,14 @@ public class FileUploadResult {
     /**
      * 把上传上来的 MultiPartFile 保存到指定位置
      *
+     * @param savePath 保存的路径。
+     *
      * @throws IOException
      */
-    public void saveFile() throws IOException {
+    public void saveFile(String savePath) throws IOException {
         log.debug("开始处理保存文件的过程");
-        String saveFilePath = new StringBuilder(ConfigHelper.getConfig().getString("System.UploadFile.saveFilePath"))
-                .append(File.separator)
-                .append(this.id).toString();
+        String saveFilePath;
+        saveFilePath = new StringBuilder(savePath).append(File.separator).append(this.id).toString();
         File fp = new File(saveFilePath);
         if (!fp.exists()) {
             fp.mkdirs();// 目录不存在的情况下，创建目录。

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.aspect.businesslogger.BusinessMethod;
 import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
 import pers.roamer.boracay.configer.ConfigHelper;
@@ -189,7 +190,7 @@ public class TestController extends BaseController {
         }
         try {
             ArrayList<FileUploadResult> fileUploadResultArrayList1 = new UploadFileUtil().saveFile(files1, true);
-            ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false);
+            ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false, "/upload");
             if (log.isDebugEnabled()){
                 fileUploadResultArrayList1.forEach(item -> {
                     log.debug("保存的文件信息是：{}", item.toString());
@@ -199,7 +200,7 @@ public class TestController extends BaseController {
                 });
             }
 
-        } catch (IOException | NoSuchAlgorithmException e) {
+        } catch (IOException | NoSuchAlgorithmException | BoracayException e) {
             log.error(e.getMessage());
             throw new ControllerException(e.getMessage());
         }

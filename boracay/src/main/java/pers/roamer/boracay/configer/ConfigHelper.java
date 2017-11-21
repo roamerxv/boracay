@@ -12,9 +12,11 @@ package pers.roamer.boracay.configer;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.YAMLConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.springframework.core.io.ClassPathResource;
 
 
 /**
@@ -26,7 +28,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 @Log4j2
 public class ConfigHelper {
 
-    private static FileBasedConfigurationBuilder<XMLConfiguration> builder;
+    private static FileBasedConfigurationBuilder<?> builder;
     private static Configuration config;
 
 
@@ -37,13 +39,26 @@ public class ConfigHelper {
     static {
         log.debug("ConfigHelper() - start"); //$NON-NLS-1$
         Parameters params = new Parameters();
-        builder = new FileBasedConfigurationBuilder<XMLConfiguration>(XMLConfiguration.class)
-                .configure(params.xml()
-                        .setFileName("config/config.xml"));
+        // 判断 配置文件是否存在？
+        // 1. config/config.yaml
+        // 2. config/config.xml
+        if ( new ClassPathResource("config/config.yaml").exists()) {
+            log.info("在 classpath 中发现config/config.yaml文件！以此为配置文件");
+            builder = new FileBasedConfigurationBuilder<YAMLConfiguration>(YAMLConfiguration.class)
+                    .configure(params.xml()
+                            .setFileName("config/config.yaml"));
+        } else if (new ClassPathResource("config/config.xml").exists()) {
+            log.info("在 classpath 中发现config/config.xml文件！以此为配置文件");
+            builder = new FileBasedConfigurationBuilder<XMLConfiguration>(XMLConfiguration.class)
+                    .configure(params.xml()
+                            .setFileName("config/config.xml"));
+        } else {
+            log.error("请配置 config/config.yaml 或者 config.xml 文件");
+        }
         try {
             config = builder.getConfiguration();
         } catch (ConfigurationException cex) {
-            log.error(cex, cex.fillInStackTrace()); //$NON-NLS-1$
+            log.error(cex, cex.fillInStackTrace());
         }
 
         log.debug("ConfigHelper() - end"); //$NON-NLS-1$
@@ -61,7 +76,7 @@ public class ConfigHelper {
      * @param key
      * @param value
      *
-     * @exception ConfigurationException
+     * @throws ConfigurationException
      */
     public static void setProperty(String key, Object value) throws ConfigurationException {
         config.setProperty(key, value);
@@ -72,9 +87,9 @@ public class ConfigHelper {
     /**
      * 移除一个配置项
      *
-     * @param key   需要移除内容的 key 值
+     * @param key 需要移除内容的 key 值
      *
-     * @exception ConfigurationException
+     * @throws ConfigurationException
      */
     public static void removeProperty(String key) throws ConfigurationException {
         config.clearProperty(key);

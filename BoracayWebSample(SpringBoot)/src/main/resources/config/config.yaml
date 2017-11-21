@@ -1,0 +1,41 @@
+ System:
+      AppName: "Raccoon Web Sample"
+      SystemAdminName: "systemadmin"
+      Whitelist: "127.0.0.1,192.168.0-255.0-255,172.16-31.0-255.0-255,10.0-255.0-255.0-255"
+      RecordBusinessLog: true
+      SessionUserKeyword: "user_mobile"
+      UploadFile:
+            saveFilePath: "/Users/roamer/Desktop/upload"
+      Sms:
+           Url: "http://222.73.117.158/msg/HttpBatchSendSM"
+           Username: xxxx
+           Password: xxxx
+           BusinessMethod:
+                Regist:
+                     Duration: 1800000
+                     Length: 6
+                     Text: "尊敬的用户，您注册的手机验证码为：${code}，请填入以完成注册。该验证码有效时间为${duration}分钟，限本次使用。"
+                ForgetPassword:
+                     Duration: 1800000
+                     Length: 6
+                     Text: "尊敬的用户，您正在使用忘记密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。"
+                ModifyPhoneNumber:
+                     Duration: 1800000
+                     Length: 6
+                     Text: "尊敬的用户，您正在使用修改手机号码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。"
+                ModifyPassword:
+                     Duration: 1800000
+                     Length: 6
+                     Text: "尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。"
+ exception:
+    test:
+        exception: "测试用的错误！由Controller 层抛出。| user_name , user_passwd"
+        system:
+            need_login: "必须登录系统"
+        datetime_condition:
+            begin_datetime:
+                invalidate_format: "起始时间是无效的"
+            end_datetime:
+                invalidate_format: "结束时间是无效的"
+ Test:
+    Item: "阿萨德飞洒地方111阿斯蒂芬1111"

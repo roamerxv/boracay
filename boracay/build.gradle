@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.1.1'
+version '2.1.2'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -55,11 +55,11 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 ext {
     springVersion = "5.0.1.RELEASE"
     springJpaVersion = "2.0.1.RELEASE"
-    aspectjVersion = "1.8.12"
+    aspectjVersion = "1.8.13"
     log4jVersion = "2.9.1"
     apacheOroVersion = "2.0.8"
     jacksonVersion = "2.9.2"
-    fastJsonVersion = "1.2.40"
+    fastJsonVersion = "1.2.41"
     javaxServletAPIVersion = "4.0.0"
     hibernateVersion = "5.2.12.Final"
     siteMeshVersion = "3.0.1"
@@ -93,6 +93,7 @@ dependencies {
             //  ------------------------------
 
             //  log4j
+		    "org.apache.logging.log4j:log4j-core:$log4jVersion",
             "org.apache.logging.log4j:log4j-api:$log4jVersion",
             //  ------------------------------
 
@@ -122,7 +123,9 @@ dependencies {
 
     )
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile (
+        "junit:junit:4.12",
+    )
 }
 
 // 这个是配置 bintrayUpload
@@ -137,7 +140,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.1.1"
+            name = "2.1.2"
             desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
