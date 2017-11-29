@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -46,7 +46,7 @@ import java.util.UUID;
  */
 @Aspect
 @Order(1)
-@Log4j2
+@Slf4j
 @Component("pers.roamer.boracay.aspect.businesslogger.BusinessLogAspect")
 public class BusinessLogAspect {
 
@@ -108,7 +108,7 @@ public class BusinessLogAspect {
                 log.debug("系统配置不需要记录业务活动日志");
                 rtnObject = joinPoint.proceed();
             } catch (Throwable e) {
-                log.error(e);
+                log.error(e.getMessage(), e);
             }
         } else {
             boolean isSuccess = true;
@@ -123,7 +123,7 @@ public class BusinessLogAspect {
             try {
                 parseJoinPointAndSave2DB(joinPoint, isSuccess, exceptionString, beginTime);
             } catch (Exception e) {
-                log.error(e);
+                log.error(e.getMessage(), e);
             }
         }
         return rtnObject;
@@ -276,7 +276,7 @@ public class BusinessLogAspect {
             // 操作时间
             businessLog.setCreatedAt(new Timestamp(new Date().getTime()));
         } catch (Exception e) {
-            log.error(e.fillInStackTrace());
+            log.error(e.getMessage(), e);
         }
         return businessLog;
     }

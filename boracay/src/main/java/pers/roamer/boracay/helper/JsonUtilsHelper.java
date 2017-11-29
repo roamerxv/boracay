@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 使用Json工具包进行json和对象的相互转换的helper类
@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j2;
  * @author 徐泽宇
  * @version 1.0.0 2017/6/29 下午5:16
  */
-@Log4j2
+@Slf4j
 public class JsonUtilsHelper {
 
 

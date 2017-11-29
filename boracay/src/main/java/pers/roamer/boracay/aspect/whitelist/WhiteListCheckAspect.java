@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.aspect.whitelist;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 徐泽宇
  * @version 1.0.0 2016年12月21日 下午12:13:26
  */
-@Log4j2
+@Slf4j
 @Aspect
 @Order(3)
 @Component("pers.roamer.boracay.aspect.controller.WhiteListCheckAspect")
@@ -67,7 +67,7 @@ public class WhiteListCheckAspect {
             String errorMessage = new StringBuilder(requestIP).append("不在访问白名单中，访问被拒绝").toString();
             throw new BoracayException(errorMessage);
         } else {
-            log.debug(new StringBuilder("白名单判断 :").append(requestIP).append("在白名单中。"));
+            log.debug(new StringBuilder("白名单判断 :").append(requestIP).append("在白名单中。").toString());
         }
 
     }

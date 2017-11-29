@@ -9,8 +9,7 @@
 
 package pers.roamer.boracay.application;
 
-
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -27,7 +26,7 @@ import java.util.Properties;
  * @author Comsys-"徐泽宇"
  * @version 1.0.0 2016年7月6日 下午12:39:33
  */
-@Log4j2
+@Slf4j
 @Service("pers.roamer.boracay.application.StartedListener")
 public class StartedListener implements ApplicationListener<ContextRefreshedEvent> {
 

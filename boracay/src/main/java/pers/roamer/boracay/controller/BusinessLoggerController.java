@@ -10,7 +10,7 @@
 package pers.roamer.boracay.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -36,7 +36,7 @@ import java.util.List;
  * @author 徐泽宇
  * @version 1.0.0 2016年9月19日 下午11:35:43
  */
-@Log4j2
+@Slf4j
 @Controller("pers.roamer.boracay.controller.BusinessLoggerController")
 @RequestMapping(value = "/system/businesslog/")
 @SessionCheckKeyword()

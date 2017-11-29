@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.configer;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.YAMLConfiguration;
@@ -25,7 +25,7 @@ import org.springframework.core.io.ClassPathResource;
  * @author 徐泽宇
  * @version 1.0.0 2017/6/29 下午5:22
  */
-@Log4j2
+@Slf4j
 public class ConfigHelper {
 
     private static FileBasedConfigurationBuilder<?> builder;
@@ -57,8 +57,8 @@ public class ConfigHelper {
         }
         try {
             config = builder.getConfiguration();
-        } catch (ConfigurationException cex) {
-            log.error(cex, cex.fillInStackTrace());
+        } catch (ConfigurationException e) {
+            log.error(e.getMessage(), e);
         }
 
         log.debug("ConfigHelper() - end"); //$NON-NLS-1$

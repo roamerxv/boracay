@@ -2,7 +2,7 @@ package pers.roamer.boracay.controller;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import pers.roamer.boracay.datatables.DataTablesRequest;
 
 import java.text.MessageFormat;
@@ -12,7 +12,7 @@ import java.text.MessageFormat;
  * @create 2017-06-2017/6/22  下午12:27
  */
 @Data
-@Log4j2
+@Slf4j
 @EqualsAndHashCode(callSuper = false)
 public class DataTableRequestParamBean extends DataTablesRequest {
     private String beginTime;
@@ -26,7 +26,7 @@ public class DataTableRequestParamBean extends DataTablesRequest {
         try {
             m_rtn = MessageFormat.format(message, array);
         } catch (Exception e) {
-            log.warn(e.fillInStackTrace());
+            log.warn(e.getMessage(), e);
         }
         return super.logString()+m_rtn;
     }

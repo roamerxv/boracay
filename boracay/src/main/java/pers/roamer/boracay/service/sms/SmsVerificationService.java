@@ -10,7 +10,7 @@
 package pers.roamer.boracay.service.sms;
 
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +37,7 @@ import java.util.Map;
  * @version 1.0.2
  * @since 1.0.2 2017/7/5 下午4:07
  */
-@Log4j2
+@Slf4j
 @Data
 @Service("pers.roamer.boracay.service.sms.SmsService")
 public class SmsVerificationService {

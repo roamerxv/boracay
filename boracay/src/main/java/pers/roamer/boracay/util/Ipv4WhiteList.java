@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.util;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
@@ -27,7 +27,7 @@ import java.util.Set;
  * @author 徐泽宇
  * @since 1.0.0  2016年10月21日 下午3:56:44
  */
-@Log4j2
+@Slf4j
 public class Ipv4WhiteList {
 
     // 整体语法正确性校验正则

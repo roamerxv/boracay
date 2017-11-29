@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import pers.roamer.boracay.helper.JsonUtilsHelper;
 
 import java.text.MessageFormat;
@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0.0 2017-06-2017/6/21  下午5:44
  */
 @Data
-@Log4j2
+@Slf4j
 @EqualsAndHashCode(callSuper=false)
 public class DataTablesRequest {
     /**
@@ -82,7 +82,7 @@ public class DataTablesRequest {
         try {
             m_rtn = MessageFormat.format(message, array);
         } catch (Exception e) {
-            log.warn(e.fillInStackTrace());
+            log.warn(e.getMessage());
         }
         return m_rtn;
     }

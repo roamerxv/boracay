@@ -13,7 +13,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import java.util.HashMap;
  * @author 徐泽宇
  * @version 1.0.0 2016年12月8日 下午2:27:55
  */
-@Log4j2
+@Slf4j
 public class HttpResponseHelper {
     private HttpResponseHelper() {
         // don't init for static

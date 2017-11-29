@@ -10,7 +10,7 @@
 package pers.roamer.boracay.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -41,7 +41,7 @@ import java.util.concurrent.CountDownLatch;
  * @author 徐泽宇
  * @since 1.0.2 2017/7/4 下午7:12
  */
-@Log4j2
+@Slf4j
 public class HttpClientUtil {
     private static final String URL_ENCODING = "UTF-8";
 
@@ -72,7 +72,6 @@ public class HttpClientUtil {
      * @param param 发送get请求参数
      *
      * @return String 请求结果
-     *
      */
     public static String doGetWithParam(String url, Map<String, String> param) throws UtilException {
         String res = "";
@@ -92,13 +91,13 @@ public class HttpClientUtil {
             res = EntityUtils.toString(response.getEntity(), URL_ENCODING);
             response.close();
         } catch (Exception e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         } finally {
             try {
                 httpclient.close();
             } catch (IOException e) {
-                log.error(e, e.fillInStackTrace());
+                log.error(e.getMessage(), e);
             }
         }
         return res;
@@ -202,13 +201,13 @@ public class HttpClientUtil {
             res = EntityUtils.toString(response.getEntity(), "utf-8");
             response.close();
         } catch (Exception e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         } finally {
             try {
                 httpclient.close();
             } catch (IOException e) {
-                log.error(e, e.fillInStackTrace());
+                log.error(e.getMessage(), e);
             }
         }
         return res;
@@ -232,13 +231,13 @@ public class HttpClientUtil {
             res = EntityUtils.toString(response.getEntity(), "utf-8");
             response.close();
         } catch (Exception e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         } finally {
             try {
                 httpclient.close();
             } catch (IOException e) {
-                log.error(e, e.fillInStackTrace());
+                log.error(e.getMessage(), e);
             }
         }
 
@@ -267,7 +266,7 @@ public class HttpClientUtil {
             try {
                 post.setEntity(new UrlEncodedFormEntity(kvList, URL_ENCODING));
             } catch (Exception e) {
-                log.error(e, e.fillInStackTrace());
+                log.error(e.getMessage(), e);
                 throw new UtilException(e.getMessage());
             }
         }
@@ -279,7 +278,7 @@ public class HttpClientUtil {
                     log.debug(content);
 
                 } catch (IOException e) {
-                    log.error(e, e.fillInStackTrace());
+                    log.error(e.getMessage(), e);
                 }
             }
 
@@ -294,13 +293,13 @@ public class HttpClientUtil {
         try {
             latch.await();
         } catch (InterruptedException e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         }
         try {
             httpclient.close();
         } catch (IOException e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         }
     }
@@ -389,7 +388,7 @@ public class HttpClientUtil {
         try {
             obj = objectMapper.readValue(str, type);
         } catch (IOException e) {
-            log.error(e, e.fillInStackTrace());
+            log.error(e.getMessage(), e);
             throw new UtilException(e.getMessage());
         }
         return obj;

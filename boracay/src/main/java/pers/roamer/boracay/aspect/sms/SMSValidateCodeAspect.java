@@ -10,7 +10,7 @@
 package pers.roamer.boracay.aspect.sms;
 
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -33,7 +33,7 @@ import java.util.Collections;
  */
 @Aspect
 @Order(4)
-@Log4j2
+@Slf4j
 @Component("pers.roamer.boracay.aspect.sms.SMSValidateCodeAspect")
 public class SMSValidateCodeAspect {
 

@@ -1,6 +1,6 @@
 package pers.roamer.boracay.configer;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
  * @create 2017-11-2017/11/21  下午3:42
  */
 
-@Log4j2
+@Slf4j
 public class ConfigerTest {
 
     @Test
@@ -19,7 +19,7 @@ public class ConfigerTest {
         }else if (new ClassPathResource("config/config.xml").exists()){
             log.info("在 classpath 中发现config/config.xml文件！以此为配置文件");
         }
-        log.debug(ConfigHelper.getConfig().getString("Configer.System.AppName"));
+
     }
 
 }

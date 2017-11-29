@@ -1,7 +1,7 @@
 package pers.roamer.boracay.controller;
 
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +15,15 @@ import pers.roamer.boracay.service.sms.SmsVerificationService;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by zouwei on 2017/7/3.
  */
 
-@Log4j2
+@Slf4j
 @Data
 @RestController("pers.roamer.boracay.controller.SmsController")
 public class SmsController {

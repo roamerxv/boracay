@@ -10,7 +10,7 @@
 package pers.roamer.boracay.helper;
 
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import pers.roamer.boracay.configer.ConfigHelper;
 
@@ -25,7 +25,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 1.0.0 2017/6/29 下午5:11
  */
-@Log4j2
+@Slf4j
 @Data
 public class ExceptionHelper {
 

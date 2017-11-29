@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.aspect.catchcontroller;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ import java.util.Map;
  * @version 1.0.0 2016年11月1日 下午10:05:29
  */
 @SuppressWarnings("ALL")
-@Log4j2
+@Slf4j
 @Aspect
 @Order(2)
 @Component("pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect")
@@ -75,7 +75,7 @@ public class CatchControllerExceptionAspect {
     private void writeToHttpResponse(Throwable ex) throws IOException {
         if (log.isDebugEnabled()) {
             log.debug("writeToHttpResponse() - start"); //$NON-NLS-1$
-            log.debug(new StringBuilder("访问的uri是：").append(request.getRequestURI()));
+            log.debug(new StringBuilder("访问的uri是：").append(request.getRequestURI()).toString());
         }
         response.setCharacterEncoding("UTF-8");
         // 判断 传入 exception message是否在配置文件中存在
@@ -102,7 +102,7 @@ public class CatchControllerExceptionAspect {
         }
         try {
             returnString = HttpResponseHelper.inbox(errorsHash);
-            log.debug(new StringBuilder("准备返回给Request的exception json字符串是:").append(returnString));
+            log.debug(new StringBuilder("准备返回给Request的exception json字符串是:").append(returnString).toString());
             // 判断是否需要json化
             String invokeURI = request.getRequestURI();
             String uriPostfix = "";
@@ -133,7 +133,7 @@ public class CatchControllerExceptionAspect {
                 return;
             }
         } catch (IOException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
         if (log.isDebugEnabled()) {
             log.debug("writeToHttpResponse() - end"); //$NON-NLS-1$

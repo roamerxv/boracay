@@ -1,6 +1,6 @@
 package pers.roamer.boracay.util.web;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pers.roamer.boracay.BoracayException;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author roamer - 徐泽宇
  * @create 2017-09-2017/9/18  下午4:47
  */
-@Log4j2
+@Slf4j
 public class UploadFileUtil {
 
 

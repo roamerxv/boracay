@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.helper;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -20,7 +20,7 @@ import java.util.Enumeration;
  * @author 徐泽宇
  * @version 1.0.0   2017/6/29 下午5:13
  */
-@Log4j2
+@Slf4j
 public class HttpRequestHelper {
 
     /**

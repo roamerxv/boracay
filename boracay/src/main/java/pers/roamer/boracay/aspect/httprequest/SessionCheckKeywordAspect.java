@@ -9,7 +9,7 @@
 
 package pers.roamer.boracay.aspect.httprequest;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author roamer - 徐泽宇
  * @create 2017-07-2017/7/5  上午11:38
  */
-@Log4j2
+@Slf4j
 @Order(3)
 @Component("pers.roamer.boracay.aspect.httprequest.SessionCheckKeywordAspect")
 public class SessionCheckKeywordAspect {

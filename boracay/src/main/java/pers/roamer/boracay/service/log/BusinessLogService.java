@@ -10,7 +10,7 @@
 
 package pers.roamer.boracay.service.log;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,7 +43,7 @@ import java.util.Date;
  * @version 1.0.0
  * @since 1.0.0  2017/6/29 下午4:48
  */
-@Log4j2
+@Slf4j
 @Service("pers.roamer.boracay.service.log.BusinessLogService")
 public class BusinessLogService {
 
