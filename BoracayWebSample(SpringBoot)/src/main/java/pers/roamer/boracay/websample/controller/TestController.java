@@ -12,6 +12,7 @@ package pers.roamer.boracay.websample.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +39,7 @@ import java.util.Enumeration;
  * @Description: 用于测试的MVC Controller
  * @date 2016年12月2日 下午6:52:03
  */
-@Log4j2
+@Slf4j
 @Controller("pers.roamer.boracay.websample.controller.TestController")
 @RequestMapping(value = "/test")
 @SessionCheckKeyword(checkIt = false)

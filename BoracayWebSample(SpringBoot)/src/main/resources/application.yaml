@@ -36,3 +36,7 @@ hibernate:
 context:
     listener:
         classes: pers.roamer.boracay.application.StartedListener
+
+logging:
+    config: classpath:logback-spring.xml
+

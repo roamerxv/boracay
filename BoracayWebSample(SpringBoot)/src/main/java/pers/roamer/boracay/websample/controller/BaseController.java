@@ -9,7 +9,9 @@
 
 package pers.roamer.boracay.websample.controller;
 
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpSession;
  * @author roamer - 徐泽宇
  * @create 2017-06-2017/6/2  下午4:24
  */
-@Log4j2
+@Slf4j
 @Controller("pers.roamer.boracay.websample.controller.BaseController")
 public class BaseController {
     @Autowired
