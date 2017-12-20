@@ -11,7 +11,6 @@ package pers.roamer.boracay.websample.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Controller;
@@ -191,7 +190,7 @@ public class TestController extends BaseController {
         }
         try {
             ArrayList<FileUploadResult> fileUploadResultArrayList1 = new UploadFileUtil().saveFile(files1, true);
-            ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false, "/upload");
+            ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false, "/Users/roamer/Desktop/upload");
             if (log.isDebugEnabled()){
                 fileUploadResultArrayList1.forEach(item -> {
                     log.debug("保存的文件信息是：{}", item.toString());
