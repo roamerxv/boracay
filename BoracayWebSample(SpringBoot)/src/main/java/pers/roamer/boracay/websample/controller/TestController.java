@@ -23,13 +23,17 @@ import pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.helper.HttpResponseHelper;
 import pers.roamer.boracay.helper.JsonUtilsHelper;
+import pers.roamer.boracay.util.GoogleAuthenticatorTools;
 import pers.roamer.boracay.util.web.FileUploadResult;
 import pers.roamer.boracay.util.web.UploadFileUtil;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -191,7 +195,7 @@ public class TestController extends BaseController {
         try {
             ArrayList<FileUploadResult> fileUploadResultArrayList1 = new UploadFileUtil().saveFile(files1, true);
             ArrayList<FileUploadResult> fileUploadResultArrayList2 = new UploadFileUtil().saveFile(files2, false, "/Users/roamer/Desktop/upload");
-            if (log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 fileUploadResultArrayList1.forEach(item -> {
                     log.debug("保存的文件信息是：{}", item.toString());
                 });
@@ -209,6 +213,36 @@ public class TestController extends BaseController {
 
     ;
 
+    /**
+     * 生成二次验证的秘钥和生成二维码的内容
+     *
+     * @param totpuser
+     * @param totpissuer
+     *
+     * @return
+     *
+     * @throws Exception
+     */
+    @PostMapping(value = "/genTOTP/{totpuser}/{totpissuer}")
+    @ResponseBody
+    public String genTotp(@PathVariable String totpuser, @PathVariable String totpissuer) throws ControllerException {
+        log.debug("针对{}和{}生成二次验证",totpuser,totpissuer);
+        String secret = null;
+        try {
+            secret = GoogleAuthenticatorTools.genSecret();
+            String optauth = GoogleAuthenticatorTools.getOptauth(totpuser, totpissuer, secret);
+            Map<String, String> map = new HashMap<>();
+            map.put("secret", secret);
+            map.put("optauth", optauth);
+            String m_rtn = JsonUtilsHelper.objectToJsonString(map);
+            log.debug("生成的内容是:\n{}", m_rtn);
+            return m_rtn;
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | JsonProcessingException e) {
+            log.error(e.getMessage(), e);
+            throw new ControllerException(e.getMessage());
+        }
+
+    }
 }
 
 @Data

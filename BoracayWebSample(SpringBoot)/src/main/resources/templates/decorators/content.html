@@ -257,8 +257,25 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingSeven">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"
+                       aria-expanded="false"
+                       aria-controls="collapseFour">
+                        演示 Google Authenticator的功能
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                <div class="panel-body">
+                    <div class="am-accordion-content">
+                        <div th:replace="google-authenticator/demo :: demoContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 </html>

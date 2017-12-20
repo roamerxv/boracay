@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div class="content_container" th:fragment="demoContent">
+
+    <script th:src="@{/assets/js/lib/jquery-qrcode/jquery.qrcode.min.js}" type="text/javascript"></script>
+
+    <div>
+        第一步：开启二次验证后，产生二维码
+        <br/>输入用户名<br/>
+        <input id="totp_user" value="test@me.com">
+        <br/>网站描述<br/>
+        <input id="totp_issuer" value="boracay 中文">
+        <button onclick="javascript:fun_genTOTP()">生成totp二维码</button>
+    </div>
+    <div>
+        第二步：在手机端使用Google Authenticator的 app，扫描这个二维码
+        <br/>需要用户保存的秘钥，同时也是放入用户表中的<br/>
+        <input id="secret"></input>
+        <div id="qrcode"></div>
+    </div>
+    <div>
+        第三步：在普通的用户名和密码登录成功，读取app 上产生的校验码进行匹配
+    </div>
+
+    <script>
+        function fun_genTOTP() {
+            var user = $("#totp_user").val();
+            var issuer = $("#totp_issuer").val();
+            $.ajax({
+                type: 'post',
+                url: contextPath + '/test/genTOTP/' + user + '/' + issuer + '.json',
+                async: true,//默认为true
+                dataType: 'json',//默认为预期服务器返回的数据类型
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    $("#secret").val(data.secret);
+                    $("#qrcode").empty();
+                    $('#qrcode').qrcode(data.optauth);
+                },
+                error: function (exception) {
+
+                }
+            });
+        }
+    </script>
+
+</div>
+
+</body>
+</html>
