@@ -15,6 +15,8 @@ WebSample For SpringFrame 的项目停止更新。转向以 Spring Boot + thymel
 3. 短信验证码发送和验证功能的封装
 4. 访问 IP 权限白名单控制功能的封装    
 5. mvc中 controller 层方法的 session 判断的封装
+6. 同时进行多文件和表单提交处理，并且自动保存文件的功能封装 
+7. 基于 totp的二次验证方法类
  
     
 
