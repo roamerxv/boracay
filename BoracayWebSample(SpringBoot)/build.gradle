@@ -62,7 +62,7 @@ apply plugin: 'com.github.ben-manes.versions'
 dependencies {
 	compile(
 			// 徐泽宇的web 实用框架
-//			"pers.roamer:boracay:2.1.3",
+			"pers.roamer:boracay:2.2.0",
 
 			//  使用alibaba 的druid
 			"com.alibaba:druid:$druidVersion",
