@@ -243,6 +243,19 @@ public class TestController extends BaseController {
         }
 
     }
+
+    @GetMapping(value = "/sencond_auth/{appSecret}/{serverSecret}")
+    @ResponseBody
+    public String sendAuth(@PathVariable String appSecret , @PathVariable String serverSecret) throws ControllerException{
+        log.debug("开始二次验证");
+        if ( GoogleAuthenticatorTools.authcode(appSecret,serverSecret)){
+            return  HttpResponseHelper.successInfoInbox("验证通过");
+        }else{
+            throw new ControllerException("二次验证没有通过");
+        }
+
+
+    }
 }
 
 @Data
