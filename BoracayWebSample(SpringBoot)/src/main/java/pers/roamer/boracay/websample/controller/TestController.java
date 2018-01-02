@@ -230,6 +230,7 @@ public class TestController extends BaseController {
         String secret = null;
         try {
             secret = GoogleAuthenticatorTools.genSecret();
+//            secret = "36hlz6726zxyfelc";
             String optauth = GoogleAuthenticatorTools.getOptauth(totpuser, totpissuer, secret);
             Map<String, String> map = new HashMap<>();
             map.put("secret", secret);
@@ -247,7 +248,7 @@ public class TestController extends BaseController {
     @GetMapping(value = "/sencond_auth/{appSecret}/{serverSecret}")
     @ResponseBody
     public String sendAuth(@PathVariable String appSecret , @PathVariable String serverSecret) throws ControllerException{
-        log.debug("开始二次验证");
+        log.debug("开始二次验证,动态码是：【{}】，秘钥是：【{}】", appSecret,serverSecret);
         if ( GoogleAuthenticatorTools.authcode(appSecret,serverSecret)){
             return  HttpResponseHelper.successInfoInbox("验证通过");
         }else{

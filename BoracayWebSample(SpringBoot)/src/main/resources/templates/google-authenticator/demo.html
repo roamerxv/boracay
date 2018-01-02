@@ -73,7 +73,7 @@
 
                 },
                 success: function (data) {
-                    $("#secret").html(data.secret);
+                    $("#secret").val(data.secret);
                     $("#qrcode").empty();
                     $('#qrcode').qrcode(data.optauth);
                 },
