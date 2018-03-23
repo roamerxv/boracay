@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.9.RELEASE'
+		springBootVersion = '1.5.10.RELEASE'
 	}
 	repositories {
 		jcenter()
@@ -51,7 +51,7 @@ ext {
 	siteMeshVersion = "3.0.1"
 	userAgentUtilsVersion = "1.20"
 	lombokVersion = "1.16.18"
-	druidVersion = "1.1.6"
+	druidVersion = "1.1.9"
 	lombokVersion = "1.16.18"
 }
 
@@ -99,7 +99,7 @@ dependencies {
 	// compile("org.springframework.boot:spring-boot-starter-thymeleaf") //这个是使用 thymeleaf 2 版本。替换成 3
 	compile("org.thymeleaf:thymeleaf:3.0.9.RELEASE")
 	compile("org.thymeleaf:thymeleaf-spring4:3.0.9.RELEASE")
-	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.2.2")
+	compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.3.0")
 
 
 	compile("org.springframework.boot:spring-boot-devtools") //  启动 devtolls

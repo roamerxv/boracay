@@ -257,7 +257,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingSeven">
                 <h4 class="panel-title">
@@ -276,6 +276,24 @@
                 </div>
             </div>
         </div>
-</div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingEight">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseEight"
+                       aria-expanded="false"
+                       aria-controls="collapseFour">
+                        演示 Google reCAPTCHA 2.0 的功能
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+                <div class="panel-body">
+                    <div class="am-accordion-content">
+                        <div th:replace="google-reCAPTCHA/demo :: demoContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </html>

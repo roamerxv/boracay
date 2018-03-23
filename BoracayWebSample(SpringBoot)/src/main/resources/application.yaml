@@ -14,9 +14,9 @@ spring:
             maxRequestSize: -1
 
     datasource:
-        url: jdbc:mysql://192.168.1.111:3306/boracay-web-sample?useUnicode=true&characterEncoding=utf-8&useSSL=false
-        username: boracay-sample
-        password: boracay-sample
+        url: jdbc:mysql://127.0.0.1:13306/boracay-web-sample?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: boracay-web-sample
+        password: boracay-web-sample
         driver-class-name: com.mysql.jdbc.Driver
 
     thymeleaf:

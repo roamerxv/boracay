@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div class="content_container" th:fragment="demoContent">
+
+    <a href="https://webdesign.tutsplus.com/zh-hans/tutorials/how-to-integrate-no-captcha-recaptcha-in-your-website--cms-23024" target="_blank">参考资料</a>
+    <br/>
+    recaptcha api 获取网页
+
+    <h6>https://www.google.com/recaptcha/admin</h6>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <label for="name">Name:</label>
+    <input name="name" required><br />
+
+    <label for="email">Email:</label>
+    <input name="email" type="email" required><br />
+
+    <div class="g-recaptcha" data-theme="dark"  data-sitekey="6Lf6Gj8UAAAAANcpMpDTPIi7TDnk1pWVQMpFAcIb"></div>
+
+    其他服务
+    <a href="http://www.geetest.com/" target="">极验</a>
+
+</div>
+
+</body>
+</html>

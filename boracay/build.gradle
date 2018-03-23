@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.2.0'
+version '2.2.1'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -53,17 +53,17 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 ext {
     aspectjVersion = "1.8.13"
-    springVersion = "5.0.2.RELEASE"
-    springJpaVersion = "2.0.2.RELEASE"
+    springVersion = "5.0.4.RELEASE"
+    springJpaVersion = "2.0.5.RELEASE"
     slf4jVersion = "1.7.25"
     apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.3"
-    fastJsonVersion = "1.2.44"
+    jacksonVersion = "2.9.4"
+    fastJsonVersion = "1.2.47"
     javaxServletAPIVersion = "4.0.0"
     hibernateVersion = "5.2.12.Final"
     siteMeshVersion = "3.0.1"
-    userAgentUtilsVersion = "1.20"
-    lombokVersion = "1.16.18"
+    userAgentUtilsVersion = "1.21"
+    lombokVersion = "1.16.20"
 
 }
 
@@ -115,7 +115,7 @@ dependencies {
             //  ------------------------------
 
             // httpclient
-            "org.apache.httpcomponents:httpclient:4.5.4",
+            "org.apache.httpcomponents:httpclient:4.5.5",
             "org.apache.httpcomponents:httpasyncclient:4.1.3"
             //  ------------------------------
 
