@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.2.1'
+version '2.2.2'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -52,14 +52,14 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 
 ext {
-    aspectjVersion = "1.8.13"
-    springVersion = "5.0.4.RELEASE"
-    springJpaVersion = "2.0.5.RELEASE"
+    aspectjVersion = "1.9.1"
+    springVersion = "5.0.5.RELEASE"
+    springJpaVersion = "2.0.6.RELEASE"
     slf4jVersion = "1.7.25"
     apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.4"
+    jacksonVersion = "2.9.5"
     fastJsonVersion = "1.2.47"
-    javaxServletAPIVersion = "4.0.0"
+    javaxServletAPIVersion = "4.0.1"
     hibernateVersion = "5.2.12.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.21"
@@ -123,6 +123,7 @@ dependencies {
 
     testCompile (
         "junit:junit:4.12",
+        "org.slf4j:slf4j-log4j12:1.6.6"
     )
 }
 
@@ -138,7 +139,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.2.0"
+            name = "2.2.2"
             desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']

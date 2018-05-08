@@ -13,7 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 public class ConfigerTest {
 
     @Test
-    public void testConfigerInit(){
+    public void testSuccessInfoInbox(){
         if ( new ClassPathResource("config/config.yaml").exists()) {
             log.info("在 classpath 中发现config/config.yaml文件！以此为配置文件");
         }else if (new ClassPathResource("config/config.xml").exists()){

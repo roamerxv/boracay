@@ -43,7 +43,7 @@ import java.util.Map;
  * @date 2016年12月2日 下午6:52:03
  */
 @Slf4j
-@Controller("pers.roamer.boracay.websample.controller.TestController")
+@RestController()
 @RequestMapping(value = "/test")
 @SessionCheckKeyword(checkIt = false)
 public class TestController extends BaseController {

@@ -76,7 +76,7 @@ public class HttpResponseHelper {
 
 
     /**
-     * 把一个 hash 对象封装未成功返回给浏览器的json 字符串
+     * 把一个 hash 对象封装成返回给浏览器的json 字符串
      *
      * @param successMessageHash
      *
@@ -86,19 +86,47 @@ public class HttpResponseHelper {
      * @since 1.0.0 2017/6/29 下午5:32
      */
     public static String successInfoInbox(HashMap<String, Object> successMessageHash) {
-        CustomerHttpResponseStruct customerHttpResponseStruct = new CustomerHttpResponseStruct();
-        ObjectMapper mapper = new ObjectMapper();
-        customerHttpResponseStruct.setStatus(HttpServletResponse.SC_OK);
-        customerHttpResponseStruct.setMessage("success");
-        customerHttpResponseStruct.setSuccess(true);
-        customerHttpResponseStruct.setData(successMessageHash);
-        String returnString = null;
-        try {
-            returnString = mapper.writeValueAsString(customerHttpResponseStruct);
-        } catch (JsonProcessingException e) {
-            log.error(e.getMessage(), e);
-        }
-        return returnString;
+        return  objToJson(successMessageHash);
+    }
+
+	/**
+	 * 把一个 Object 对象封装成返回给浏览器的json 字符串
+	 *
+	 * @param obj
+	 *
+	 * @return
+	 *
+	 * @author 徐泽宇
+	 * @since 2.2.2 2018/5/8 上午9:32
+	 */
+    public static String successInfoInbox(Object obj) {
+	    return  objToJson(obj);
+    }
+
+	/**
+	 * 把一个 Object 对象转换成 Json 字符串
+	 *
+	 * @param obj
+	 *
+	 * @return
+	 *
+	 * @author 徐泽宇
+	 * @since 2.2.2 2018/5/8 上午9:32
+	 */
+	private static String objToJson(Object obj){
+	    CustomerHttpResponseStruct customerHttpResponseStruct = new CustomerHttpResponseStruct();
+	    ObjectMapper mapper = new ObjectMapper();
+	    customerHttpResponseStruct.setStatus(HttpServletResponse.SC_OK);
+	    customerHttpResponseStruct.setMessage("success");
+	    customerHttpResponseStruct.setSuccess(true);
+	    customerHttpResponseStruct.setData(obj);
+	    String returnString = null;
+	    try {
+		    returnString = mapper.writeValueAsString(customerHttpResponseStruct);
+	    } catch (JsonProcessingException e) {
+		    log.error(e.getMessage(), e);
+	    }
+	    return returnString;
     }
 
 }

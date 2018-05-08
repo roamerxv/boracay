@@ -29,7 +29,7 @@
                      Text: "尊敬的用户，您正在使用重置密码功能，您的手机验证码为：${code}，该验证码有效时间为${duration}分钟，限本次使用。"
  exception:
     test:
-        exception: "测试用的错误！由Controller 层抛出。| user_name , user_passwd"
+        exception: "测试用的错误！由Controller 层抛出!|user_name"
         system:
             need_login: "必须登录系统"
         datetime_condition:
