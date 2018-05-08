@@ -58,22 +58,6 @@ public class HttpResponseHelper {
         return returnString;
     }
 
-    /**
-     * 生成调用方法成功后，提示的json字符串
-     *
-     * @param dataString
-     *
-     * @return
-     *
-     * @author 徐泽宇
-     * @since 1.0.0 2016年12月12日 下午4:50:55
-     */
-    public static String successInfoInbox(String dataString) {
-        HashMap hashMap = new HashMap();
-        hashMap.put("localMessage", dataString);
-        return successInfoInbox(hashMap);
-    }
-
 
     /**
      * 把一个 hash 对象封装成返回给浏览器的json 字符串

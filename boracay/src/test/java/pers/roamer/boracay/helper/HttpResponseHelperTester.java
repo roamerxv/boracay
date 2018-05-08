@@ -24,6 +24,8 @@ public class HttpResponseHelperTester {
 		testBean.setId("ID1111111");
 		String msg = HttpResponseHelper.successInfoInbox(testBean);
 		log.info(msg);
+		msg = HttpResponseHelper.successInfoInbox("处理成功");
+		log.info(msg);
 	}
 
 	@Data
