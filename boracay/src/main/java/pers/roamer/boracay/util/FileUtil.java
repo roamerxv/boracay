@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
+
 /**
  * 对文件进行处理的一些工具方法
  *
@@ -106,5 +108,22 @@ public class FileUtil {
 
         //return complete hash
         return sb.toString();
+    }
+
+    /**
+    * 对文件生成 base64的字符串
+    *
+    * @author 徐泽宇
+    * @date 2018/5/12 下午8:31
+    * @param file
+    * @return java.lang.String
+    * @throws
+    **/
+    public String fileToBase64(File file)throws IOException{
+	    byte[] content = new byte[(int) file.length()];
+	    FileInputStream finputstream = new FileInputStream(file);
+	    finputstream.read(content);
+	    finputstream.close();
+	    return  new String(encodeBase64(content));
     }
 }
