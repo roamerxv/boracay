@@ -9,8 +9,10 @@ import pers.roamer.boracay.util.FileUtil;
 import pers.roamer.boracay.util.UUIDString;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 上传文件的工具类
@@ -21,31 +23,101 @@ import java.util.ArrayList;
 @Slf4j
 public class UploadFileUtil {
 
-
     /**
-     * 把 MultipartFile 的文件保存到服务器端。返回结果。使用 uuid 作为 id
+     * 把 MultipartFile 的文件保存到服务器端。返回结果。
+     * 使用 uuid 作为 id
      * 保存的路径 在 config文件中设置
      *
+     * @author 徐泽宇
+     * @date 2018/5/12 下午7:49
+     * @param multipartFile
+     * @return pers.roamer.boracay.util.web.FileUploadResult
+     * @throws
+     **/
+    public FileUploadResult saveFile(MultipartFile multipartFile )throws IOException, NoSuchAlgorithmException, BoracayException {
+        return saveFile(multipartFile,false);
+    }
+
+    /**
+     * 把 MultipartFile 的文件保存到服务器端。返回结果。
+     * 如果 digestIt 是 false ，使用 uuid 作为 id，否则用摘要做 id
+     * 保存的路径 在 config文件中设置
+     *
+     * @author 徐泽宇
+     * @date 2018/5/12 下午7:43
+     * @param multipartFile
+     * @param digestIt
+     * @return pers.roamer.boracay.util.web.FileUploadResult
+     * @throws
+     **/
+    public FileUploadResult saveFile(MultipartFile multipartFile , boolean digestIt) throws IOException, NoSuchAlgorithmException, BoracayException{
+        String savePath = ConfigHelper.getConfig().getString("System.UploadFile.saveFilePath");
+        if (StringUtils.isEmpty(savePath)) {
+            throw new BoracayException("system.UploadFile.saveFilePath not setted in config file！");
+        }
+        return this.saveFile(multipartFile, digestIt, savePath);
+    }
+
+    /**
+     * 把 MultipartFile 的文件保存到服务器端。返回结果。
+     * 使用 uuid 作为 id
+     * 保存的路径 通过 savePath 指定
+     *
+     * @author 徐泽宇
+     * @date 2018/5/12 下午7:43
+     * @param multipartFile
+     * @param savePath
+     * @return pers.roamer.boracay.util.web.FileUploadResult
+     * @throws
+     **/
+    public FileUploadResult saveFile(MultipartFile multipartFile ,String savePath ) throws IOException, NoSuchAlgorithmException, BoracayException {
+        return saveFile(multipartFile,false,savePath);
+    }
+
+    /**
+     * 把 MultipartFile 的文件保存到服务器端。返回结果。
+     * 如果 digestIt 是 false ，使用 uuid 作为 id，否则用摘要做 id
+     * 保存的路径 通过 savePath 指定
+     *
+     * @author 徐泽宇
+     * @date 2018/5/12 下午7:35
+     * @param multipartFile
+     * @param digestIt
+     * @param savePath
+     * @return pers.roamer.boracay.util.web.FileUploadResult
+     * @throws
+     **/
+    public FileUploadResult saveFile(MultipartFile multipartFile , boolean digestIt ,String savePath ) throws IOException, NoSuchAlgorithmException, BoracayException {
+        ArrayList<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
+        ((ArrayList) multipartFiles).add(multipartFile);
+        return saveFile((MultipartFile[]) multipartFiles.toArray(), digestIt, savePath).get(0);
+    }
+
+
+
+    /**
+     * 把 MultipartFile  数组中的文件保存到服务器端。返回结果。
+     * 使用 uuid 作为 id
+     * 保存的路径 在 config文件中设置
+     *   
+     * @author 徐泽宇 
+     * @date 2018/5/12 下午7:13
      * @param multipartFileArrayList
-     *
-     * @return
-     *
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     */
+     * @return java.util.ArrayList<pers.roamer.boracay.util.web.FileUploadResult>
+     * @throws
+     **/
     public ArrayList<FileUploadResult> saveFile(MultipartFile[] multipartFileArrayList) throws IOException, NoSuchAlgorithmException, BoracayException {
         return this.saveFile(multipartFileArrayList, false);
     }
 
-    ;
-
 
     /**
-     * 把 MultipartFile 的文件保存到服务器端。返回结果。
+     * 把 MultipartFile  数组中的文件保存到服务器端。返回结果。
      * 保存的路径 在 config文件中设置
+     * 是否要通过 摘要作为 id。通过 digestIt 来指定
      *
-     * @param multipartFileArrayList
-     * @param digestIt               是否把摘要作为 id
+     * @param multipartFileArrayList 需要保存的上传后的文件
+     * @param digestIt    是否把摘要作为 id
      *
      * @return
      *
@@ -60,10 +132,10 @@ public class UploadFileUtil {
         return this.saveFile(multipartFileArrayList, digestIt, savePath);
     }
 
-    ;
-
-
     /**
+     * 把 MultipartFile  数组中的文件保存到服务器端。返回结果。
+     * 保存的路径 通过 savePath 指定
+     * 通过 随机生成的 UUID 来作为 目录名
      * @param multipartFileArrayList 需要保存的上传后的文件
      * @param savePath               保存的路径
      *
@@ -75,8 +147,6 @@ public class UploadFileUtil {
     public ArrayList<FileUploadResult> saveFile(MultipartFile[] multipartFileArrayList, String savePath) throws IOException, NoSuchAlgorithmException, BoracayException {
         return this.saveFile(multipartFileArrayList, false, savePath);
     }
-
-    ;
 
 
     /**
