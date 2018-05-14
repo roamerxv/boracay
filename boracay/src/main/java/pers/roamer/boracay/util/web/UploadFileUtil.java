@@ -63,10 +63,13 @@ public class UploadFileUtil {
      *
      * @author 徐泽宇
      * @date 2018/5/12 下午7:43
-     * @param multipartFile
-     * @param savePath
+     * @param multipartFile     上传的文件
+     * @param savePath          保存到服务器上的路径
      * @return pers.roamer.boracay.util.web.FileUploadResult
-     * @throws
+     *
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws BoracayException
      **/
     public FileUploadResult saveFile(MultipartFile multipartFile ,String savePath ) throws IOException, NoSuchAlgorithmException, BoracayException {
         return saveFile(multipartFile,false,savePath);
@@ -85,10 +88,10 @@ public class UploadFileUtil {
      * @return pers.roamer.boracay.util.web.FileUploadResult
      * @throws
      **/
-    public FileUploadResult saveFile(MultipartFile multipartFile , boolean digestIt ,String savePath ) throws IOException, NoSuchAlgorithmException, BoracayException {
-        ArrayList<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
-        ((ArrayList) multipartFiles).add(multipartFile);
-        return saveFile((MultipartFile[]) multipartFiles.toArray(), digestIt, savePath).get(0);
+    public FileUploadResult saveFile(MultipartFile multipartFile , boolean digestIt , String savePath ) throws IOException, NoSuchAlgorithmException, BoracayException {
+        MultipartFile[] multipartFilesArray = new MultipartFile[1];
+        multipartFilesArray[0] = multipartFile;
+        return saveFile( multipartFilesArray, digestIt, savePath).get(0);
     }
 
 
