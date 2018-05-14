@@ -119,7 +119,7 @@ public class FileUtil {
     * @return java.lang.String
     * @throws
     **/
-    public String fileToBase64(File file)throws IOException{
+    public static String fileToBase64(File file)throws IOException{
 	    byte[] content = new byte[(int) file.length()];
 	    FileInputStream finputstream = new FileInputStream(file);
 	    finputstream.read(content);

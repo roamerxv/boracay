@@ -9,10 +9,8 @@ import pers.roamer.boracay.util.FileUtil;
 import pers.roamer.boracay.util.UUIDString;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * 上传文件的工具类
