@@ -75,6 +75,10 @@ WebSample For SpringFrame 的项目停止更新。转向以 Spring Boot + thymel
             <SessionUserKeyword>
                 user_mobile
             </SessionUserKeyword>
+            <!-- 需要保存到日志记录数据库中的用户名字在 session 中保存的 key-->
+            <BusinessRecordUserName>
+                user_name
+            </BusinessRecordUserName>
             <!-- 用于 boracay 组件必须使用到的配置 end -->
         </System>
         ...

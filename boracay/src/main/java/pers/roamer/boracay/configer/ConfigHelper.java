@@ -37,7 +37,7 @@ public class ConfigHelper {
     }
 
     static {
-        log.debug("ConfigHelper() - start"); //$NON-NLS-1$
+        log.debug("ConfigHelper() - start");
         Parameters params = new Parameters();
         // 判断 配置文件是否存在？
         // 1. config/config.yaml
@@ -61,7 +61,7 @@ public class ConfigHelper {
             log.error(e.getMessage(), e);
         }
 
-        log.debug("ConfigHelper() - end"); //$NON-NLS-1$
+        log.debug("ConfigHelper() - end");
 
     }
 

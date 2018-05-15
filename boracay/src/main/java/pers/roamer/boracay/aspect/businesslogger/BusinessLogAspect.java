@@ -139,10 +139,9 @@ public class BusinessLogAspect {
      * @Description: 运行前进行拦截，并且记录日志
      * @since 1.0.0 2016年10月10日 下午3:53:22
      */
-    //@Before("beforeLog()") // 通过xml 文件来进行配置
     private void logBeforeAction(JoinPoint joinPoint) throws BussinessLoggerException {
         if (log.isDebugEnabled()) {
-            log.debug("logBeforeAction(JoinPoint joinPoint={}) - start", joinPoint); //$NON-NLS-1$
+            log.debug("logBeforeAction(JoinPoint joinPoint={}) - start", joinPoint);
         }
 
         try {
@@ -153,7 +152,7 @@ public class BusinessLogAspect {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("logBeforeAction(JoinPoint joinPoint={}) - end", joinPoint); //$NON-NLS-1$
+            log.debug("logBeforeAction(JoinPoint joinPoint={}) - end", joinPoint);
         }
     }
 
@@ -266,7 +265,7 @@ public class BusinessLogAspect {
             // 设置设备类型
             businessLog.setClientDeviceType(operatingSystem.getDeviceType().toString());
             // 当前的操作人
-            String operator = (session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword")) == null) ? "访客" : (String) session.getAttribute(ConfigHelper.getConfig().getString("System.SessionUserKeyword"));
+            String operator = (session.getAttribute(ConfigHelper.getConfig().getString("System.BusinessRecordUserName")) == null) ? "访客" : (String) session.getAttribute(ConfigHelper.getConfig().getString("System.BusinessRecordUserName"));
             businessLog.setOperator(operator);
 
             // 切入的方法是否执行成功
@@ -274,7 +273,7 @@ public class BusinessLogAspect {
             // 切入的方法如果抛出错误，那错误的信息设置
             businessLog.setExceptionString(exceptionString.toString());
             // 操作时间
-            businessLog.setCreatedAt(new Timestamp(new Date().getTime()));
+            businessLog.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
