@@ -6,6 +6,9 @@
       SessionUserKeyword: "user_mobile"
       UploadFile:
             saveFilePath: "/Users/roamer/Desktop/upload"
+            thumb:
+                maxWidth:   270
+                maxHeight:  200
       Sms:
            Url: "http://222.73.117.158/msg/HttpBatchSendSM"
            Username: xxxx

@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         // 这是 上传 jar 文件到 jcenter 实用的 插件
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.1"
         // -----
 
         // 这是版本检测用的插件
@@ -22,7 +22,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.2.10'
+version '2.2.11'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -57,7 +57,7 @@ ext {
     springJpaVersion = "2.0.7.RELEASE"
     slf4jVersion = "1.7.25"
     apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.5"
+    jacksonVersion = "2.9.6"
     fastJsonVersion = "1.2.47"
     javaxServletAPIVersion = "4.0.1"
     hibernateVersion = "5.3.1.Final"
@@ -119,7 +119,10 @@ dependencies {
             "org.apache.httpcomponents:httpasyncclient:4.1.3",
             //  ------------------------------
 
-            "org.apache.commons:commons-lang3:3.7"
+            "org.apache.commons:commons-lang3:3.7",
+
+            //thumbnailator
+            "net.coobird:thumbnailator:0.4.8"
 
     )
 
@@ -141,7 +144,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.2.10"
+            name = "2.2.11"
             desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']

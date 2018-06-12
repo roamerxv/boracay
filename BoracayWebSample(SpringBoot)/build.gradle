@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.10.RELEASE'
+		springBootVersion = '1.5.13.RELEASE'
 	}
 	repositories {
 		jcenter()
@@ -107,6 +107,8 @@ dependencies {
 
 	runtime('mysql:mysql-connector-java')
 	compileOnly('org.projectlombok:lombok')
+
+	compile("net.coobird:thumbnailator:0.4.8")
 
 	//发布成 War ,如果要内嵌 webserver 需要屏蔽
 //	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
