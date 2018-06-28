@@ -33,18 +33,21 @@ public class ExceptionHelper {
     String exceptionMessage;
     String[] nodesName;
     String errorPath;
+    StackTraceElement[] errorStack;
 
 
     /**
      * 创建一个新的实例 ExceptionHelper.
      *
-     * @param propertyKey 属性 key
+     * @param exception exception
      *
      * @author 徐泽宇
      * @since 1.0.0 2017/6/29 下午5:12
      */
-    public ExceptionHelper(String propertyKey) {
+    public ExceptionHelper(Throwable exception) {
+        String propertyKey = exception.getMessage();
         this.errorPath = propertyKey;
+        this.setErrorStack(exception.getStackTrace());
         String exceptionMapString = ConfigHelper.getConfig().getString(propertyKey);
         if (StringUtils.isEmpty(exceptionMapString)) {
             // 无法从配置文件中获取到映射信息
@@ -82,6 +85,7 @@ public class ExceptionHelper {
         errorHash.put("errorMessage", this.getExceptionMessage());
         errorHash.put("nodesName", this.getNodesName());
         errorHash.put("errorPath", this.getErrorPath());
+        errorHash.put("errorStack",this.getErrorStack());
         return errorHash;
     }
 

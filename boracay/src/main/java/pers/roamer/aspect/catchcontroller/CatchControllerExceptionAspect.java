@@ -74,7 +74,7 @@ public class CatchControllerExceptionAspect {
     //@AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
     private void writeToHttpResponse(Throwable ex) throws IOException {
         if (log.isDebugEnabled()) {
-            log.debug("writeToHttpResponse() - start"); //$NON-NLS-1$
+            log.debug("writeToHttpResponse() - start");
             log.debug(new StringBuilder("访问的uri是：").append(request.getRequestURI()).toString());
         }
         response.setCharacterEncoding("UTF-8");
@@ -86,7 +86,7 @@ public class CatchControllerExceptionAspect {
             log.debug("传入的validator的错误信息");
             ((BoracayException) ex).getBindingResult().getAllErrors().forEach(item -> {
                 log.debug(item.getDefaultMessage());
-                ExceptionHelper helper = new ExceptionHelper(item.getDefaultMessage());
+                ExceptionHelper helper = new ExceptionHelper(ex);
                 errors.add(helper.genErrorHash());
             });
             errorsHash.put("errors", errors);
@@ -96,7 +96,7 @@ public class CatchControllerExceptionAspect {
             if (StringUtils.isEmpty(exceptionMessage)) {
                 exceptionMessage = ex.getClass().getName();
             }
-            ExceptionHelper helper = new ExceptionHelper(exceptionMessage.replaceAll("\"", "\'"));
+            ExceptionHelper helper = new ExceptionHelper(ex);
             errors.add(helper.genErrorHash());
             errorsHash.put("errors", errors);
         }

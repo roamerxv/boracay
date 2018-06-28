@@ -197,6 +197,8 @@ WebSample For SpringFrame 的项目停止更新。转向以 Spring Boot + thymel
     ```
     
     其中：
+
+    - errorStack  错误堆栈列表。为了便于后台程序员定位错误！
     
     - errorPath 是在 controller 中抛出的 ControllerException 的 message。
         
