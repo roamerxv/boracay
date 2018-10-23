@@ -46,8 +46,8 @@ public class SessionCheckKeywordAspect {
      * @since 1.0.2 2017/7/5 下午3:09
      */
     private void sessionKeywordCheck(JoinPoint joinPoint) throws BoracayException {
-        SessionCheckKeyword classAnnotation = (SessionCheckKeyword) joinPoint.getSignature().getDeclaringType().getAnnotation(SessionCheckKeyword.class);
-        SessionCheckKeyword methodAnnotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(SessionCheckKeyword.class);
+        pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword classAnnotation = (pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword) joinPoint.getSignature().getDeclaringType().getAnnotation(pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword.class);
+        pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword methodAnnotation = ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(pers.roamer.boracay.aspect.httprequest.SessionCheckKeyword.class);
         log.debug("对方法进行@SessionCheckKeyword()的对象是{},类注解的对象是{}", methodAnnotation, classAnnotation);
         Boolean classCheckIt = (classAnnotation == null ? null : classAnnotation.checkIt());
         Boolean methodCheckIt = (methodAnnotation == null ? null : methodAnnotation.checkIt());

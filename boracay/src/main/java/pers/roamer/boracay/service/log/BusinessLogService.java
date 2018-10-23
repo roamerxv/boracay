@@ -95,9 +95,9 @@ public class BusinessLogService {
     public Page<BusinessLogEntity> findAllByExtraSearch(DataTableRequestParamBean dataTableRequestParamBean) throws BoracayException {
 
         String sortField = dataTableRequestParamBean.getColumns().get(dataTableRequestParamBean.getOrder().get(0).getColumn()).getData();
-
         Sort sort = "desc".equals(dataTableRequestParamBean.getOrder().get(0).getDir()) ? new Sort(Direction.DESC, sortField) : new Sort(Direction.ASC, sortField);
-        Pageable pageable = new PageRequest(dataTableRequestParamBean.getStart() / dataTableRequestParamBean.getLength(), dataTableRequestParamBean.getLength(), sort);
+        Pageable pageable = PageRequest.of(dataTableRequestParamBean.getStart() / dataTableRequestParamBean.getLength(), dataTableRequestParamBean.getLength(), sort);
+
         Specification<BusinessLogEntity> specification = null;
         try {
             specification = new BusinessLogSpecification(dataTableRequestParamBean.getSearch().getValue(), dataTableRequestParamBean.getBeginTime(), dataTableRequestParamBean.getEndTime());
