@@ -38,32 +38,30 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        if (event.getApplicationContext().getParent() == null)// root application context
-        // 没有parent，他就是老大.
+        if (event.getApplicationContext().getParent() == null)
+        // root application context  没有parent，他就是老大.
         {
             //  读取配置文件
             log.info(String.format("项目:[%s],开始启动。。。", ConfigHelper.getConfig().getString("System.AppName")));
 
             //
-            log.debug("onApplicationEvent(ContextRefreshedEvent) - start"); //$NON-NLS-1$
+            log.debug("onApplicationEvent(ContextRefreshedEvent) - start");
             // 需要执行的逻辑代码，当spring容器初始化完成后就会执行该方法。
             Properties properties = System.getProperties();
             Iterator<Entry<Object, Object>> it = properties.entrySet().iterator();
-            log.info("系统环境信息如下：");
+            log.debug("系统环境信息如下：");
             while (it.hasNext()) {
                 Entry<Object, Object> entry = it.next();
                 log.debug(entry.getKey() + "=" + entry.getValue());
             }
-            log.info("Spring 容器启动完成，开始启动重启后必须执行的任务！");
-            log.info("Spring 启动重启后必须执行的任务执行完成！");
-            log.debug("onApplicationEvent(ContextRefreshedEvent) - end"); //$NON-NLS-1$
+            log.debug("onApplicationEvent(ContextRefreshedEvent) - end");
             ApplicationContext context = event.getApplicationContext();
             String[] beans = context.getBeanDefinitionNames();
-            log.info("所有被装备的Bean列表如下:");
+            log.debug("所有被装备的Bean列表如下:");
             for (String beanName : beans) {
-                log.info("Bean 名称是:{},\t对应的类是:{}",beanName, context.getBean(beanName).getClass().getName());
+                log.debug("Bean 名称是:{},\t对应的类是:{}",beanName, context.getBean(beanName).getClass().getName());
             }
-            log.info("所有被装备的Bean列表显示完成");
+            log.debug("所有被装备的Bean列表显示完成");
             log.info(String.format("项目:[%s],启动完成", ConfigHelper.getConfig().getString("System.AppName")));
         }
     }
