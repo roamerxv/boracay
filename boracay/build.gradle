@@ -68,9 +68,9 @@ ext {
 }
 
 dependencies {
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
     compile(
-            "org.projectlombok:lombok:1.18.4",
-
             //  javax servlet api
             "javax.servlet:javax.servlet-api:$javaxServletAPIVersion",
             //  ------------------------------
