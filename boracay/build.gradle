@@ -1,4 +1,7 @@
 buildscript {
+    ext{
+        REPOSITORY_HOME = "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
     repositories {
         jcenter()
 
@@ -29,6 +32,7 @@ description = 'Boracay WEB 项目实用组件'
 allprojects {
     repositories {
         jcenter()
+        maven { url "${REPOSITORY_HOME}" }
         mavenCentral()
         mavenLocal()
     }
@@ -199,4 +203,9 @@ javadoc {
         version true
         links "http://docs.oracle.com/javase/8/docs/api"
     }
+}
+
+
+task setGradle(type: Wrapper) {
+    gradleVersion = '5.1'
 }

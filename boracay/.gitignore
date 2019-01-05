@@ -1,6 +1,4 @@
-/build/
-
-
+./gradle
 ### STS ###
 .apt_generated
 .classpath
@@ -14,6 +12,8 @@
 *.iws
 *.iml
 *.ipr
+/build/
+/out/
 
 ### NetBeans ###
 nbproject/private/
