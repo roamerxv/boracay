@@ -125,7 +125,7 @@ dependencies {
             "oro:oro:$apacheOroVersion",
             //  ------------------------------
 
-            
+            'commons-codec:commons-codec:1.12',
             "org.apache.commons:commons-lang3:3.8.1",
 
             //thumbnailator
