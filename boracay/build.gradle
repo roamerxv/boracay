@@ -32,7 +32,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.3.0'
+version '2.3.1'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -154,7 +154,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.3.0"
+            name = "2.3.1"
             desc = "Boracay Web 应用基层框架"
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
