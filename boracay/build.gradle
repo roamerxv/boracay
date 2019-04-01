@@ -1,5 +1,5 @@
 buildscript {
-    ext{
+    ext {
         REPOSITORY_HOME = "http://maven.aliyun.com/nexus/content/groups/public/"
     }
     repositories {
@@ -25,14 +25,14 @@ apply plugin: "com.jfrog.bintray"
 /**
  * 调用方法 gradle bintrayUpload
  * 访问 https://www.bintray.com
-*/
+ */
 
 /* 这里定义一个检查 dependency 版本的插件 begin*/
 apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '2.3.1'
+version '2.3.2'
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -65,7 +65,7 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 ext {
     aspectjVersion = "1.9.2"
-    springVersion = "5.1.5.RELEASE"
+    springVersion = "5.1.6.RELEASE"
     springJpaVersion = "2.1.5.RELEASE"
     slf4jVersion = "1.7.25"
     apacheOroVersion = "2.0.8"
@@ -134,7 +134,6 @@ dependencies {
             'com.squareup.okhttp3:okhttp:3.14.0',
 
 
-
     )
     testCompile(
             "junit:junit:4.13-beta-2",
@@ -154,7 +153,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "2.3.1"
+            name = "2.3.2"
             desc = "Boracay Web 应用基层框架"
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
