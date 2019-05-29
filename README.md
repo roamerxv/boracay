@@ -716,5 +716,4 @@ public class BoracayWebSampleApplication {
 </beans>
 
 ```
-hello
 
