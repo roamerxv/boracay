@@ -64,18 +64,18 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 
 
 ext {
-    aspectjVersion = "1.9.2"
+    aspectjVersion = "1.9.3"
     springVersion = "5.1.6.RELEASE"
-    springJpaVersion = "2.1.5.RELEASE"
+    springJpaVersion = "2.1.6.RELEASE"
     slf4jVersion = "1.7.25"
     apacheOroVersion = "2.0.8"
     jacksonVersion = "2.9.8"
-    fastJsonVersion = "1.2.56"
+    fastJsonVersion = "1.2.58"
     javaxServletAPIVersion = "4.0.1"
     hibernateVersion = "5.4.2.Final"
     siteMeshVersion = "3.0.1"
     userAgentUtilsVersion = "1.21"
-    lombokVersion = "1.18.6"
+    lombokVersion = "1.18.8"
 
 }
 
@@ -126,17 +126,17 @@ dependencies {
             //  ------------------------------
 
             'commons-codec:commons-codec:1.12',
-            "org.apache.commons:commons-lang3:3.8.1",
+            "org.apache.commons:commons-lang3:3.9",
 
             //thumbnailator
             "net.coobird:thumbnailator:0.4.8",
 
-            'com.squareup.okhttp3:okhttp:3.14.0',
+            'com.squareup.okhttp3:okhttp:3.14.1',
 
 
     )
     testCompile(
-            "junit:junit:4.13-beta-2",
+            "junit:junit:4.13-beta-3",
             "org.slf4j:slf4j-log4j12:1.8.0-beta4"
     )
 }
