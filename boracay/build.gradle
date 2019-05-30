@@ -93,6 +93,8 @@ dependencies {
             "org.springframework:spring-web:$springVersion",
             //  ------------------------------
 
+            'org.springframework.boot:spring-boot-starter-quartz:2.1.5.RELEASE',
+
             //  Srping JPA
             "org.springframework.data:spring-data-jpa:$springJpaVersion",
             "org.hibernate:hibernate-entitymanager:$hibernateVersion",
