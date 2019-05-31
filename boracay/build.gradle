@@ -1,10 +1,22 @@
 buildscript {
     ext {
         REPOSITORY_HOME = "http://maven.aliyun.com/nexus/content/groups/public/"
+        aspectjVersion = "1.9.4"
+        springVersion = "5.1.7.RELEASE"
+        springJpaVersion = "2.1.8.RELEASE"
+        slf4jVersion = "1.7.25"
+        apacheOroVersion = "2.0.8"
+        jacksonVersion = "2.9.9"
+        fastJsonVersion = "1.2.58"
+        javaxServletAPIVersion = "4.0.1"
+        hibernateVersion = "5.4.2.Final"
+        siteMeshVersion = "3.0.1"
+        userAgentUtilsVersion = "1.21"
+        lombokVersion = "1.18.8"
+        boracayVersion = "3.0.0"
     }
     repositories {
         jcenter()
-
     }
     dependencies {
         // 这是 上传 jar 文件到 jcenter 实用的 插件
@@ -23,7 +35,7 @@ plugins {
 /* 这里定义一个 bintray 的插件 */
 apply plugin: "com.jfrog.bintray"
 /**
- * 调用方法 gradle bintrayUpload
+ * 调用方法 ./gradlew install bintrayUpload
  * 访问 https://www.bintray.com
  */
 
@@ -32,7 +44,7 @@ apply plugin: 'com.github.ben-manes.versions'
 /* 调用方法 gradle dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
-version '3.0.0'
+version rootProject.boracayVersion
 description = 'Boracay WEB 项目实用组件'
 
 
@@ -57,28 +69,10 @@ tasks.withType(JavaCompile) {
 }
 
 
-def projectName = "Boracay"
+def projectName = "boracay"
 def projectDescription = "Boracay WEB 应用框架"
 def gitUrl = "https://github.com/roamerxv/boracay.git"
 def sourceUrl = "https://github.com/roamerxv/boracay"
-
-
-ext {
-    aspectjVersion = "1.9.4"
-    springVersion = "5.1.7.RELEASE"
-    springJpaVersion = "2.1.8.RELEASE"
-    slf4jVersion = "1.7.25"
-    apacheOroVersion = "2.0.8"
-    jacksonVersion = "2.9.9"
-    fastJsonVersion = "1.2.58"
-    javaxServletAPIVersion = "4.0.1"
-    hibernateVersion = "5.4.2.Final"
-    siteMeshVersion = "3.0.1"
-    userAgentUtilsVersion = "1.21"
-    lombokVersion = "1.18.8"
-
-}
-
 
 dependencies {
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
@@ -150,13 +144,13 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = 'maven'
-        name = 'boracay'
+        name = projectName
         userOrg = "roamerxv"
         licenses = ['Apache-2.0']
         vcsUrl = gitUrl
         version {
-            name = "3.0.0"
-            desc = "Boracay Web 应用基层框架"
+            name = rootProject.boracayVersion
+            desc = projectDescription
             vcsTag = 'master'
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
@@ -164,44 +158,6 @@ bintray {
 }
 // 配置结束
 
-
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'jar'
-
-                // Add your description here
-                name "Boracay"
-                description "Boracay Web 应用基层框架"
-                url "https://github.com/roamerxv/boracay"
-
-                // Set your license
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'roamerxv'        //填写bintray或者github的用户名
-                        name '徐泽宇'         //姓名，可以是中文
-                        email 'roamerxv@gmail.com'
-                    }
-                }
-
-                scm {
-                    connection gitUrl
-                    developerConnection sourceUrl
-                    url sourceUrl
-                }
-            }
-        }
-    }
-}
 
 // java doc
 javadoc {
