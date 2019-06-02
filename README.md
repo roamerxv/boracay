@@ -716,9 +716,10 @@ public class BoracayWebSampleApplication {
 </beans>
 
 ```
-###5.动态定时任务
+### 5.动态定时任务
 
 **先开启注解**
+
 在启动类上添加下面的注解
 ```
 @EnableQuartzCluster
@@ -896,4 +897,79 @@ create index idx_qrtz_ft_t_g on qrtz_fired_triggers(sched_name,trigger_name,trig
 create index idx_qrtz_ft_tg on qrtz_fired_triggers(sched_name,trigger_group);
 
 commit;
+```
+**在spring配置中添加quartz相关配置**
+```
+spring:
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: qrtz_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+    #数据库方式
+    job-store-type: jdbc
+```
+**自定义Controller使用IScheduleService**
+例如:
+```
+@RestController
+@RequestMapping("/job")
+@Slf4j
+public class ScheduleController {
+
+    @Autowired private IScheduleService scheduleService;
+
+    /**
+     * 添加cron定时任务
+     *
+     * @param cronJobDefinition
+     */
+    @PostMapping("/addCronJob")
+    public void schedule(@RequestPart("cronJobDefinition") CronJobDefinition cronJobDefinition) {
+        scheduleService.schedule(cronJobDefinition);
+    }
+
+    /**
+     * 添加simple定时任务
+     *
+     * @param simpleJobDefinition
+     */
+    @PostMapping("/addSimpleJob")
+    public void schedule(
+            @RequestPart("simpleJobDefinition") SimpleJobDefinition simpleJobDefinition) {
+        scheduleService.schedule(simpleJobDefinition);
+    }
+}
+```
+**如果有需要的，可以自定义SchedulerListener，JobListener和TriggerListener，并且交由spring来管理**
+```
+@Service
+public class ScheduleListenerService extends SchedulerListenerSupport {
+    //用来监听任务的执行状态
+}
+
+@Service
+public class JobListenerService extends JobListenerSupport {
+    //用来监听任务的执行状态
+}
+
+@Service
+public class TriggerListenerService extends TriggerListenerSupport {
+    //用来监听触发器的执行状态
+}
 ```
