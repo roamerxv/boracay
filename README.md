@@ -717,9 +717,9 @@ public class BoracayWebSampleApplication {
 
 ```
 ###5.动态定时任务
+
 **先开启注解**
-的在启动类上添加下面
-**先开启注解**
+在启动类上添加下面的注解
 ```
 @EnableQuartzCluster
 ```
