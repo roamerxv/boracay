@@ -9,7 +9,7 @@ buildscript {
         jacksonVersion = "2.9.9"
         fastJsonVersion = "1.2.58"
         javaxServletAPIVersion = "4.0.1"
-        hibernateVersion = "5.4.2.Final"
+        hibernateVersion = "5.4.3.Final"
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
         lombokVersion = "1.18.8"
