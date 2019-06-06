@@ -128,7 +128,15 @@ dependencies {
             "net.coobird:thumbnailator:0.4.8",
 
             'com.squareup.okhttp3:okhttp:3.14.2',
-
+            //json
+            'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
+            'org.codehaus.jackson:jackson-core-asl:1.9.13',
+            //识别文件mimetype
+            compile('eu.medsea.mimeutil:mime-util:2.1.3') {
+                exclude module: 'slf4j-log4j12'
+            },
+            //guava工具
+            'com.google.guava:guava:27.1-jre'
 
     )
     testCompile(
