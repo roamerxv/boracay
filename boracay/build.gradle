@@ -1,19 +1,19 @@
 buildscript {
     ext {
         REPOSITORY_HOME = "http://maven.aliyun.com/nexus/content/groups/public/"
-        aspectjVersion = "1.9.4"
-        springVersion = "5.1.7.RELEASE"
-        springJpaVersion = "2.1.8.RELEASE"
+        aspectjVersion = "1.9.5"
+        springVersion = "5.2.2.RELEASE"
+        springJpaVersion = "2.2.3.RELEASE"
         slf4jVersion = "1.7.25"
         apacheOroVersion = "2.0.8"
-        jacksonVersion = "2.9.9"
-        fastJsonVersion = "1.2.58"
+        jacksonVersion = "2.10.1"
+        fastJsonVersion = "1.2.62"
         javaxServletAPIVersion = "4.0.1"
-        hibernateVersion = "5.4.3.Final"
+        hibernateVersion = "5.4.4.Final"
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
-        lombokVersion = "1.18.8"
-        boracayVersion = "3.1.0"
+        lombokVersion = "1.18.10"
+        boracayVersion = "4.0.0"
     }
     repositories {
         jcenter()
@@ -26,7 +26,7 @@ buildscript {
 }
 
 plugins {
-    id "com.github.ben-manes.versions" version "0.21.0"
+    id "com.github.ben-manes.versions" version "0.27.0"
     id 'java'
     id 'idea'
 }
@@ -41,7 +41,7 @@ apply plugin: "com.jfrog.bintray"
 
 /* 这里定义一个检查 dependency 版本的插件 begin*/
 apply plugin: 'com.github.ben-manes.versions'
-/* 调用方法 gradle dependencyUpdates -Drevision=release */
+/* 调用方法 ./gradlew dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
 version rootProject.boracayVersion
@@ -87,7 +87,7 @@ dependencies {
             "org.springframework:spring-web:$springVersion",
             //  ------------------------------
 
-            'org.springframework.boot:spring-boot-starter-quartz:2.1.5.RELEASE',
+            'org.springframework.boot:spring-boot-starter-quartz:2.2.1.RELEASE',
 
             //  Srping JPA
             "org.springframework.data:spring-data-jpa:$springJpaVersion",
@@ -110,7 +110,7 @@ dependencies {
             //  ------------------------------
 
             // org.apache.commons
-            "org.apache.commons:commons-configuration2:2.5",
+            "org.apache.commons:commons-configuration2:2.6",
             //  ------------------------------
 
             //  解析user-agent
@@ -121,13 +121,13 @@ dependencies {
             "oro:oro:$apacheOroVersion",
             //  ------------------------------
 
-            'commons-codec:commons-codec:1.12',
+            'commons-codec:commons-codec:1.13',
             "org.apache.commons:commons-lang3:3.9",
 
             //thumbnailator
             "net.coobird:thumbnailator:0.4.8",
 
-            'com.squareup.okhttp3:okhttp:3.14.2',
+            'com.squareup.okhttp3:okhttp:4.2.2',
             //json
             'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
             'org.codehaus.jackson:jackson-core-asl:1.9.13',
@@ -136,19 +136,19 @@ dependencies {
                 exclude module: 'slf4j-log4j12'
             },
             //guava工具
-            'com.google.guava:guava:27.1-jre'
+            'com.google.guava:guava:28.1-jre'
 
     )
     testCompile(
-            "junit:junit:4.13-beta-3",
-            "org.slf4j:slf4j-log4j12:1.8.0-beta4"
+            "junit:junit:4.13-rc-2",
+            "org.slf4j:slf4j-log4j12:2.0.0-alpha1"
     )
 }
 
 // 这个是配置 bintrayUpload
 bintray {
-    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : "roamerxv"
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : "e81d0627ca9920f29312c4bd8124bef8bbab4ca8"
     configurations = ['archives']
     pkg {
         repo = 'maven'

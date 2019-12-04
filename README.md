@@ -7,6 +7,9 @@ WebSample For SpringFrame 的项目停止更新。转向以 Spring Boot + thymel
 [ ![Download](https://api.bintray.com/packages/roamerxv/maven/boracay/images/download.svg) ](https://bintray.com/roamerxv/maven/boracay/_latestVersion)
 
 
+Version 3.1.0 支持 spring 2.1版本
+ 
+Version 4.0.0 支持 spring 2.2版本
 
 ## 一. 提供的功能
 

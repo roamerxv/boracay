@@ -33,7 +33,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 记录业务方法日志的service
@@ -90,8 +93,8 @@ public class BusinessLogService {
             .getData();
     Sort sort =
         "desc".equals(dataTableRequestParamBean.getOrder().get(0).getDir())
-            ? new Sort(Direction.DESC, sortField)
-            : new Sort(Direction.ASC, sortField);
+            ? Sort.by(Direction.DESC,sortField)
+            : Sort.by(Direction.ASC, sortField);
     Pageable pageable =
         PageRequest.of(
             dataTableRequestParamBean.getStart() / dataTableRequestParamBean.getLength(),
