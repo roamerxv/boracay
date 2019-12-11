@@ -73,7 +73,7 @@ public class CatchControllerExceptionAspect {
             log.debug(new StringBuilder("访问的uri是：").append(request.getRequestURI()).toString());
         }
         // 判断是否被包装成UndeclaredThrowableException
-        if (ex instanceof UndeclaredThrowableException) {
+        while (ex instanceof UndeclaredThrowableException) {
             ex = ex.getCause();
         }
         response.setCharacterEncoding("UTF-8");
