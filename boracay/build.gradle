@@ -13,7 +13,7 @@ buildscript {
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
         lombokVersion = "1.18.10"
-        boracayVersion = "4.0.0"
+        boracayVersion = "4.0.1"
     }
     repositories {
         jcenter()
