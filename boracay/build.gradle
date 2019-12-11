@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        REPOSITORY_HOME = "http://maven.aliyun.com/nexus/content/groups/public/"
+        REPOSITORY_HOME = "http://dev.z2a.com.cn:8222/repository/maven-public/"
         aspectjVersion = "1.9.5"
         springVersion = "5.2.2.RELEASE"
         springJpaVersion = "2.2.3.RELEASE"
