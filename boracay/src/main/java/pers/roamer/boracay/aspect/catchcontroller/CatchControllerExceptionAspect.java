@@ -22,14 +22,13 @@ import pers.roamer.boracay.helper.HttpResponseHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * 捕获所有Controller中的方法的Exception
- * 通过HttpServletResponse输出到浏览器
+ * 捕获所有Controller中的方法的Exception 通过HttpServletResponse输出到浏览器
  *
  * @author 徐泽宇
  * @version 1.0.0 2016年11月1日 下午10:05:29
@@ -41,41 +40,41 @@ import java.util.Map;
 @Component("pers.roamer.boracay.aspect.catchcontroller.CatchControllerExceptionAspect")
 public class CatchControllerExceptionAspect {
 
-    @Autowired
-    private HttpServletRequest request;
+    @Autowired private HttpServletRequest request;
 
-    @Autowired
-    private HttpServletResponse response;
+    @Autowired private HttpServletResponse response;
 
-//    下面切入点，因为通过 xml 配置了。所以不再需要用注解的方式定义了
-//    /**
-//     * catch appliction Controller
-//     *
-//     * @author 徐泽宇
-//     * @since 1.0.0 2017年05月10日 下午10:08:50
-//     * @Title: catchControllerMethod
-//     * @Description: 切入所有需要切入的controller中方法的切面
-//     */
-//    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..) )  ")
-//    public void catchControllerMethod() {
-//        // Nothing to clean up
-//    }
-
+    //    下面切入点，因为通过 xml 配置了。所以不再需要用注解的方式定义了
+    //    /**
+    //     * catch appliction Controller
+    //     *
+    //     * @author 徐泽宇
+    //     * @since 1.0.0 2017年05月10日 下午10:08:50
+    //     * @Title: catchControllerMethod
+    //     * @Description: 切入所有需要切入的controller中方法的切面
+    //     */
+    //    @Pointcut("execution(* com.ninelephas.raccoon.controller..*.*(..) )  ")
+    //    public void catchControllerMethod() {
+    //        // Nothing to clean up
+    //    }
 
     /**
      * 捕捉到切面产生的Exception后，写入HttpServletResponse
      *
      * @param ex 需要处理的 Exception
-     *
      * @throws IOException
      * @author 徐泽宇
      * @since 1.0.0 2016年11月1日 下午10:11:24
      */
-    //@AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
+    // @AfterThrowing(throwing = "ex", pointcut = "catchControllerMethod()")
     private void writeToHttpResponse(Throwable ex) throws IOException {
         if (log.isDebugEnabled()) {
             log.debug("writeToHttpResponse() - start");
             log.debug(new StringBuilder("访问的uri是：").append(request.getRequestURI()).toString());
+        }
+        // 判断是否被包装成UndeclaredThrowableException
+        if (ex instanceof UndeclaredThrowableException) {
+            ex = ex.getCause();
         }
         response.setCharacterEncoding("UTF-8");
         // 判断 传入 exception message是否在配置文件中存在
@@ -84,11 +83,15 @@ public class CatchControllerExceptionAspect {
         String returnString;
         if (ex instanceof BoracayException && ((BoracayException) ex).getBindingResult() != null) {
             log.debug("传入的validator的错误信息");
-            ((BoracayException) ex).getBindingResult().getAllErrors().forEach(item -> {
-                log.debug(item.getDefaultMessage());
-                ExceptionHelper helper = new ExceptionHelper(ex);
-                errors.add(helper.genErrorHash());
-            });
+            ((BoracayException) ex)
+                    .getBindingResult()
+                    .getAllErrors()
+                    .forEach(
+                            item -> {
+                                log.debug(item.getDefaultMessage());
+                                ExceptionHelper helper = new ExceptionHelper(ex);
+                                errors.add(helper.genErrorHash());
+                            });
             errorsHash.put("errors", errors);
         } else {
             log.debug("传入的是捕获的exception信息，需要到配置文件中查找针对exceptionMessage的映射");
@@ -102,7 +105,10 @@ public class CatchControllerExceptionAspect {
         }
         try {
             returnString = HttpResponseHelper.inbox(errorsHash);
-            log.debug(new StringBuilder("准备返回给Request的exception json字符串是:").append(returnString).toString());
+            log.debug(
+                    new StringBuilder("准备返回给Request的exception json字符串是:")
+                            .append(returnString)
+                            .toString());
             // 判断是否需要json化
             String invokeURI = request.getRequestURI();
             String uriPostfix = "";
@@ -136,8 +142,7 @@ public class CatchControllerExceptionAspect {
             log.error(e.getMessage(), e);
         }
         if (log.isDebugEnabled()) {
-            log.debug("writeToHttpResponse() - end"); //$NON-NLS-1$
+            log.debug("writeToHttpResponse() - end"); // $NON-NLS-1$
         }
     }
-
 }
