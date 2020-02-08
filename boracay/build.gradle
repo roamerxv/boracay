@@ -2,17 +2,17 @@ buildscript {
     ext {
         REPOSITORY_HOME = "http://dev.z2a.com.cn:8222/repository/maven-public/"
         aspectjVersion = "1.9.5"
-        springVersion = "5.2.2.RELEASE"
-        springJpaVersion = "2.2.3.RELEASE"
+        springVersion = "5.2.3.RELEASE"
+        springJpaVersion = "2.2.4.RELEASE"
         slf4jVersion = "1.7.25"
         apacheOroVersion = "2.0.8"
-        jacksonVersion = "2.10.1"
+        jacksonVersion = "2.10.2"
         fastJsonVersion = "1.2.62"
         javaxServletAPIVersion = "4.0.1"
         hibernateVersion = "5.4.4.Final"
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
-        lombokVersion = "1.18.10"
+        lombokVersion = "1.18.12"
         boracayVersion = "4.0.1"
     }
     repositories {
@@ -87,7 +87,7 @@ dependencies {
             "org.springframework:spring-web:$springVersion",
             //  ------------------------------
 
-            'org.springframework.boot:spring-boot-starter-quartz:2.2.1.RELEASE',
+            'org.springframework.boot:spring-boot-starter-quartz:2.2.4.RELEASE',
 
             //  Srping JPA
             "org.springframework.data:spring-data-jpa:$springJpaVersion",
@@ -121,13 +121,13 @@ dependencies {
             "oro:oro:$apacheOroVersion",
             //  ------------------------------
 
-            'commons-codec:commons-codec:1.13',
+            'commons-codec:commons-codec:1.14',
             "org.apache.commons:commons-lang3:3.9",
 
             //thumbnailator
             "net.coobird:thumbnailator:0.4.8",
 
-            'com.squareup.okhttp3:okhttp:4.2.2',
+            'com.squareup.okhttp3:okhttp:4.3.1',
             //json
             'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
             'org.codehaus.jackson:jackson-core-asl:1.9.13',
@@ -136,11 +136,11 @@ dependencies {
                 exclude module: 'slf4j-log4j12'
             },
             //guava工具
-            'com.google.guava:guava:28.1-jre'
+            'com.google.guava:guava:28.2-jre'
 
     )
     testCompile(
-            "junit:junit:4.13-rc-2",
+            "junit:junit:4.13",
             "org.slf4j:slf4j-log4j12:2.0.0-alpha1"
     )
 }
