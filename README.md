@@ -11,6 +11,8 @@ Version 3.1.0 支持 spring 2.1版本
  
 Version 4.0.0 支持 spring 2.2版本
 
+Version 4.1.0 文件上传的工具类支持 HDFS 方式的存放
+
 ## 一. 提供的功能
 
 1. 业务方法调用记录到 log 表单的封装
@@ -19,7 +21,8 @@ Version 4.0.0 支持 spring 2.2版本
 4. 访问 IP 权限白名单控制功能的封装    
 5. mvc中 controller 层方法的 session 判断的封装
 6. 同时进行多文件和表单提交处理，并且自动保存文件的功能封装 
-7. 基于 totp的二次验证方法类
+7. 文件http上传的时候，支持HDFS 的分布式存放。   
+8. 基于 totp的二次验证方法类
  
     
 
@@ -534,6 +537,19 @@ Version 4.0.0 支持 spring 2.2版本
     第二个参数表示 是否把文件的摘要作为保存的文件的 id。
     保存在服务器端目录结构： 是根据 config.xml中的 System.UploadFile.saveFilePath 部分所指定的路径+以ID为名字的目录+上传的文件名
 
+### h. 文件上传功能中 支持 HDFS 方式的保存
+```aspectj
+   #只需要在 Config.yaml 文件中的 System.UploadFile，配置如下代码：
+        HDFS:
+            Plugged: true
+            FileSystem: "hdfs://192.168.2.232:9000"
+            UserName: "brahma"
+   # HDFS 如不不配置，或者 Plugged: false .则不启用 HDFS 的存储功能。使用保存到本地物理硬盘的方法。保存路径通过 saveFilePath 指定
+   # 如果配置了 Plugged: true,则启用 HDFS。 
+   #     保存路径通过 saveFilePath 指定在 HDFS 的根目录下
+   #     FileSystem 和  UserName 指定 HDFS 的服务器访问地址和用户    
+   
+```
 
 ## 三. 在 spring boot 中的使用方法。
 

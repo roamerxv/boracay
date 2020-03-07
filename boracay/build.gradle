@@ -2,18 +2,18 @@ buildscript {
     ext {
         REPOSITORY_HOME = "http://dev.z2a.com.cn:8222/repository/maven-public/"
         aspectjVersion = "1.9.5"
-        springVersion = "5.2.3.RELEASE"
-        springJpaVersion = "2.2.4.RELEASE"
+        springVersion = "5.2.4.RELEASE"
+        springJpaVersion = "2.2.5.RELEASE"
         slf4jVersion = "1.7.25"
         apacheOroVersion = "2.0.8"
-        jacksonVersion = "2.10.2"
-        fastJsonVersion = "1.2.62"
+        jacksonVersion = "2.10.3"
+        fastJsonVersion = "1.2.66"
         javaxServletAPIVersion = "4.0.1"
         hibernateVersion = "5.4.4.Final"
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
         lombokVersion = "1.18.12"
-        boracayVersion = "4.0.1"
+        boracayVersion = "4.1.0"
     }
     repositories {
         jcenter()
@@ -87,7 +87,7 @@ dependencies {
             "org.springframework:spring-web:$springVersion",
             //  ------------------------------
 
-            'org.springframework.boot:spring-boot-starter-quartz:2.2.4.RELEASE',
+            'org.springframework.boot:spring-boot-starter-quartz:2.2.5.RELEASE',
 
             //  Srping JPA
             "org.springframework.data:spring-data-jpa:$springJpaVersion",
@@ -125,7 +125,7 @@ dependencies {
             "org.apache.commons:commons-lang3:3.9",
 
             //thumbnailator
-            "net.coobird:thumbnailator:0.4.10",
+            "net.coobird:thumbnailator:0.4.11",
 
             'com.squareup.okhttp3:okhttp:4.4.0',
             //json
@@ -136,7 +136,12 @@ dependencies {
                 exclude module: 'slf4j-log4j12'
             },
             //guava工具
-            'com.google.guava:guava:28.2-jre'
+            'com.google.guava:guava:28.2-jre',
+
+            // hdfs 客户端支持
+            compile('org.apache.hadoop:hadoop-client:3.2.1') {
+                exclude group: 'com.google.code.gson', module: 'gson'
+            }
 
     )
     testCompile(
