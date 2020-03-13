@@ -13,35 +13,24 @@ buildscript {
         siteMeshVersion = "3.0.1"
         userAgentUtilsVersion = "1.21"
         lombokVersion = "1.18.12"
-        boracayVersion = "4.1.2"
+        boracayVersion = "4.1.3"
     }
     repositories {
         jcenter()
     }
-    dependencies {
-        // 这是 上传 jar 文件到 jcenter 实用的 插件
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
-        // -----
-    }
 }
 
 plugins {
+    /* 这里定义一个 bintray 的插件 */
+    /**
+     * 调用方法 ./gradlew  bintrayUpload
+     * 访问 https://www.bintray.com
+     */
+    id "com.jfrog.bintray" version "1.8.4"
     id "com.github.ben-manes.versions" version "0.28.0"
     id 'java'
     id 'idea'
 }
-
-
-/* 这里定义一个 bintray 的插件 */
-apply plugin: "com.jfrog.bintray"
-/**
- * 调用方法 ./gradlew install bintrayUpload
- * 访问 https://www.bintray.com
- */
-
-/* 这里定义一个检查 dependency 版本的插件 begin*/
-apply plugin: 'com.github.ben-manes.versions'
-/* 调用方法 ./gradlew dependencyUpdates -Drevision=release */
 
 group 'pers.roamer'
 version rootProject.boracayVersion
@@ -58,9 +47,13 @@ allprojects {
         mavenCentral()
         mavenLocal()
     }
-    apply plugin: "maven"
+//    apply plugin: "maven"
     apply plugin: "maven-publish"
     apply plugin: "java"
+    /* 这里定义一个检查 dependency 版本的插件 begin*/
+    apply plugin: 'com.github.ben-manes.versions'
+/* 调用方法 ./gradlew dependencyUpdates -Drevision=release */
+
 }
 
 sourceCompatibility = 1.8
