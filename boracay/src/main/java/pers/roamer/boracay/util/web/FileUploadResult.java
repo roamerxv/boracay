@@ -9,6 +9,7 @@ import org.apache.hadoop.fs.Path;
 import org.springframework.web.multipart.MultipartFile;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.util.ImageCheck;
+import pers.roamer.boracay.util.UtilException;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -33,8 +34,7 @@ public class FileUploadResult {
   String fullPathOfSavedFile;
 
   /**
-   * 把上传上来的 MultiPartFile 保存
-   * 根据指定的保存方式，判断是否是写到物理硬盘还是 分布式硬盘
+   * 把上传上来的 MultiPartFile 保存 根据指定的保存方式，判断是否是写到物理硬盘还是 分布式硬盘
    *
    * @param savePath 保存的路径。
    * @throws IOException
@@ -42,7 +42,7 @@ public class FileUploadResult {
    * @modified 2020-03-07
    * @since 4.1.0
    */
-  public void saveFile(String savePath) throws IOException {
+  public void saveFile(String savePath) throws IOException, UtilException {
     try {
       boolean hdfsEnabled = ConfigHelper.getConfig().getBoolean("System.UploadFile.HDFS.Plugged");
       if (hdfsEnabled) {
@@ -76,13 +76,16 @@ public class FileUploadResult {
     try {
       // 设置HADOOP_USER_NAME环境变量
       try {
-        System.setProperty("HADOOP_USER_NAME", ConfigHelper.getConfig().getString("System.UploadFile.HDFS.UserName"));
+        System.setProperty(
+            "HADOOP_USER_NAME",
+            ConfigHelper.getConfig().getString("System.UploadFile.HDFS.UserName"));
       } catch (java.util.NoSuchElementException err) {
         log.error(err.getMessage(), err);
       }
 
       Configuration conf = new Configuration();
-      conf.set("fs.defaultFS", ConfigHelper.getConfig().getString("System.UploadFile.HDFS.FileSystem"));
+      conf.set(
+          "fs.defaultFS", ConfigHelper.getConfig().getString("System.UploadFile.HDFS.FileSystem"));
       conf.set("fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem");
 
       fileSystem = FileSystem.get(conf);
@@ -93,7 +96,8 @@ public class FileUploadResult {
           log.debug("成功创建目录 {}", savePath);
         }
       }
-      String pathString = new StringBuilder(saveFilePath)
+      String pathString =
+          new StringBuilder(saveFilePath)
               .append(File.separator)
               .append(this.multipartFile.getOriginalFilename())
               .toString();
@@ -132,7 +136,7 @@ public class FileUploadResult {
    * @modified 2020-03-07
    * @since 4.1.0
    */
-  public void saveFile2Disk(String savePath) throws IOException {
+  public void saveFile2Disk(String savePath) throws IOException, UtilException {
     log.debug("开始处理保存文件的过程");
     String saveFilePath;
     saveFilePath = new StringBuilder(savePath).append(File.separator).append(this.id).toString();
@@ -145,11 +149,11 @@ public class FileUploadResult {
       }
     }
     this.savedFile =
-            new File(
-                    new StringBuilder(saveFilePath)
-                            .append(File.separator)
-                            .append(this.multipartFile.getOriginalFilename())
-                            .toString());
+        new File(
+            new StringBuilder(saveFilePath)
+                .append(File.separator)
+                .append(this.multipartFile.getOriginalFilename())
+                .toString());
     this.fullPathOfSavedFile = this.savedFile.getAbsolutePath();
     multipartFile.transferTo(this.savedFile);
     /* 判断上传的文件是否是图片 */
@@ -157,12 +161,12 @@ public class FileUploadResult {
       log.debug("上传的文件是可以处理的图片文件，进行缩略图处理！");
       /* 生成缩略图到指定的缩略图目录 **/
       String thumbPath =
-              new StringBuilder(savePath)
-                      .append(File.separator)
-                      .append(THUMB_FILE_SUB_PATH)
-                      .append(File.separator)
-                      .append(this.id)
-                      .toString();
+          new StringBuilder(savePath)
+              .append(File.separator)
+              .append(THUMB_FILE_SUB_PATH)
+              .append(File.separator)
+              .append(this.id)
+              .toString();
       fp = new File(thumbPath);
       if (!fp.exists()) {
         // 目录不存在的情况下，创建目录。
@@ -179,14 +183,26 @@ public class FileUploadResult {
        */
       int maxWidth = ConfigHelper.getConfig().getInt("System.UploadFile.thumb.maxWidth");
       int maxHeight = ConfigHelper.getConfig().getInt("System.UploadFile.thumb.maxHeight");
-      Thumbnails.of(this.savedFile)
-              .size(maxWidth, maxHeight)
-              .toFile(
-                      new StringBuilder(thumbPath)
-                              .append(File.separator)
-                              .append(this.savedFile.getName())
-                  .toString());
+      if (WebpFileUtils.mimeTypeIsWebp(this.savedFile)) { // 如果是 webp 文件格式，进行缩略图处理
+        WebpFileUtils.thumbnails(
+            this.savedFile,
+            maxWidth,
+            maxHeight,
+            new StringBuilder(thumbPath)
+                .append(File.separator)
+                .append(this.savedFile.getName())
+                .toString());
+      } else { // 如果是其他非 webp 文件格式，通过 Thumbnails 工具包进行缩略图处理
+        Thumbnails.of(this.savedFile)
+            .size(maxWidth, maxHeight)
+            .toFile(
+                new StringBuilder(thumbPath)
+                    .append(File.separator)
+                    .append(this.savedFile.getName())
+                    .toString());
+      }
     }
+
     log.debug("处理完成");
   }
 

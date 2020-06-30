@@ -2,12 +2,12 @@ buildscript {
     ext {
         REPOSITORY_HOME = "http://dev.z2a.com.cn:8222/repository/maven-public/"
         aspectjVersion = "1.9.5"
-        springVersion = "5.2.4.RELEASE"
-        springJpaVersion = "2.2.5.RELEASE"
+        springVersion = "5.2.7.RELEASE"
+        springJpaVersion = "2.3.1.RELEASE"
         slf4jVersion = "1.7.25"
         apacheOroVersion = "2.0.8"
-        jacksonVersion = "2.10.3"
-        fastJsonVersion = "1.2.66"
+        jacksonVersion = "2.11.1"
+        fastJsonVersion = "1.2.72"
         javaxServletAPIVersion = "4.0.1"
         hibernateVersion = "5.4.4.Final"
         siteMeshVersion = "3.0.1"
@@ -23,10 +23,10 @@ buildscript {
 plugins {
     /* 这里定义一个 bintray 的插件 */
     /**
-     * 调用方法 ./gradlew  bintrayUpload
+     * 调用方法 ./gradlew install bintrayUpload
      * 访问 https://www.bintray.com
      */
-    id "com.jfrog.bintray" version "1.8.4"
+    id "com.jfrog.bintray" version "1.8.5"
     id "com.github.ben-manes.versions" version "0.28.0"
     id 'java'
     id 'idea'
@@ -47,7 +47,7 @@ allprojects {
         mavenCentral()
         mavenLocal()
     }
-//    apply plugin: "maven"
+    apply plugin: "maven"
     apply plugin: "maven-publish"
     apply plugin: "java"
     /* 这里定义一个检查 dependency 版本的插件 begin*/
@@ -71,6 +71,7 @@ def sourceUrl = "https://github.com/roamerxv/boracay"
 dependencies {
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     compileOnly("org.projectlombok:lombok:${lombokVersion}")
+    compile fileTree(dir: 'src/main/resources/libs', include: ['webp-imageio-core-0.1.3.jar'])
     implementation(
             //  javax servlet api
             "javax.servlet:javax.servlet-api:$javaxServletAPIVersion",
@@ -81,7 +82,7 @@ dependencies {
             "org.springframework:spring-web:$springVersion",
             //  ------------------------------
 
-            'org.springframework.boot:spring-boot-starter-quartz:2.2.5.RELEASE',
+            'org.springframework.boot:spring-boot-starter-quartz:2.3.1.RELEASE',
 
             //  Srping JPA
             "org.springframework.data:spring-data-jpa:$springJpaVersion",
@@ -116,12 +117,12 @@ dependencies {
             //  ------------------------------
 
             'commons-codec:commons-codec:1.14',
-            "org.apache.commons:commons-lang3:3.9",
+            "org.apache.commons:commons-lang3:3.10",
 
             //thumbnailator
             "net.coobird:thumbnailator:0.4.11",
 
-            'com.squareup.okhttp3:okhttp:4.4.1',
+            'com.squareup.okhttp3:okhttp:4.7.2',
             //json
             'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
             'org.codehaus.jackson:jackson-core-asl:1.9.13',
@@ -130,11 +131,14 @@ dependencies {
                 exclude module: 'slf4j-log4j12'
             },
             //guava工具
-            'com.google.guava:guava:28.2-jre',
+            'com.google.guava:guava:29.0-jre',
 
             // hdfs 客户端支持
             'org.apache.hadoop:hadoop-client:3.2.1',
-            "com.sun.jersey:jersey-bundle:1.19.4"
+            "com.sun.jersey:jersey-bundle:1.19.4",
+
+            // 判断文件类型Metadata https://github.com/drewnoakes/metadata-extractor
+            "com.drewnoakes:metadata-extractor:2.14.0",
 
     )
     testImplementation(
