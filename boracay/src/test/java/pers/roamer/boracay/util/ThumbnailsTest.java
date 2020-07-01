@@ -17,8 +17,8 @@ public class ThumbnailsTest {
   @Test
   /** 测试 webp 文件生成缩略图的功能 */
   public void testWebpThumbnails() throws Exception {
-    String inputWebpPath = "/Users/roamer/Downloads/bb.webp";
-    String outputWebpPath = "/Users/roamer/Downloads/aa_resize.webp";
-    WebpFileUtils.thumbnails(new File(inputWebpPath), 400, 240, outputWebpPath);
+    String inputWebpPath = "/Users/roamer/Downloads/ii.webp";
+    String outputWebpPath = "/Users/roamer/Downloads/bb_thumb.webp";
+    WebpFileUtils.thumbnails(new File(inputWebpPath), 10000, 10000, outputWebpPath);
   }
 }

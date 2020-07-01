@@ -67,7 +67,7 @@ public class WebpFileUtils {
    * @param outputFile 缩略图保存的文件
    */
   public static void thumbnails(File inputFile, int maxWidth, int maxHeight, File outputFile)
-      throws IOException {
+      throws IOException, UtilException {
     // Obtain a WebP ImageReader instance
     ImageReader reader = ImageIO.getImageReadersByMIMEType("image/webp").next();
 
@@ -80,42 +80,44 @@ public class WebpFileUtils {
 
     // Decode the image
     BufferedImage image = reader.read(0, readParam);
-    float heightFloat = (float) image.getHeight();
-    float widthFloat = (float) image.getWidth();
-    log.debug("原始文件的尺寸是， 宽：" + widthFloat + ",高：" + heightFloat);
+
+    log.debug("原始文件的尺寸是， 宽：" + image.getWidth() + ",高：" + image.getHeight());
+
+    // 计算缩略图的尺寸
+    Dimension thumbFileDimension =
+        getScaling(
+            new Dimension(image.getWidth(), image.getHeight()), new Dimension(maxWidth, maxHeight));
 
     BufferedImage resizedImage =
-        new BufferedImage((int) widthFloat, (int) heightFloat, image.getType());
+        new BufferedImage(
+            (int) thumbFileDimension.getWidth(),
+            (int) thumbFileDimension.getHeight(),
+            image.getType());
     Graphics graphics = resizedImage.getGraphics();
-    if (heightFloat <= maxHeight && widthFloat <= maxWidth) {
-      graphics.drawImage(image, 0, 0, (int) widthFloat, (int) heightFloat, null);
-    } else if (widthFloat > maxWidth && heightFloat <= maxHeight) {
-      graphics.drawImage(image, 0, 0, maxWidth, (int) (maxHeight / maxWidth * widthFloat), null);
-    } else if (heightFloat > maxHeight && widthFloat <= maxWidth) {
-      graphics.drawImage(
-          image, 0, 0, (int) ((float) maxWidth / (float) maxHeight * heightFloat), maxHeight, null);
-    } else {
-      if (widthFloat >= heightFloat) {
-        graphics.drawImage(
-            image, 0, 0, maxWidth, (int) (heightFloat / widthFloat * (float) maxWidth), null);
-      } else {
-        graphics.drawImage(
-            image, 0, 0, (int) (heightFloat / widthFloat * (float) maxHeight), maxHeight, null);
-      }
-    }
-
+    graphics.drawImage(
+        image,
+        0,
+        0,
+        (int) thumbFileDimension.getWidth(),
+        (int) thumbFileDimension.getHeight(),
+        null);
     graphics.dispose();
-
     ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
     // Configure encoding parameters
     WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
-    writeParam.setCompressionMode(WebPWriteParam.LOSSY_COMPRESSION);
+    writeParam.setCompressionMode(WebPWriteParam.LOSSLESS_COMPRESSION);
 
     // Configure the output on the ImageWriter
     writer.setOutput(new FileImageOutputStream(outputFile));
 
     // Encode
     writer.write(null, new IIOImage(resizedImage, null, null), writeParam);
+
+    if (log.isDebugEnabled()) {
+      reader.setInput(new FileImageInputStream(outputFile));
+      BufferedImage thumbImage = reader.read(0, readParam);
+      log.debug("缩略图的尺寸是， 宽：" + thumbImage.getWidth() + ",高：" + thumbImage.getHeight());
+    }
   }
 
   /**
@@ -127,7 +129,41 @@ public class WebpFileUtils {
    * @param outputFilePath 缩略图保存的文件
    */
   public static void thumbnails(File inputFile, int maxWidth, int maxHeight, String outputFilePath)
-      throws IOException {
+      throws IOException, UtilException {
     thumbnails(inputFile, maxWidth, maxHeight, new File(outputFilePath));
+  }
+
+  /**
+   * 计算缩略图的缩放后的尺寸
+   *
+   * @param sourceDimension 原图尺寸
+   * @param thumbDimension 设定的缩略图尺寸
+   * @return 经过计算后，按照原图等比缩放后的缩略图尺寸
+   * @throws UtilException
+   */
+  private static Dimension getScaling(Dimension sourceDimension, Dimension thumbDimension) {
+    if (thumbDimension.getWidth() >= sourceDimension.getWidth()
+        && thumbDimension.getHeight() >= sourceDimension.getHeight()) { // 缩略图尺寸大于原图尺寸，保持原图
+      return sourceDimension;
+    }
+    double sourceAspectRatio =
+        (double) sourceDimension.getWidth()
+            / (double) sourceDimension.getHeight(); // 原图的纵横比 ，大于 1 ，说明是 横向图片，小于 1 说明是纵向 图片
+    double thumbSAspectRation =
+        (double) thumbDimension.getWidth() / (double) thumbDimension.getHeight(); // 设置的缩略图的纵横比
+
+    Dimension resizedThumbDimension = new Dimension(0, 0); // 对原图进行等比缩放后，配合缩略图的设置尺寸，得出的最合适的缩略图大小
+    if (thumbSAspectRation > sourceAspectRatio) {
+      // 缩略图是横向
+      resizedThumbDimension.setSize(
+          (int) ((double) (thumbDimension.getHeight()) * sourceAspectRatio),
+          thumbDimension.getHeight());
+    } else {
+      // 缩略图是纵向
+      resizedThumbDimension.setSize(
+          thumbDimension.getWidth(),
+          (int) ((double) (thumbDimension.getWidth()) / sourceAspectRatio));
+    }
+    return resizedThumbDimension;
   }
 }
