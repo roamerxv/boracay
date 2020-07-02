@@ -113,11 +113,8 @@ public class WebpFileUtils {
     // Encode
     writer.write(null, new IIOImage(resizedImage, null, null), writeParam);
 
-    if (log.isDebugEnabled()) {
-      reader.setInput(new FileImageInputStream(outputFile));
-      BufferedImage thumbImage = reader.read(0, readParam);
-      log.debug("缩略图的尺寸是， 宽：" + thumbImage.getWidth() + ",高：" + thumbImage.getHeight());
-    }
+    log.debug(
+        "缩略图的尺寸是， 宽：" + thumbFileDimension.getWidth() + ",高：" + thumbFileDimension.getHeight());
   }
 
   /**
