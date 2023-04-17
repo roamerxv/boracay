@@ -1,7 +1,12 @@
 package pers.roamer.boracay.entity;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /**
  * @author roamer - 徐泽宇

@@ -9,8 +9,13 @@
 
 package pers.roamer.boracay.entity;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 /** Created by zouwei on 2017/7/4. */
 @Entity
