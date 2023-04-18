@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.http.HttpSession;
 import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.entity.SmsVerificationCodeEntity;
 import pers.roamer.boracay.service.sms.SmsVerificationService;
 
-import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;

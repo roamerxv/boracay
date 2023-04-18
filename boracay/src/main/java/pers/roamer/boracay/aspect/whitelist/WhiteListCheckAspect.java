@@ -14,11 +14,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import jakarta.servlet.http.HttpServletRequest;
 import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.configer.ConfigHelper;
 import pers.roamer.boracay.util.Ipv4WhiteList;
 
-import javax.servlet.http.HttpServletRequest;
 
 
 /**

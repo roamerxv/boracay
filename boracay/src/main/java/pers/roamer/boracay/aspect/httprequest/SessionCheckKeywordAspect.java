@@ -16,10 +16,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import jakarta.servlet.http.HttpSession;
 import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.configer.ConfigHelper;
 
-import javax.servlet.http.HttpSession;
 
 /**
  * HttpRequest 中进行 session 关键词判断的 Aspect

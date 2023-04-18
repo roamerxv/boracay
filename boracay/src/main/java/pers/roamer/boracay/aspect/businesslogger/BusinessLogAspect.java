@@ -9,10 +9,13 @@
 
 package pers.roamer.boracay.aspect.businesslogger;
 
+import com.blueconic.browscap.BrowsCapField;
+import com.blueconic.browscap.Capabilities;
+import com.blueconic.browscap.UserAgentParser;
+import com.blueconic.browscap.UserAgentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.bitwalker.useragentutils.Browser;
-import eu.bitwalker.useragentutils.OperatingSystem;
-import eu.bitwalker.useragentutils.UserAgent;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
@@ -28,10 +31,10 @@ import pers.roamer.boracay.helper.JsonUtilsHelper;
 import pers.roamer.boracay.service.log.BusinessLogService;
 import pers.roamer.boracay.util.HttpServletRequestUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -237,26 +240,47 @@ public class BusinessLogAspect {
       throw new BussinessLoggerException(e.getMessage());
     }
     try {
+      // create a parser with the default fields
+      //final UserAgentParser parser = new UserAgentService().loadParser(); // handle IOException and ParseException
+
+      // or create a parser with a custom defined field list
+      // the list of available fields can be seen inthe BrowsCapField enum
+      final UserAgentParser parser =
+              new UserAgentService().loadParser(Arrays.asList(BrowsCapField.BROWSER, BrowsCapField.BROWSER_TYPE,
+                      BrowsCapField.BROWSER_MAJOR_VERSION,
+                      BrowsCapField.DEVICE_TYPE, BrowsCapField.PLATFORM, BrowsCapField.PLATFORM_VERSION,
+                      BrowsCapField.RENDERING_ENGINE_VERSION, BrowsCapField.RENDERING_ENGINE_NAME,
+                      BrowsCapField.PLATFORM_MAKER, BrowsCapField.RENDERING_ENGINE_MAKER));
+
+      // It's also possible to supply your own ZIP file by supplying a correct path to a ZIP file in the constructor.
+      // This can be used when a new BrowsCap version is released which is not yet bundled in this package.
+      // final UserAgentParser parser = new UserAgentService("E:\\anil\\browscap.zip").loadParser();
+
+      // parser can be re-used for multiple lookup calls
+      final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.81 Safari/537.36";
+      final Capabilities capabilities = parser.parse(userAgent);
+
+      // the default fields have getters
+      final String browser = capabilities.getBrowser();
+      final String browserType = capabilities.getBrowserType();
+      final String browserMajorVersion = capabilities.getBrowserMajorVersion();
+      final String deviceType = capabilities.getDeviceType();
+      final String platform = capabilities.getPlatform();
+      final String platformVersion = capabilities.getPlatformVersion();
       // 客户端地址
       businessLog.setRemoteIp(remoteIp);
       // user-agent
       String agent = request.getHeader("User-Agent");
-      // 解析agent字符串
-      UserAgent userAgent = UserAgent.parseUserAgentString(agent);
-      // 获取浏览器对象
-      Browser browser = userAgent.getBrowser();
-      // 获取操作系统对象
-      OperatingSystem operatingSystem = userAgent.getOperatingSystem();
+      
+      
       // 设置浏览器名字
-      businessLog.setClientBrowser(browser.getName());
+      businessLog.setClientBrowser(browser);
       // 设置浏览器版本
-      String browserVersion =
-          (userAgent.getBrowserVersion() == null) ? "" : userAgent.getBrowserVersion().toString();
-      businessLog.setBrowserVersion(browserVersion);
+      businessLog.setBrowserVersion(browserMajorVersion);
       // 设置操作系统名字
-      businessLog.setClientOs(operatingSystem.getName());
+      businessLog.setClientOs(platform);
       // 设置设备类型
-      businessLog.setClientDeviceType(operatingSystem.getDeviceType().toString());
+      businessLog.setClientDeviceType(deviceType);
       // 当前的操作人
       String operator =
           (session.getAttribute(ConfigHelper.getConfig().getString("System.BusinessRecordUserName"))

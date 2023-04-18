@@ -16,10 +16,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import jakarta.servlet.http.HttpServletRequest;
 import pers.roamer.boracay.BoracayException;
 import pers.roamer.boracay.service.sms.SmsVerificationService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,6 +1,8 @@
 package pers.roamer.boracay.configer;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 

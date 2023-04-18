@@ -10,6 +10,8 @@
 package pers.roamer.boracay.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,6 @@ import pers.roamer.boracay.entity.BusinessLogEntity;
 import pers.roamer.boracay.helper.JsonUtilsHelper;
 import pers.roamer.boracay.service.log.BusinessLogService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
